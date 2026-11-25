@@ -50,18 +50,20 @@ results/                 # generated outputs
 
 Place the required input files in `data/input/` using the filenames below. Input data are intentionally not bundled in this code-only repository. The filenames below are the original analysis-input filenames; the published Source Data workbooks contain figure-level data but are not guaranteed to be drop-in replacements for these working input tables. Check the required columns and formats in each script before running it. Do not upload restricted or unpublished data to a public repository without checking the applicable data-sharing permissions.
 
-| Script | Manuscript item / analysis | Required input file(s) |
+| Script | Manuscript item / analysis | **Input filename note:** The names below are standardized English names proposed for the next input-data reorganization. The current scripts may still reference the original working-file names; script paths will be synchronized when the input files are reorganized.
+
+Required input file(s) |
 |---|---|---|
-| `fig1_physiology_biochemistry.R` | Main Fig. 1: physiological and biochemical endpoints; WRS2 tests | `酶活数据_最终 - 8.30.csv` |
-| `fig5_gut_16s_alpha_diversity.R` | Main Fig. 5a–c: gut 16S alpha diversity | `α多样性数据.csv` |
-| `rt_qpcr_validation.R` | Supplementary RT–qPCR validation plots and statistics | `rt-qPCR.csv` |
-| `supp_fig2_eps_quantification.R` | Supplementary Fig. 2: EPS components | `EPS含量.csv` |
-| `supp_fig3_parafac_fmax.R` | Supplementary Fig. 3e: PARAFAC component Fmax | `3-component_result - 副本.xlsx` (sheet `FMax`) |
-| `supp_siphoning_timecourse.R` | Preliminary time-course siphoning assay | `虹吸效率.csv` |
-| `supp_fig16_acinetobacter_burkholderia.R` | Supplementary Fig. 16: genus/species composition | `Acinetobacter丰度表.csv` |
-| `supp_fig19_vfg_cumulative_abundance.R` | Supplementary Fig. 19: cumulative Core VFG abundance | `vfdb_core_VFDB_ID_profile.xls` (tab-delimited text despite the `.xls` extension) |
-| `supp_fig20_vfg_heatmap.R` | Supplementary Fig. 20: Core VFG heatmaps and WRS2 comparisons | `vfdb_core_VFDB_ID_profile.xls`; `VFDB毒力因子丰度表_VFDB_Origin.csv` |
-| `supp_fig24_rda_source_data.R` | Supplementary Fig. 24: Hellinger-transformed OTU RDA and envfit/source-data export | `OTU - 副本.csv`; `环境因子 - 副本.csv`; `分组依据 - 副本.csv` |
+| `fig1_physiology_biochemistry.R` | Main Fig. 1: physiological and biochemical endpoints; WRS2 tests | `Clam_Physiological_and_Biochemical_Endpoints` |
+| `fig5_gut_16s_alpha_diversity.R` | Main Fig. 5a–c: gut 16S alpha diversity | `Gut_16S_Alpha_Diversity` |
+| `rt_qpcr_validation.R` | Supplementary RT–qPCR validation plots and statistics | `RT_qPCR_Gene_Expression` |
+| `supp_fig2_eps_quantification.R` | Supplementary Fig. 2: EPS components | `EPS_Component_Contents` |
+| `supp_fig3_parafac_fmax.R` | Supplementary Fig. 3e: PARAFAC component Fmax | `PARAFAC_Fluorescence_Component_Fmax` (sheet: `FMax`) |
+| `supp_siphoning_timecourse.R` | Preliminary time-course siphoning assay | `Clam_Siphoning_Efficiency_Time_Course` |
+| `supp_fig16_acinetobacter_burkholderia.R` | Supplementary Fig. 16: genus/species composition | `Gut_Microbial_Taxon_Relative_Abundance` |
+| `supp_fig19_vfg_cumulative_abundance.R` | Supplementary Fig. 19: cumulative Core VFG abundance | `Core_Virulence_Factor_Gene_Abundance_Profile` (tab-delimited text) |
+| `supp_fig20_vfg_heatmap.R` | Supplementary Fig. 20: Core VFG heatmaps and WRS2 comparisons | `Core_Virulence_Factor_Gene_Abundance_Profile`; `Virulence_Factor_Gene_Abundance_Matrix` |
+| `supp_fig24_rda_source_data.R` | Supplementary Fig. 24: Hellinger-transformed OTU RDA and envfit/source-data export | `Microbial_OTU_Abundance_Matrix`; `Environmental_Variable_Matrix`; `Sample_Group_Information` |
 | `supp_fig23_mantel_coverage.R` | Supplementary Fig. 23: Mantel-association coverage visualization | No external input; reported counts are defined in the script |
 
 The RDA script includes Hellinger transformation, RDA fitting, envfit analysis with 999 permutations, and source-data export. The Mantel-related script prepares the association-coverage visualization.
