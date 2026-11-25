@@ -1,19 +1,17 @@
-# R Scripts for Main-Text Figures
+# Analysis Scripts
 
-This repository is being organized to store the R scripts used to generate figures in the main text of the manuscript:
+This repository contains R scripts used for data analysis and figure generation for the study:
 
 *Plastisphere formation reshapes the ecological toxicity of microplastics in Corbicula fluminea.*
 
-## Scope
-
-The repository is intended for main-text figure scripts only. The scripts currently included are:
+## Included scripts
 
 | Figure | Analysis | R script | Proposed input data name |
 |---|---|---|---|
-| Main Fig. 1 | Physiological and biochemical endpoints | `scripts/main_figures/fig1_physiology_biochemistry.R` | `Clam_Physiological_and_Biochemical_Endpoints` |
-| Main Fig. 5 | Gut 16S alpha-diversity indices | `scripts/main_figures/fig5_gut_16s_alpha_diversity.R` | `Gut_16S_Alpha_Diversity` |
+| Fig. 1 | Physiological and biochemical endpoints | `scripts/main_figures/fig1_physiology_biochemistry.R` | `Clam_Physiological_and_Biochemical_Endpoints` |
+| Fig. 5 | Gut 16S alpha-diversity indices | `scripts/main_figures/fig5_gut_16s_alpha_diversity.R` | `Gut_16S_Alpha_Diversity` |
 
-Additional scripts for the other main-text figures will be added as they are organized.
+Additional analysis and figure-generation scripts will be added as they are organized.
 
 ## Input data
 
@@ -52,4 +50,4 @@ CODE_AVAILABILITY_DRAFT.md
 
 ## Code availability statement (draft)
 
-R scripts for selected main-text figures (Figs. 1 and 5) are being organized in this GitHub repository: https://github.com/Xiaokang-He/plastisphere_toxicity. Additional main-text figure scripts will be added as they are prepared.
+R scripts used for data analysis and figure generation are being organized in this GitHub repository: https://github.com/Xiaokang-He/plastisphere_toxicity. Additional scripts will be added as they are prepared.
