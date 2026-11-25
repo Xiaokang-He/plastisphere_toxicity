@@ -1,19 +1,17 @@
-# 论文正文主图 R 代码
+# 研究分析代码
 
-本仓库用于整理和保存论文正文主图所使用的 R 分析及绘图代码。
+本仓库用于整理本研究数据分析和图件绘制所使用的 R 脚本。
 
 论文题目：*Plastisphere formation reshapes the ecological toxicity of microplastics in Corbicula fluminea.*
 
-## 仓库范围
+## 已整理的脚本
 
-本仓库仅收录正文主图对应的代码。目前已整理的脚本包括：
-
-| 正文图件 | 分析内容 | R 脚本 |
+| 图件 | 分析内容 | R 脚本 |
 |---|---|---|
 | Fig. 1 | 河蚬生理与生化指标 | `scripts/main_figures/fig1_physiology_biochemistry.R` |
 | Fig. 5 | 肠道 16S α 多样性 | `scripts/main_figures/fig5_gut_16s_alpha_diversity.R` |
 
-其他正文主图的代码将在整理完成后陆续补充。
+其他分析和绘图脚本将在整理完成后陆续补充。
 
 ## 输入数据
 
@@ -27,7 +25,7 @@
 2. 使用 RStudio 打开 `Plastisphere_Microplastic_Toxicity.Rproj`。
 3. 将对应输入数据放入 `data/input/`。
 4. 运行 `scripts/install_packages.R` 安装所需 R 包。
-5. 从项目根目录运行相应主图脚本。生成的图件及其他结果保存在 `results/`。
+5. 从项目根目录运行相应脚本。生成的图件及其他结果保存在 `results/`。
 
 ## 仓库结构
 
