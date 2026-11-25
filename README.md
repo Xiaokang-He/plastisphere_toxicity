@@ -86,4 +86,4 @@ With three biological replicates per group, `floor(0.20 × 3) = 0`; therefore, t
 
 Selected custom R scripts for statistical analyses and figure-generation workflows are available at https://github.com/hexiaokang1214-creator/plastisphere-microplastic-toxicity. Primary sequencing-data processing and bioinformatics analyses were performed using the Majorbio Cloud platform and the software described in the Methods and Supporting Information.
 
-**This is not yet a final Code Availability statement.** Before using it in the manuscript, add the missing custom Mantel test/BH workflow or obtain an explicit decision on its omission, verify every included script against the final manuscript and Source Data, replace the placeholder with the public repository URL, and record the verified R/package versions.
+**This is not yet a final Code Availability statement.** Before using it in the manuscript, add the missing custom Mantel test/BH workflow or obtain an explicit decision on its omission, verify every included script against the final manuscript and Source Data, confirm that the repository is publicly accessible, and record the verified R/package versions.
