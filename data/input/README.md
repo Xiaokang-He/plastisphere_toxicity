@@ -1,7 +1,7 @@
-# Input data
+# Input data for main-text figure scripts
 
-This folder is intentionally kept free of data files in the code-only repository. Place only the input tables needed by the script you intend to run here. The standardized English input names proposed for the next data reorganization are listed in the top-level README.md.
+This folder is reserved for the input data required by the main-text figure scripts currently included in this repository. Input data are not bundled with the code.
 
-The current scripts may still reference the original analysis working-file names. Their input paths will be synchronized when the input files are reorganized. The published Source Data workbooks contain figure-level data, but may not be drop-in replacements for the working tables required by the scripts. Check the column names, sample order, and formats in each script before running it; document any extraction or reformatting step used to obtain an input table.
+The proposed standardized English input names are listed in the top-level README.md. The current scripts still refer to the original working-file names; script paths will be synchronized when the input data are reorganized. Retain the appropriate file extension when saving the actual data files.
 
-Do not commit private, restricted, or unpublished data. Confirm that any input file is already publicly available and that redistribution is permitted before adding it to this public repository.
+Do not commit private, restricted, or unpublished data. Confirm that redistribution is permitted before adding any input data to this repository.
