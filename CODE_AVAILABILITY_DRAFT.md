@@ -1,5 +1,7 @@
-# Code Availability statement — draft only
+# Code Availability statement — draft
 
-Selected custom R scripts for statistical analyses and figure-generation workflows are available at https://github.com/Xiaokang-He/plastisphere_toxicity. Primary sequencing-data processing and bioinformatics analyses were performed using the Majorbio Cloud platform and the software described in the Methods and Supporting Information.
+Selected R scripts for statistical analyses and figure generation are being organized in this GitHub repository: https://github.com/Xiaokang-He/plastisphere_toxicity.
 
-**Do not insert this statement into the manuscript as final yet. The repository is currently private and is not publicly accessible.** The repository does not currently include the full custom R script that generated the Pearson Mantel tests and Benjamini–Hochberg correction for the microbial–host cross-omics associations. Add that workflow and verify the complete repository against the final manuscript before using this statement, or obtain an explicit decision on how the missing code should be disclosed. Confirm that the repository is publicly accessible and record the verified R/package versions.
+The scripts currently cover physiological and biochemical analyses, gut 16S alpha-diversity analysis, RT–qPCR validation, EPS and PARAFAC analyses, siphoning-efficiency time-course analysis, gut microbial composition, VFDB-related summaries, RDA/source-data preparation, and Mantel-association coverage visualization. Additional scripts and documentation are being organized.
+
+Transcriptomic, gut 16S rRNA gene, and shotgun-metagenomic bioinformatics analyses were conducted using the Majorbio Cloud platform. The corresponding software tools and version information are provided in the Methods and Supporting Information.
