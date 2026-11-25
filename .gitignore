@@ -1,0 +1,18 @@
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user
+
+# Local inputs and generated outputs (keep README/.gitkeep)
+data/input/*
+!data/input/README.md
+!data/input/.gitkeep
+results/*
+!results/.gitkeep
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.swp
