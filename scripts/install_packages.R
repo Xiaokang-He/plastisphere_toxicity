@@ -1,11 +1,15 @@
-# Install the R packages used by the scripts in this repository.
+# Install the R packages used by the main-text figure scripts.
 # Run from the repository root in an R session.
 
 packages <- c(
-  "dplyr", "tidyr", "ggplot2", "ggpattern", "scales", "WRS2",
-  "patchwork", "cowplot", "ggalluvial", "ggsignif", "readxl",
-  "stringr", "svglite", "showtext", "vegan", "writexl",
-  "pdftools", "rstudioapi", "vegan", "writexl"
+  "dplyr",
+  "ggplot2",
+  "ggpattern",
+  "WRS2",
+  "svglite",
+  "showtext",
+  "rstudioapi",
+  "pdftools"
 )
 
 missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
