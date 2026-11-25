@@ -5,7 +5,7 @@ packages <- c(
   "dplyr", "tidyr", "ggplot2", "ggpattern", "scales", "WRS2",
   "patchwork", "cowplot", "ggalluvial", "ggsignif", "readxl",
   "stringr", "svglite", "showtext", "vegan", "writexl",
-  "pdftools", "rstudioapi"
+  "pdftools", "rstudioapi", "vegan", "writexl"
 )
 
 missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
