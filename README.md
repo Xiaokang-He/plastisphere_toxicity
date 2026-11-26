@@ -24,22 +24,34 @@ The repository is organized by main-text figure. Each `Figure_1/`–`Figure_7/` 
 
 Run scripts from the repository root unless the corresponding folder-level README specifies otherwise. The scripts use repository-relative paths and do not require machine-specific file locations.
 
-For example:
+For Figure 1, run the script in a fresh R session from the repository root:
+
+```r
+source("Figure_1/Fig1.R")
+```
+
+For the other R-generated panels, run:
 
 ```sh
+Rscript Figure_2/Fig2.R
+Rscript Figure_3/Fig3.R
 Rscript Figure_4/Fig4ab.R
 Rscript Figure_4/Fig4c.R
+Rscript Figure_5/Fig5.R
+Rscript Figure_5/Fig5f.R
+Rscript Figure_5/Fig5h-k.R
+Rscript Figure_5/Fig5l.R
 Rscript Figure_6/Fig6.R
 Rscript Figure_7/Fig7.R
 ```
 
-For Figure 1, the folder-level README documents running `Fig1.R` with `source("Figure_1/Fig1.R")`. Consult the folder-level READMEs and script headers for panel-specific input, package, and output details.
+Each figure folder README provides panel-specific input, package, and output details. Some scripts require Cairo graphics support; see the relevant folder README before running them.
 
 ## Input data and provenance
 
 - Figure-specific CSV inputs are stored alongside their corresponding scripts.
-- `data_manifest.csv` provides a file-level inventory, including source worksheet, figure-panel coverage, dimensions, and notes.
-- `DATA_PROVENANCE_AND_QA.md` describes the source data, data-preparation steps, and quality-control notes.
+- `data_manifest.csv` provides a file-level inventory, including source worksheet, panel coverage, dimensions, and the current committed file size in bytes.
+- `DATA_PROVENANCE_AND_QA.md` describes the source data, data-preparation steps, and quality-control notes, including any item that remains pending source verification.
 - CSV files use UTF-8 encoding (including UTF-8 BOM where applicable); scripts specify the relevant encoding when reading input files.
 
 The supplied datasets are prepared for figure reproduction. They do not contain raw sequencing reads or replace the complete underlying transcriptomic, proteomic, 16S, or metagenomic datasets.
