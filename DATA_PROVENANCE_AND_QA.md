@@ -12,11 +12,11 @@ The cleaned CSV datasets were prepared from an 18-worksheet source workbook titl
 - Split the Fig. 5g worksheet into node and edge tables for network topology calculations.
 - Extracted the alpha-diversity data block from the Fig. 5a–e worksheet.
 - Split Fig. 7a–c by panel and Fig. 7de into Pearson/Mantel tables, then panels d/e.
-- Added R-compatible group codes to Fig. 1 and Fig. 5 sample-level tables. No measured values or imported enrichment/association statistics were recalculated during CSV preparation. Fig. 5 network topology and robustness metrics are calculated by the corresponding R scripts from the supplied node and edge tables.
+- The current Fig. 1 input retains the sample identifiers without a separate group column; Fig1.R derives the five group labels from those identifiers. Fig. 5 sample-level tables retain their R-compatible group codes. No measured values or imported enrichment/association statistics were recalculated during CSV preparation. Fig. 5 network topology and robustness metrics are calculated by the corresponding R scripts from the supplied node and edge tables.
 
 ## Cross-check notes
 
-- Fig. 1 uploaded CSV headers contained encoding damage in units; source-workbook headers were used.
+- The current Fig. 1 CSV contains 15 sample-level records and 12 columns. The script internally maps the `lysozyme` and `D_Lac` column names to the plotting variable names.
 - Fig. 2a, Fig. 4a/b, Fig. 4c, Fig. 5f and Fig. 7 uploaded CSVs showed reduced numeric precision in some columns; full-precision source-workbook values were retained.
 - Fig. 4b had a blank trailing row/column.
 - Fig. 7a–c contained blank rows and an encoding-damaged arrow; the source-workbook text was retained.
