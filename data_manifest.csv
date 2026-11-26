@@ -1,0 +1,26 @@
+Figure,Panels,File,Source_workbook_sheet,Rows,Columns,Size_bytes,Notes
+Fig. 1,a-j,Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv,Fig1a-j,15,13,1417,Includes sample and R-compatible group codes; original numeric observations retained.
+Fig. 2,a,Figure_2/Fig2a_DEG_Functional_Enrichment.csv,Fig2a,126,6,10782,P_Value column name retained exactly as in the source workbook.
+Fig. 3,a,Figure_3/Fig3a_DEP_Functional_Enrichment.csv,Fig.3ab,7,8,819,Split from the combined source table by Figure_Panel=(a).
+Fig. 3,b,Figure_3/Fig3b_DEP_Functional_Enrichment.csv,Fig.3ab,15,8,1613,Split from the combined source table by Figure_Panel=(b).
+Fig. 4,a,Figure_4/Fig4a_Nine_Quadrant_Microplastic.csv,Fig4a,12629,5,1041285,Full-precision values from the source workbook.
+Fig. 4,b,Figure_4/Fig4b_Nine_Quadrant_Plastisphere.csv,Fig4b,12628,5,1041454,Full-precision values from the source workbook; blank trailing row/column excluded.
+Fig. 4,c,Figure_4/Fig4c_Transcriptome_Proteome_Correlation.csv,Fig4c,27,8,3089,Majorbio-exported correlation statistics; this file supplies values for heatmap rendering.
+Fig. 5,a-c,Figure_5/Gut_16S_Alpha_Diversity.csv,Fig5a-e,15,5,841,Prepared to match the existing Figure_5/Fig5.R input filename and required columns.
+Fig. 5,d-e,Figure_5/Fig5d-e_Ordination_Coordinates.csv,Fig5a-e,15,6,1324,PCoA (PC1/PC2) and NMDS (MDS1/MDS2) coordinates from the same sample table.
+Fig. 5,d,Figure_5/Fig5d_PCoA_Explained_Variance.csv,Fig5a-e,14,2,203,Fourteen principal components; values are taken directly from the source workbook.
+Fig. 5,d,Figure_5/Fig5d_ANOSIM_Results.csv,Fig5a-e,5,3,167,"ANOSIM sample size, group count, R statistic, P value and permutation count."
+Fig. 5,e,Figure_5/Fig5e_NMDS_Stress.csv,Fig5a-e,1,2,47,NMDS stress value extracted from the statistics block in the source workbook.
+Fig. 5,f,Figure_5/Fig5f_Genus_Relative_Abundance.csv,Fig5f,31,6,3449,Full-precision relative-abundance values from the source workbook.
+Fig. 5,g,Figure_5/Fig5g_Network_Nodes.csv,Fig5g,1203,8,163729,Node taxonomy table split from the left-hand block of the combined worksheet.
+Fig. 5,g,Figure_5/Fig5g_Network_Edges.csv,Fig5g,29089,4,1182596,Edge table split from the right-hand block of the combined worksheet.
+Fig. 5,h-k,Figure_5/Fig5h-k_Network_Topology.csv,Fig5h-k,5,7,414,Extracted directly from the source workbook because a separate CSV was not uploaded.
+Fig. 5,l,Figure_5/Fig5l_Network_Robustness.csv,Fig5l,500,4,28227,Extracted directly from the source workbook because a separate CSV was not uploaded.
+Fig. 6,all,Figure_6/Fig6_KEGG_ReporterScore.csv,Fig6,36,11,19877,ReporterScores are imported from Majorbio Cloud; this file contains the exported values.
+Fig. 7,a,Figure_7/Fig7a_Shared_Associations.csv,Fig7a-c,8,19,2460,Split by Figure_Panel=a; Majorbio-exported association statistics retained.
+Fig. 7,b,Figure_7/Fig7b_Microplastic_Specific_Associations.csv,Fig7a-c,12,19,3865,Split by Figure_Panel=b; Majorbio-exported association statistics retained.
+Fig. 7,c,Figure_7/Fig7c_Plastisphere_Specific_Associations.csv,Fig7a-c,63,19,17730,Split by Figure_Panel=c; Majorbio-exported association statistics retained.
+Fig. 7,d,Figure_7/Fig7d_Pearson_Biomarker_Correlations.csv,Fig7de,36,6,2367,Pearson correlation table split from the left-hand block of the combined worksheet.
+Fig. 7,d,Figure_7/Fig7d_Mantel_Microbiota_Biomarker_Associations.csv,Fig7de,36,6,2045,Mantel association table split from the right-hand block of the combined worksheet.
+Fig. 7,e,Figure_7/Fig7e_Pearson_Biomarker_Correlations.csv,Fig7de,36,6,2410,Pearson correlation table split from the left-hand block of the combined worksheet.
+Fig. 7,e,Figure_7/Fig7e_Mantel_Microbiota_Biomarker_Associations.csv,Fig7de,36,6,2046,Mantel association table split from the right-hand block of the combined worksheet.

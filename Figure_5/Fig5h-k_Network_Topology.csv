@@ -1,0 +1,6 @@
+Subplot,Positive_Edges,Negative_Edges,Positive_Correlation_Percent,Number_of_Nodes,Number_of_Edges,Average_Node_Degree
+Control,4838,555,89.70888188392361,231,5393,46.693
+Microplastic-Low,4461,655,87.19702892885066,237,5116,43.173
+Microplastic-High,4397,408,91.50884495317378,222,4805,43.288
+Plastisphere-Low,5382,599,89.9849523491055,246,5981,48.626
+Plastisphere-High,7160,634,91.86553759302028,267,7794,58.382

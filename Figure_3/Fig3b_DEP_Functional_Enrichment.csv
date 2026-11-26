@@ -1,0 +1,16 @@
+Figure_Panel,Comparison,Term_ID,Term_Description,Category,Protein_Count,Adjusted_P_Value,Minus_Log10_Adjusted_P_Value
+(b),Plastisphere_vs_Control,GO:0006955,immune response,BP,14,0.000182999,3.737551274
+(b),Plastisphere_vs_Control,GO:0044419,biological process involved in interspecies interaction between organisms,BP,11,0.002468448,2.607575977
+(b),Plastisphere_vs_Control,GO:0043207,response to external biotic stimulus,BP,10,0.008139971,2.089377146
+(b),Plastisphere_vs_Control,GO:0006952,defense response,BP,9,0.020443763,1.689439161
+(b),Plastisphere_vs_Control,GO:0009617,response to bacterium,BP,7,0.003355427,2.474252224
+(b),Plastisphere_vs_Control,GO:0002253,activation of immune response,BP,6,0.022588012,1.646121994
+(b),Plastisphere_vs_Control,GO:0002252,immune effector process,BP,5,0.033345642,1.476960923
+(b),Plastisphere_vs_Control,GO:0005615,extracellular space,CC,18,0.031105557,1.507162014
+(b),Plastisphere_vs_Control,GO:0044218,other organism cell membrane,CC,5,0.004531843,2.343725163
+(b),Plastisphere_vs_Control,map04142,Lysosome,KEGG,11,0.027704481,1.55744998
+(b),Plastisphere_vs_Control,map05410,Hypertrophic cardiomyopathy,KEGG,7,0.022680075,1.644355508
+(b),Plastisphere_vs_Control,GO:0061134,peptidase regulator activity,MF,12,0.01831817,1.737117907
+(b),Plastisphere_vs_Control,GO:0140678,molecular function inhibitor activity,MF,11,0.032639923,1.486250879
+(b),Plastisphere_vs_Control,GO:0016799,"hydrolase activity, hydrolyzing N-glycosyl compounds",MF,5,0.024133691,1.617376248
+(b),Plastisphere_vs_Control,GO:0003875,ADP-ribosylarginine hydrolase activity,MF,5,0.001265905,2.897599013

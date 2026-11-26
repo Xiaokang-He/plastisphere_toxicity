@@ -1,0 +1,127 @@
+Comparison,Term_ID,Term_Description,Category,Gene_Count,P_Value
+Microplastic_Low_vs_Control,GO:0008061,chitin binding,MF,35,0.009462338
+Microplastic_Low_vs_Control,GO:0000801,central element,CC,4,0.034799487
+Microplastic_Low_vs_Control,GO:0080008,Cul4-RING E3 ubiquitin ligase complex,CC,11,0.029858215
+Microplastic_Low_vs_Control,GO:0019005,SCF ubiquitin ligase complex,CC,18,0.006959598
+Microplastic_Low_vs_Control,GO:0000151,ubiquitin ligase complex,CC,48,0.003521416
+Microplastic_Low_vs_Control,GO:0031461,cullin-RING ubiquitin ligase complex,CC,33,0.002505321
+Microplastic_Low_vs_Control,GO:0044218,other organism cell membrane,CC,14,0.000347496
+Microplastic_Low_vs_Control,GO:0044217,other organism part,CC,14,0.000347496
+Microplastic_Low_vs_Control,GO:0010975,regulation of neuron projection development,BP,13,0.026776746
+Microplastic_Low_vs_Control,GO:0006996,organelle organization,BP,218,0.001586065
+Microplastic_Low_vs_Control,GO:0000226,microtubule cytoskeleton organization,BP,67,0.001764248
+Microplastic_Low_vs_Control,GO:0035556,intracellular signal transduction,BP,93,0.042269636
+Microplastic_Low_vs_Control,GO:0016310,phosphorylation,BP,97,0.000894405
+Microplastic_Low_vs_Control,GO:0048609,multicellular organismal reproductive process,BP,25,0.002022318
+Microplastic_Low_vs_Control,GO:0070192,chromosome organization involved in meiotic cell cycle,BP,12,0.000734679
+Microplastic_Low_vs_Control,GO:0051276,chromosome organization,BP,47,0.000560285
+Microplastic_Low_vs_Control,GO:0003006,developmental process involved in reproduction,BP,33,0.000386317
+Microplastic_Low_vs_Control,GO:1903046,meiotic cell cycle process,BP,36,0.000156231
+Microplastic_Low_vs_Control,GO:1903047,mitotic cell cycle process,BP,78,9.37111e-07
+Microplastic_Low_vs_Control,GO:0022414,reproductive process,BP,80,3.19112e-12
+Microplastic_Low_vs_Control,GO:0022402,cell cycle process,BP,135,1.48403e-14
+Microplastic_High_vs_Control,GO:0008061,chitin binding,MF,33,4.14114e-06
+Microplastic_High_vs_Control,GO:0005581,collagen trimer,CC,14,0.003018096
+Microplastic_High_vs_Control,GO:0062023,collagen-containing extracellular matrix,CC,49,0.002115557
+Microplastic_High_vs_Control,GO:0031012,extracellular matrix,CC,90,3.23461e-06
+Microplastic_High_vs_Control,GO:0030312,external encapsulating structure,CC,90,3.23461e-06
+Microplastic_High_vs_Control,GO:0005576,extracellular region,CC,95,0.000404926
+Microplastic_High_vs_Control,GO:0032501,multicellular organismal process,BP,41,0.032140969
+Microplastic_High_vs_Control,GO:0007130,synaptonemal complex assembly,BP,4,0.027279677
+Microplastic_High_vs_Control,GO:0070193,synaptonemal complex organization,BP,4,0.027279677
+Microplastic_High_vs_Control,GO:0061982,meiosis I cell cycle process,BP,11,0.027279677
+Microplastic_High_vs_Control,GO:0070192,chromosome organization involved in meiotic cell cycle,BP,10,0.001072675
+Microplastic_High_vs_Control,GO:1903046,meiotic cell cycle process,BP,26,0.0005284
+Microplastic_High_vs_Control,GO:1903047,mitotic cell cycle process,BP,47,0.003953436
+Microplastic_High_vs_Control,GO:0022414,reproductive process,BP,50,3.23322e-06
+Microplastic_High_vs_Control,GO:0022402,cell cycle process,BP,78,8.91464e-06
+Plastisphere_Low_vs_Control,GO:0030527,structural constituent of chromatin,MF,11,0.024219178
+Plastisphere_Low_vs_Control,GO:0008810,cellulase activity,MF,6,0.023680094
+Plastisphere_Low_vs_Control,GO:0008061,chitin binding,MF,31,0.022879373
+Plastisphere_Low_vs_Control,GO:0000776,kinetochore,CC,13,0.017437312
+Plastisphere_Low_vs_Control,GO:0032993,protein-DNA complex,CC,16,0.015723441
+Plastisphere_Low_vs_Control,GO:1902911,protein kinase complex,CC,19,0.016851797
+Plastisphere_Low_vs_Control,GO:1902554,serine/threonine protein kinase complex,CC,18,0.007225606
+Plastisphere_Low_vs_Control,GO:0031461,cullin-RING ubiquitin ligase complex,CC,27,0.019756
+Plastisphere_Low_vs_Control,GO:0005576,extracellular region,CC,121,0.002278312
+Plastisphere_Low_vs_Control,GO:0000226,microtubule cytoskeleton organization,BP,58,0.008619835
+Plastisphere_Low_vs_Control,GO:0044042,glucan metabolic process,BP,10,0.024166193
+Plastisphere_Low_vs_Control,GO:0048609,multicellular organismal reproductive process,BP,22,0.006497695
+Plastisphere_Low_vs_Control,GO:0070192,chromosome organization involved in meiotic cell cycle,BP,12,0.000156121
+Plastisphere_Low_vs_Control,GO:0051276,chromosome organization,BP,40,0.003442448
+Plastisphere_Low_vs_Control,GO:0003006,developmental process involved in reproduction,BP,31,0.00013418
+Plastisphere_Low_vs_Control,GO:1903046,meiotic cell cycle process,BP,28,0.010097771
+Plastisphere_Low_vs_Control,GO:1903047,mitotic cell cycle process,BP,70,1.14488e-06
+Plastisphere_Low_vs_Control,GO:0022414,reproductive process,BP,71,9.45647e-11
+Plastisphere_Low_vs_Control,GO:0022402,cell cycle process,BP,114,9.45647e-11
+Plastisphere_High_vs_Control,GO:0008810,cellulase activity,MF,7,0.002021799
+Plastisphere_High_vs_Control,GO:0008656,cysteine-type endopeptidase activator activity involved in apoptotic process,MF,22,0.000983854
+Plastisphere_High_vs_Control,GO:0016505,peptidase activator activity involved in apoptotic process,MF,22,0.000983854
+Plastisphere_High_vs_Control,GO:0043028,cysteine-type endopeptidase regulator activity involved in apoptotic process,MF,44,6.09008e-06
+Plastisphere_High_vs_Control,GO:0008061,chitin binding,MF,49,1.92007e-08
+Plastisphere_High_vs_Control,GO:0034045,phagophore assembly site membrane,CC,14,0.004890288
+Plastisphere_High_vs_Control,GO:0044218,other organism cell membrane,CC,12,0.010324249
+Plastisphere_High_vs_Control,GO:0044217,other organism part,CC,12,0.010324249
+Plastisphere_High_vs_Control,GO:0000323,lytic vacuole,CC,59,0.009701221
+Plastisphere_High_vs_Control,GO:0005764,lysosome,CC,59,0.009701221
+Plastisphere_High_vs_Control,GO:0005581,collagen trimer,CC,17,0.017838985
+Plastisphere_High_vs_Control,GO:0062023,collagen-containing extracellular matrix,CC,77,0.000710596
+Plastisphere_High_vs_Control,GO:0031012,extracellular matrix,CC,144,2.85432e-07
+Plastisphere_High_vs_Control,GO:0030312,external encapsulating structure,CC,144,2.85432e-07
+Plastisphere_High_vs_Control,GO:0005576,extracellular region,CC,159,1.75403e-05
+Plastisphere_High_vs_Control,GO:0031640,killing of cells of another organism,BP,10,0.0108
+Plastisphere_High_vs_Control,GO:0141061,disruption of cell in another organism,BP,10,0.0108
+Plastisphere_High_vs_Control,GO:0141060,disruption of anatomical structure in another organism,BP,10,0.0108
+Plastisphere_High_vs_Control,GO:0042742,defense response to bacterium,BP,19,0.0074
+Plastisphere_High_vs_Control,GO:0044042,glucan metabolic process,BP,12,0.004857608
+Plastisphere_High_vs_Control,GO:0048609,multicellular organismal reproductive process,BP,26,0.003001953
+Plastisphere_High_vs_Control,GO:0070192,chromosome organization involved in meiotic cell cycle,BP,13,0.000164182
+Plastisphere_High_vs_Control,GO:0051276,chromosome organization,BP,48,0.001999898
+Plastisphere_High_vs_Control,GO:0003006,developmental process involved in reproduction,BP,37,3.09517e-05
+Plastisphere_High_vs_Control,GO:1903046,meiotic cell cycle process,BP,38,9.13363e-05
+Plastisphere_High_vs_Control,GO:1903047,mitotic cell cycle process,BP,84,4.44615e-07
+Plastisphere_High_vs_Control,GO:0022414,reproductive process,BP,87,2.62261e-13
+Plastisphere_High_vs_Control,GO:0022402,cell cycle process,BP,141,3.07232e-13
+Microplastic_Low_vs_Control,map04520,Adherens junction,KEGG,45,0.000153942
+Microplastic_Low_vs_Control,map05221,Acute myeloid leukemia,KEGG,14,0.012199913
+Microplastic_Low_vs_Control,map04152,AMPK signaling pathway,KEGG,36,0.004827786
+Microplastic_Low_vs_Control,map04068,FoxO signaling pathway,KEGG,39,4.06e-05
+Microplastic_Low_vs_Control,map04340,Hedgehog signaling pathway,KEGG,17,0.002438489
+Microplastic_Low_vs_Control,map01232,Nucleotide metabolism,KEGG,30,0.012264604
+Microplastic_Low_vs_Control,map00230,Purine metabolism,KEGG,43,0.012019102
+Microplastic_Low_vs_Control,map04110,Cell cycle,KEGG,48,0.001010271
+Microplastic_High_vs_Control,map04122,Sulfur relay system,KEGG,5,0.044678495
+Microplastic_High_vs_Control,map05222,Small cell lung cancer,KEGG,36,0.048859057
+Microplastic_High_vs_Control,map04068,FoxO signaling pathway,KEGG,20,0.013097889
+Microplastic_High_vs_Control,map04612,Antigen processing and presentation,KEGG,23,3.46e-05
+Microplastic_High_vs_Control,map05340,Primary immunodeficiency,KEGG,5,0.016502249
+Microplastic_High_vs_Control,map04974,Protein digestion and absorption,KEGG,27,2.57e-05
+Microplastic_High_vs_Control,map00010,Glycolysis / Gluconeogenesis,KEGG,16,0.022829062
+Microplastic_High_vs_Control,map01232,Nucleotide metabolism,KEGG,19,0.016148291
+Microplastic_High_vs_Control,map00240,Pyrimidine metabolism,KEGG,15,0.008120619
+Microplastic_High_vs_Control,map04979,Cholesterol metabolism,KEGG,17,0.003546317
+Microplastic_High_vs_Control,map00500,Starch and sucrose metabolism,KEGG,16,0.001056193
+Microplastic_High_vs_Control,map00230,Purine metabolism,KEGG,25,0.039812687
+Microplastic_High_vs_Control,map04110,Cell cycle,KEGG,33,0.000270407
+Plastisphere_Low_vs_Control,map04068,FoxO signaling pathway,KEGG,28,0.006707199
+Plastisphere_Low_vs_Control,map04340,Hedgehog signaling pathway,KEGG,16,0.000936433
+Plastisphere_Low_vs_Control,map04612,Antigen processing and presentation,KEGG,22,0.016698796
+Plastisphere_Low_vs_Control,map00350,Tyrosine metabolism,KEGG,15,0.043073025
+Plastisphere_Low_vs_Control,map04979,Cholesterol metabolism,KEGG,19,0.036220663
+Plastisphere_Low_vs_Control,map00500,Starch and sucrose metabolism,KEGG,16,0.042709557
+Plastisphere_Low_vs_Control,map00230,Purine metabolism,KEGG,36,0.020695977
+Plastisphere_Low_vs_Control,map04110,Cell cycle,KEGG,46,5.23e-05
+Plastisphere_High_vs_Control,map05222,Small cell lung cancer,KEGG,68,0.012977484
+Plastisphere_High_vs_Control,map04340,Hedgehog signaling pathway,KEGG,16,0.015265819
+Plastisphere_High_vs_Control,map04142,Lysosome,KEGG,130,2.96e-09
+Plastisphere_High_vs_Control,map04217,Necroptosis,KEGG,53,0.026326457
+Plastisphere_High_vs_Control,map04210,Apoptosis,KEGG,91,0.000322899
+Plastisphere_High_vs_Control,map04612,Antigen processing and presentation,KEGG,40,1.58e-07
+Plastisphere_High_vs_Control,map05340,Primary immunodeficiency,KEGG,7,0.02178296
+Plastisphere_High_vs_Control,map04974,Protein digestion and absorption,KEGG,35,0.004117397
+Plastisphere_High_vs_Control,map01232,Nucleotide metabolism,KEGG,34,0.004027958
+Plastisphere_High_vs_Control,map00240,Pyrimidine metabolism,KEGG,22,0.031727158
+Plastisphere_High_vs_Control,map04979,Cholesterol metabolism,KEGG,32,4.81e-05
+Plastisphere_High_vs_Control,map00500,Starch and sucrose metabolism,KEGG,26,0.000303291
+Plastisphere_High_vs_Control,map00230,Purine metabolism,KEGG,45,0.021265786
+Plastisphere_High_vs_Control,map04110,Cell cycle,KEGG,53,0.000382106

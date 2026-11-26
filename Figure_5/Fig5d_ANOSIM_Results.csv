@@ -1,0 +1,6 @@
+Test,Statistic,Value
+ANOSIM,sample size,15.0
+ANOSIM,number of groups,5.0
+ANOSIM,test statistic,0.557037037037037
+ANOSIM,p-value,0.001
+ANOSIM,number of permutations,999.0
