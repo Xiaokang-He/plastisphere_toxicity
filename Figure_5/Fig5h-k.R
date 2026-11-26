@@ -7,13 +7,13 @@ library(cowplot)
 
 # Read the exported network node and edge tables
 nodes <- read.csv(
-  "Figure_5/Network_Topology_Raw_Nodes.csv",
+  "Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv",
   stringsAsFactors = FALSE,
   check.names = FALSE
 )
 
 edges <- read.csv(
-  "Figure_5/Network_Topology_Raw_Edges.csv",
+  "Figure_5/Fig5g_Network_Topology_Raw_Edges.csv",
   stringsAsFactors = FALSE,
   check.names = FALSE
 )

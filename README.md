@@ -44,4 +44,4 @@ For Fig. 1 and Fig. 5 sample-level datasets, a `group` field was added from the 
 
 The cleaned files were prepared against the latest matching source workbook available in the project Library during this task: `Source Data to Main Figures-DESKTOP-JPDUFHL(4).xlsx`. Numeric values were not recalculated. Where the separately uploaded CSVs had reduced precision, blank rows/columns, or corrupted characters, the source-workbook values were retained.
 
-The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Network_Topology_Raw_Nodes.csv` requires manual verification. The table retains the numeric value `46350` from the source workbook (the uploaded CSV displayed `11月24日`).
+The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv` requires manual verification. The table retains the numeric value `46350` from the source workbook (the uploaded CSV displayed `11月24日`).

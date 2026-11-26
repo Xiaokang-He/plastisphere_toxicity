@@ -18,6 +18,6 @@
 - Fig. 4b had a blank trailing row/column.
 - Fig. 7a–c contained blank rows and an encoding-damaged arrow; the source-workbook text was retained.
 - Fig. 7de contained side-by-side Pearson and Mantel tables; these were separated by table and panel.
-- The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Network_Topology_Raw_Nodes.csv` retains the workbook value `46350`. The uploaded CSV displayed `11月24日`. Verify the value against the original taxonomy export.
+- The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv` retains the workbook value `46350`. The uploaded CSV displayed `11月24日`. Verify the value against the original taxonomy export.
 
 See `data_manifest.csv` for file-level source sheets, panel coverage and row counts.

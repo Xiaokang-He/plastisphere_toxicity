@@ -8,8 +8,8 @@ Fig. 4,b,Figure_4/Fig4b_Nine_Quadrant_Plastisphere.csv,Fig4b,12628,5,1041454,Ful
 Fig. 4,c,Figure_4/Fig4c_Transcriptome_Proteome_Correlation.csv,Fig4c,27,8,3089,Majorbio-exported correlation statistics; this file supplies values for heatmap rendering.
 Fig. 5,a-c,Figure_5/Gut_16S_Alpha_Diversity.csv,Fig5a-e,15,5,841,Prepared to match the existing Figure_5/Fig5.R input filename and required columns.
 Fig. 5,f,Figure_5/Fig5f_Genus_Relative_Abundance.csv,Fig5f,31,6,3449,Full-precision relative-abundance values from the source workbook.
-Fig. 5,h-k,Figure_5/Network_Topology_Raw_Nodes.csv,Fig5g,1203,8,163726,Node taxonomy exported from Majorbio Cloud and retained in the Fig5g worksheet. Input for network topology calculations.
-Fig. 5,h-k,Figure_5/Network_Topology_Raw_Edges.csv,Fig5g,29089,4,1182593,Network edge list exported from Majorbio Cloud and retained in the Fig5g worksheet. Input for network topology calculations.
+Fig. 5,h-k,Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv,Fig5g,1203,8,163726,Node taxonomy exported from Majorbio Cloud and retained in the Fig5g worksheet. Input for network topology calculations.
+Fig. 5,h-k,Figure_5/Fig5g_Network_Topology_Raw_Edges.csv,Fig5g,29089,4,1182593,Network edge list exported from Majorbio Cloud and retained in the Fig5g worksheet. Input for network topology calculations.
 Fig. 6,all,Figure_6/Fig6_KEGG_ReporterScore.csv,Fig6,36,11,19877,ReporterScores are imported from Majorbio Cloud; this file contains the exported values.
 Fig. 7,a,Figure_7/Fig7a_Shared_Associations.csv,Fig7a-c,8,19,2460,Split by Figure_Panel=a; Majorbio-exported association statistics retained.
 Fig. 7,b,Figure_7/Fig7b_Microplastic_Specific_Associations.csv,Fig7a-c,12,19,3865,Split by Figure_Panel=b; Majorbio-exported association statistics retained.

@@ -8,15 +8,15 @@ This folder contains the R scripts and input tables required to reproduce the pa
 |---|---|---|
 | `Fig5.R` | Gut 16S alpha-diversity panels (a–c) | `Gut_16S_Alpha_Diversity.csv` |
 | `Fig5f.R` | Genus-level relative-abundance panel (f) | `Fig5f_Genus_Relative_Abundance.csv` |
-| `Fig5h-k.R` | Network topology panels (h–k) | `Network_Topology_Raw_Nodes.csv`, `Network_Topology_Raw_Edges.csv` |
-| `Fig5l.R` | Network robustness panel (l), based on natural connectivity after random node removal | `Network_Topology_Raw_Nodes.csv`, `Network_Topology_Raw_Edges.csv` |
+| `Fig5h-k.R` | Network topology panels (h–k) | `Fig5g_Network_Topology_Raw_Nodes.csv`, `Fig5g_Network_Topology_Raw_Edges.csv` |
+| `Fig5l.R` | Network robustness panel (l), based on natural connectivity after random node removal | `Fig5g_Network_Topology_Raw_Nodes.csv`, `Fig5g_Network_Topology_Raw_Edges.csv` |
 
 ### Input data
 
 - `Gut_16S_Alpha_Diversity.csv`: alpha-diversity measurements for panels a–c.
 - `Fig5f_Genus_Relative_Abundance.csv`: genus-level relative abundances for panel f.
-- `Network_Topology_Raw_Nodes.csv`: exported node table used for panels h–l.
-- `Network_Topology_Raw_Edges.csv`: exported edge table used for panels h–l.
+- `Fig5g_Network_Topology_Raw_Nodes.csv`: exported node table used for panels h–l.
+- `Fig5g_Network_Topology_Raw_Edges.csv`: exported edge table used for panels h–l.
 
 All four CSV files are used by at least one script and should be retained.
 
