@@ -338,12 +338,15 @@ p <- ggplot(data, aes(x = Comparison, y = Term_Description)) +
   ) +
   coord_cartesian(clip = "off")
 
-print(p)
+if (interactive()) {
+  print(p)
+}
 
 # 5. Export figure files ---------------------------------------------------
 
 ggsave(
   filename = file.path(output_dir, "Fig2a.pdf"),
+  device = grDevices::cairo_pdf,
   plot = p,
   width = fig_width,
   height = fig_height,
