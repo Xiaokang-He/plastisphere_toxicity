@@ -23,7 +23,7 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 | Fig. 4 | c; `Figure_4/Fig4c.R` is present | The heatmap uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud. |
 | Fig. 5 | a–c, f and h–k; `Figure_5/Fig5.R`, `Figure_5/Fig5f.R` and `Figure_5/Fig5h-k.R` are present | Majorbio Cloud supplied the PCoA and NMDS coordinates for panels d–e and the co-occurrence network for panel g. Gephi was used for the network layout and rendering. Panels h–k calculate network topology metrics from the exported node and edge tables; network correlations are not recalculated. |
 | Fig. 6 | heatmap; script to be added | ReporterScore values were calculated/exported by Majorbio Cloud; code renders the heatmap. |
-| Fig. 7 | a–e; script to be added | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e include separate Pearson and Mantel result tables. |
+| Fig. 7 | a–e; sample-level inputs and exported association-result tables are present; script to be added | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e use sample-level gut microbiota metrics and host biochemical biomarkers, alongside separate Pearson and Mantel result tables. |
 
 ## Existing scripts
 
