@@ -101,7 +101,7 @@ if (!file.exists(input_file)) {
   )
 }
 
-# Results are written to results/fig5_gut_16s_alpha_diversity.
+# Results are written to Figure_5/results/Fig5/.
 
 dir.create(
   output_dir,
