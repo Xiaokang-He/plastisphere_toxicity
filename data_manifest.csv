@@ -1,5 +1,5 @@
 Figure,Panels,File,Source_workbook_sheet,Rows,Columns,Size_bytes,Notes
-Fig. 1,a-j,Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv,Fig1a-j,15,13,1398,Includes sample and R-compatible group codes; original numeric observations retained.
+Fig. 1,a-j,Figure_1/Fig1a_Clam_Physiological_and_Biochemical_Endpoints.csv,Fig1a-j,15,12,1339,Sample-level data; group labels are derived from sample identifiers by Fig1.R.
 Fig. 2,a,Figure_2/Fig2a_DEG_Functional_Enrichment.csv,Fig2a,126,6,10782,Adjusted_P column retained from the source workbook; the plotting script does not recalculate BH adjustment.
 Fig. 3,a,Figure_3/Fig3a_DEP_Functional_Enrichment.csv,Fig.3ab,7,8,816,Split from the combined source table by Figure_Panel=(a).
 Fig. 3,b,Figure_3/Fig3b_DEP_Functional_Enrichment.csv,Fig.3ab,15,8,1610,Split from the combined source table by Figure_Panel=(b).
