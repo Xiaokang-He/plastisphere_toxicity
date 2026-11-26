@@ -1,4 +1,4 @@
-Comparison,Term_ID,Term_Description,Category,Gene_Count,P_Value
+Comparison,Term_ID,Term_Description,Category,Gene_Count,Adjusted_P
 Microplastic_Low_vs_Control,GO:0008061,chitin binding,MF,35,0.009462338
 Microplastic_Low_vs_Control,GO:0000801,central element,CC,4,0.034799487
 Microplastic_Low_vs_Control,GO:0080008,Cul4-RING E3 ubiquitin ligase complex,CC,11,0.029858215
