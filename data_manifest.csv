@@ -18,3 +18,7 @@ Fig. 7,d,Figure_7/Fig7d_Pearson_Biomarker_Correlations.csv,Fig7de,36,6,2367,Pear
 Fig. 7,d,Figure_7/Fig7d_Mantel_Microbiota_Biomarker_Associations.csv,Fig7de,36,6,2045,Mantel association table split from the right-hand block of the combined worksheet.
 Fig. 7,e,Figure_7/Fig7e_Pearson_Biomarker_Correlations.csv,Fig7de,36,6,2410,Pearson correlation table split from the left-hand block of the combined worksheet.
 Fig. 7,e,Figure_7/Fig7e_Mantel_Microbiota_Biomarker_Associations.csv,Fig7de,36,6,2046,Mantel association table split from the right-hand block of the combined worksheet.
+Fig. 7,d/e,Figure_7/Gut_Microbiota_Metrics_Plastisphere.csv,User-supplied CSV,9,5,546,Sample-level gut microbiota metrics for Control and Plastisphere exposure samples; full manuscript sample names used.
+Fig. 7,d/e,Figure_7/Gut_Microbiota_Metrics_Microplastic.csv,User-supplied CSV,9,5,545,Sample-level gut microbiota metrics for Control and Microplastic exposure samples; full manuscript sample names used.
+Fig. 7,d/e,Figure_7/Host_Biochemical_Biomarkers_Plastisphere.csv,User-supplied CSV,9,10,792,Sample-level host biochemical biomarkers for Control and Plastisphere exposure samples; full manuscript sample names used.
+Fig. 7,d/e,Figure_7/Host_Biochemical_Biomarkers_Microplastic.csv,User-supplied CSV,9,10,789,Sample-level host biochemical biomarkers for Control and Microplastic exposure samples; full manuscript sample names used.
