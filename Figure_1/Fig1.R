@@ -4,57 +4,57 @@
 # otherwise retained. Review the associated input-data requirements in README.md.
 
 # ============================================================
-# Fig.1 生理生化指标柱状图：WRS2紧凑标注及初始Y轴范围保留版
+# Figure 1: physiological and biochemical endpoints; compact WRS2 annotations with the original Y-axis limits preserved
 #
-# 页面：950 × 400 mm
-# 排列：5列 × 2行；每个单元格190 × 200 mm
+# Page: 950 × 400 mm
+# Layout: 5 columns × 2 rows; each cell measures 190 × 200 mm
 #
-# 每张图的严格尺寸：
-#   XY绘图区：89.277 × 136.515 mm
-#   标题框：  89.277 × 18.238 mm
+# Exact dimensions for each panel:
+#   XY plotting area: 89.277 × 136.515 mm
+#   Title box: 89.277 × 18.238 mm
 #
-# 字体（Times New Roman）：
-#   标题：36.59 pt，加粗
-#   Y轴刻度：28.4 pt
-#   Y轴标题：28.4 pt，加粗
-#   X轴刻度：28.4 pt，倾斜30°
-#   显著性P值：默认18 pt；空间不足时按panel自适应缩小至最低10 pt；仅P字符斜体
+# Typography (Times New Roman):
+#   Title: 36.59 pt, bold
+#   Y-axis tick labels: 28.4 pt
+#   Y-axis title: 28.4 pt, bold
+#   X-axis tick labels: 28.4 pt, rotated 30°
+#   Significance P values: 18 pt by default; shrink adaptively to a minimum of 10 pt when space is limited; italicize only the P character
 #
-# 线宽：
-#   柱边框、误差棒、XY绘图区边框、主网格线、显著性括号：1.788 pt
-#   次网格线：0.886 pt
+# Line widths:
+#   Bar borders, error bars, XY panel border, major grid lines, and significance brackets: 1.788 pt
+#   Minor grid lines: 0.886 pt
 #
-# 柱状图：
+# Bar plots:
 #   Mean ± SD
-#   每个独立生物学重复显示一个白色填充、黑色边框散点
-#   散点仅水平方向轻微错开，纵坐标保留原始值
+#   Show one white-filled, black-outlined point for each independent biological replicate
+#   Apply slight horizontal jitter only; preserve the original y values
 #
-# 统计：
+# Statistics:
 #   WRS2 t1way() + lincon()
-#   t1way：五组总体异方差稳健单因素检验（tr = 0.2）
-#   lincon：五组全部10组两两比较；P值不进行多重比较校正
-#   原始 P < 0.05 显示实际P值，不使用星号
-#   注意：每组 n = 3 时，tr = 0.2 不会实际截尾任何观测值。
+#   t1way: heteroscedasticity-robust one-way omnibus test across five groups (tr = 0.2)
+#   lincon: all 10 pairwise comparisons among the five groups; no multiple-comparison adjustment of P values
+#   Display the exact unadjusted P value when P < 0.05; do not use asterisks
+#   Note: with n = 3 per group, tr = 0.2 does not trim any observations.
 #
-# 字体输出：
-#   Illustrator编辑版：svglite输出原生SVG <text>对象
-#   辅助PDF版：Cairo PDF保留字体文字对象
-#   禁用showtext自动转换，避免文字变成矢量路径
-#   不再输出任何字体轮廓化文件
+# Font output:
+#   Illustrator-editable version: svglite exports native SVG <text> elements
+#   Auxiliary PDF version: Cairo PDF preserves text objects
+#   Disable automatic showtext conversion to prevent text from becoming vector paths
+#   Do not export any font-outlined files
 #
-# Y轴范围：优先保留最初版本plot_config中设置的ymax。
-# 显著性标注优先压缩在既有Y轴上部空间内；必要时自适应缩小P值字号，
-# 仅当最小字号仍无法容纳时才对Y轴上限作最小幅度扩展。
-# 不再为了容纳显著性括号而整体大幅拉伸Y轴。
+# Y-axis limits: prioritize the ymax values specified in the original plot_config.
+# Fit significance annotations into the existing upper Y-axis space whenever possible; reduce the P-value font size adaptively if needed,
+# and expand the Y-axis upper limit only by the minimum amount when the minimum font size is still insufficient.
+# Do not substantially stretch the Y-axis merely to accommodate significance brackets.
 #
-# 本版不使用ggplot默认轴文字布局，也不使用cowplot缩放。
-# 直接抽取ggplot面板，在950 × 400 mm页面上手工放置：
-#   标题框、Y轴标题、Y轴刻度、X轴刻度、XY绘图区。
+# This version does not use ggplot's default axis-text layout or cowplot scaling.
+# Extract each ggplot panel directly and position it manually on a 950 × 400 mm page:
+#   title box, Y-axis title, Y-axis tick labels, X-axis tick labels, and XY plotting area.
 # ============================================================
 
 
 # ============================================================
-# 0. 清理环境、加载依赖
+# 0. Clear the workspace and load dependencies
 # ============================================================
 
 rm(list = ls())
@@ -86,7 +86,7 @@ suppressPackageStartupMessages({
 
 
 # ============================================================
-# 1. 原始数据位置及输出位置
+# 1. Input data and output directories
 # ============================================================
 
 repo_root <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
@@ -103,14 +103,14 @@ input_file <- file.path(
 
 if (!file.exists(input_file)) {
   stop(
-    "找不到原始数据文件：\n",
+    "Raw data file not found:\n",
     input_file,
-    "\n请确认文件名和路径。"
+    "\nPlease check the file name and path."
   )
 }
 
-# SVG设备在部分Windows中文区域设置下可能无法稳定打开含中文的输出路径。
-# 将结果统一输出到纯英文路径；原始CSV仍从base_dir读取。
+# On some Windows systems with Chinese locale settings, the SVG device may not reliably open output paths containing non-ASCII characters.
+# Export results to an ASCII-only path; continue reading the source CSV from base_dir.
 output_dir <- file.path(results_dir, "Fig1")
 
 dir.create(
@@ -120,10 +120,10 @@ dir.create(
 )
 
 if (!dir.exists(output_dir)) {
-  stop("无法创建输出文件夹：\n", output_dir)
+  stop("Cannot create output directory:\n", output_dir)
 }
 
-# 检查输出目录是否可写，避免到打开SVG/PDF设备时才报错。
+# Check whether the output directory is writable to avoid errors when opening the SVG/PDF device.
 test_file <- file.path(output_dir, "__write_test.tmp")
 can_write <- tryCatch({
   writeLines("test", test_file, useBytes = TRUE)
@@ -132,18 +132,18 @@ can_write <- tryCatch({
 }, error = function(e) FALSE)
 
 if (!can_write) {
-  stop("输出文件夹不可写，请检查路径权限：\n", output_dir)
+  stop("Output directory is not writable. Check path permissions:\n", output_dir)
 }
 
 
 # ============================================================
-# 2. Times New Roman字体注册
+# 2. Register Times New Roman fonts
 #
-# Illustrator可编辑SVG使用svglite输出原生<text>元素。
-# 不使用showtext/sysfonts，不把文字转换为矢量轮廓。
+# Use svglite to export native <text> elements for Illustrator-editable SVG output.
+# Do not use showtext or sysfonts; keep text as editable text rather than vector outlines.
 #
-# 重要：如果此前在同一个R会话中运行过showtext_auto(TRUE)，
-# 它可能继续影响后续设备。这里显式关闭showtext自动转换。
+# Important: if showtext_auto(TRUE) was previously enabled in the same R session,
+# it may continue to affect subsequent devices. Explicitly disable automatic showtext conversion here.
 # ============================================================
 
 font_family <- "Times New Roman"
@@ -154,7 +154,7 @@ if (.Platform$OS.type == "windows") {
   )
 }
 
-# 防止此前会话遗留的showtext自动模式将文字转换成路径。
+# Prevent a showtext automatic mode left over from a previous session from converting text to paths.
 if (requireNamespace("showtext", quietly = TRUE)) {
   try(
     showtext::showtext_auto(FALSE),
@@ -164,12 +164,12 @@ if (requireNamespace("showtext", quietly = TRUE)) {
 
 if (!isTRUE(capabilities("cairo"))) {
   stop(
-    "当前R环境不支持Cairo PDF设备。",
-    "\n请使用支持Cairo的Windows版R。"
+    "The current R environment does not support the Cairo PDF device.",
+    "\nPlease use a Windows build of R with Cairo support."
   )
 }
 
-# 检查Windows字体文件是否存在。
+# Check that the Windows font files exist.
 font_dir <- file.path(Sys.getenv("WINDIR"), "Fonts")
 font_files <- c(
   regular = file.path(font_dir, "times.ttf"),
@@ -180,13 +180,13 @@ font_files <- c(
 
 if (!all(file.exists(font_files))) {
   stop(
-    "未找到完整的Times New Roman字体文件：\n",
+    "The complete Times New Roman font files were not found:\n",
     paste(font_files[!file.exists(font_files)], collapse = "\n")
   )
 }
 
 # ============================================================
-# 3. 页面及图形物理尺寸
+# 3. Page and physical figure dimensions
 # ============================================================
 
 PAGE_WIDTH_MM  <- 950
@@ -198,27 +198,27 @@ N_ROWS <- 2
 CELL_WIDTH_MM  <- PAGE_WIDTH_MM / N_COLS
 CELL_HEIGHT_MM <- PAGE_HEIGHT_MM / N_ROWS
 
-# 用户指定的XY绘图区尺寸
+# User-specified XY plotting-area dimensions
 PANEL_WIDTH_MM  <- 89.277
 PANEL_HEIGHT_MM <- 136.515
 
-# 用户指定的标题框尺寸
+# User-specified title-box dimensions
 TITLE_WIDTH_MM  <- 89.277
 TITLE_HEIGHT_MM <- 18.238
 
-# 文字字号，单位pt
+# Font sizes in points
 TITLE_FONT_PT <- 36.59
 AXIS_TEXT_PT  <- 28.4
 AXIS_TITLE_PT <- 28.4
 
-# 显著性P值字号：默认18 pt；若某一panel的原始Y轴范围内空间不足，
-# 仅该panel自动缩小字号，最小不低于10 pt。
+# Significance P-value font size: 18 pt by default; if the original Y-axis range of a panel does not provide enough space,
+# shrink the font size for that panel only, to no smaller than 10 pt.
 P_VALUE_FONT_PT <- 18
 P_VALUE_MIN_FONT_PT <- 10
 P_VALUE_FONT_STEP_PT <- 0.5
 
-# 以下为紧凑标注的物理间距（mm）。
-# 采用较小的文字净间距、首条括号间距和顶部余量，尽量保留初始Y轴范围。
+# Physical spacing for compact annotations (mm).
+# Use compact text clearance, first-bracket spacing, and top margin to preserve the original Y-axis limits whenever possible.
 P_VALUE_CLEARANCE_MM <- 0.35
 P_VALUE_TEXT_HEIGHT_MM <- P_VALUE_FONT_PT * 25.4 / 72 * 0.90
 P_BRACKET_EXTRA_GAP_MM <- 0.25
@@ -227,26 +227,26 @@ P_BRACKET_STEP_MM <- P_VALUE_TEXT_HEIGHT_MM +
 P_FIRST_BRACKET_GAP_MM <- 0.50
 P_VALUE_TOP_MARGIN_MM <- 0.50
 
-# 用于估算不同P值字号的物理文字高度；绘制时仍以grid实际字体度量为准。
+# Estimate physical text height at different P-value font sizes; actual drawing uses grid font metrics.
 estimate_p_text_height_mm <- function(font_pt) {
   font_pt * 25.4 / 72 * 0.90
 }
 
-# 线宽，用户提供单位为pt
+# Line widths are specified by the user in points
 MAIN_LINE_PT  <- 1.788
 MINOR_LINE_PT <- 0.886
 
-# ggplot2的linewidth参数以mm输入，但内部会先转换为grid的lwd；
-# grid的1个lwd单位实际对应1/96英寸（0.75 pt）。
-# 因此，直接使用pt * 25.4 / 72会使最终PDF线宽缩小到约75%。
-# 这里按ggplot2的.pt换算系数(72.27/25.4)和grid的0.75 pt/lwd
-# 反算，确保PDF中的实际物理线宽等于指定的pt值。
+# ggplot2's linewidth argument is specified in mm and is internally converted to grid's lwd;
+# one grid lwd unit corresponds to 1/96 inch (0.75 pt).
+# Therefore, using pt * 25.4 / 72 directly would reduce the final PDF line width to about 75% of the requested value.
+# Reverse-calculate using ggplot2's .pt conversion factor (72.27/25.4) and grid's 0.75 pt/lwd
+# to ensure that the physical line width in the PDF matches the specified point value.
 
 pt_to_ggplot_linewidth_mm <- function(pt) {
   pt * 25.4 / (72.27 * 0.75)
 }
 
-# geom_text(size=)使用mm，仍采用常规pt到mm换算
+# geom_text(size = ) uses mm, so the standard pt-to-mm conversion is retained
 pt_to_mm <- function(pt) {
   pt * 25.4 / 72
 }
@@ -254,7 +254,7 @@ pt_to_mm <- function(pt) {
 MAIN_LINE_MM  <- pt_to_ggplot_linewidth_mm(MAIN_LINE_PT)
 MINOR_LINE_MM <- pt_to_ggplot_linewidth_mm(MINOR_LINE_PT)
 
-# grid::gpar(lwd)直接使用1/96英寸单位
+# grid::gpar(lwd) directly uses units of 1/96 inch
 pt_to_grid_lwd <- function(pt) {
   pt * 96 / 72
 }
@@ -262,38 +262,38 @@ pt_to_grid_lwd <- function(pt) {
 MAIN_LINE_GRID <- pt_to_grid_lwd(MAIN_LINE_PT)
 MINOR_LINE_GRID <- pt_to_grid_lwd(MINOR_LINE_PT)
 
-# 主网格线和次网格线统一使用指定的浅灰色
+# Use the specified light gray consistently for major and minor grid lines
 GRID_MAJOR_COLOR <- "#EBEBEB"
 GRID_MINOR_COLOR <- "#EBEBEB"
 
-# 每个单元格中，X轴标签区域高度
+# Height of the X-axis label area within each cell
 # 200 - 136.515 - 18.238 = 45.247 mm
 X_LABEL_ZONE_MM <- CELL_HEIGHT_MM -
   PANEL_HEIGHT_MM -
   TITLE_HEIGHT_MM
 
 if (X_LABEL_ZONE_MM <= 0) {
-  stop("页面高度不足以容纳指定的标题框和XY绘图区。")
+  stop("The page height is insufficient for the specified title box and XY plotting area.")
 }
 
-# 绘图区在每个190 mm单元格中水平居中
+# Center the plotting area horizontally within each 190 mm cell
 PANEL_LEFT_IN_CELL_MM <- (
   CELL_WIDTH_MM - PANEL_WIDTH_MM
 ) / 2
 
-# 标题框与绘图区左右边缘完全对齐
+# Align the left and right edges of the title box exactly with the plotting area
 TITLE_LEFT_IN_CELL_MM <- PANEL_LEFT_IN_CELL_MM
 
-# Y轴刻度数字和Y轴标题手工定位
+# Manually position Y-axis tick labels and the Y-axis title
 Y_TICK_LABEL_X_OFFSET_MM <- 4
 Y_AXIS_TITLE_X_OFFSET_MM <- 31
 
-# X轴标签紧接绘图区底边
+# Place X-axis labels immediately below the plotting area
 X_LABEL_ANCHOR_OFFSET_MM <- 0.10
 
 
 # ============================================================
-# 4. 组别、颜色、条纹设置
+# 4. Groups, colors, and pattern settings
 # ============================================================
 
 group_levels <- c(
@@ -304,12 +304,12 @@ group_levels <- c(
   "MPP10"
 )
 
-# WRS2稳健单因素方差分析设置
+# WRS2 robust one-way ANOVA settings
 TRIM_LEVEL <- 0.20
 ALPHA_LEVEL <- 0.05
 LINCON_P_ADJUST_METHOD <- "none"
 
-# 保留此前确定的原始颜色
+# Retain the previously selected colors
 fill_colors <- c(
   CTR  = "#b6dcd5",
   MP1  = "#ffe0e2",
@@ -318,7 +318,7 @@ fill_colors <- c(
   MPP10 = "#8c69b9"
 )
 
-# 保留此前确定的条纹角度
+# Retain the previously selected pattern angles
 angle_values <- c(
   CTR  = 0,
   MP1  = 45,
@@ -335,7 +335,7 @@ pattern_values <- c(
   MPP10 = "stripe"
 )
 
-# X轴使用完整组别名称
+# Use full group names on the X axis
 group_labels <- c(
   CTR  = "Control",
   MP1  = "Microplastic-Low",
@@ -346,15 +346,15 @@ group_labels <- c(
 
 
 # ============================================================
-# 5. 指标参数及最终顺序
+# 5. Endpoint parameters and final order
 #
-# 顺序依据(a)-(j)连续编号：
-# 第一排：(a)-(e)
-# 第二排：(f)-(j)
+# Order follows the continuous panel labels (a)–(j):
+# Top row: (a)–(e)
+# Bottom row: (f)–(j)
 #
-# 第一项标题缩短为Siphoning：
-# 36.59 pt字体无法在89.277 mm标题框中完整容纳
-# "Siphoning_efficiency"；完整指标名称和单位保留在Y轴。
+# Shorten the first panel title to Siphoning:
+# The 36.59 pt font cannot fit the full title within the 89.277 mm title box
+# "Siphoning_efficiency"; retain the full endpoint name and unit on the Y axis.
 # ============================================================
 
 plot_config <- list(
@@ -464,7 +464,7 @@ plot_order <- names(plot_config)
 
 
 # ============================================================
-# 6. 读取数据并检查分组
+# 6. Read data and validate groups
 # ============================================================
 
 dat_raw <- read.csv(
@@ -487,7 +487,7 @@ missing_columns <- setdiff(
 
 if (length(missing_columns) > 0) {
   stop(
-    "原始数据缺少以下列：",
+    "The raw data are missing the following columns:",
     paste(missing_columns, collapse = ", ")
   )
 }
@@ -499,17 +499,17 @@ dat_raw$group <- factor(
 
 if (anyNA(dat_raw$group)) {
   stop(
-    "group列中存在无法识别的组别。",
-    "\n应为：CTR、MP1、MP10、MPP1、MPP10。"
+    "The group column contains unrecognized group labels.",
+    "\nExpected: CTR, MP1, MP10, MPP1, and MPP10."
   )
 }
 
-cat("\n========== 原始数据分组 ==========\n")
+cat("\n========== Raw data groups ==========\n")
 print(table(dat_raw$group))
 
 
 # ============================================================
-# 7. P值和坐标刻度格式化
+# 7. Format P values and axis tick labels
 # ============================================================
 
 format_p_value_suffix <- function(p) {
@@ -522,7 +522,7 @@ format_p_value_suffix <- function(p) {
     return("< 0.001")
   }
   
-  # 避免显著P值四舍五入后显示为P = 0.050
+# Prevent significant P values from being rounded to P = 0.050
   if (round(p, 3) >= 0.05) {
     return(sprintf("= %.4f", p))
   }
@@ -530,7 +530,7 @@ format_p_value_suffix <- function(p) {
   sprintf("= %.3f", p)
 }
 
-# 用于CSV统计结果的完整文本。
+# Full text used in the CSV statistical results.
 format_p_value <- function(p) {
   paste("P", format_p_value_suffix(p))
 }
@@ -546,20 +546,20 @@ format_axis_value <- function(x, digits = 0) {
 
 
 # ============================================================
-# 8. 创建单个指标的panel grob及统计结果
+# 8. Build a panel grob and statistical results for one endpoint
 #
-# 这里只生成XY绘图区本身：
-#   不生成ggplot默认X/Y轴文字；
-#   不生成ggplot默认标题；
-#   不生成ggplot默认外部边距。
+# This function generates only the XY plotting area:
+#   it does not generate the default ggplot X/Y-axis text;
+#   it does not generate the default ggplot title;
+#   it does not generate the default ggplot outer margins.
 #
-# 轴标题、轴刻度、标题框在后续grid手工布局中绘制。
+# Axis titles, tick labels, and title boxes are drawn later using a manual grid layout.
 # ============================================================
 
 make_panel <- function(variable, config) {
   
   # ----------------------------------------------------------
-  # 8.1 原始数据
+# 8.1 Raw data
   # ----------------------------------------------------------
   
   dat <- dat_raw %>%
@@ -578,14 +578,14 @@ make_panel <- function(variable, config) {
     mutate(
       Replicate_order = row_number(),
       
-      # 只沿水平方向轻微错开
-      # 纵坐标完全保留原始观测值
+# Apply slight horizontal jitter only
+# Preserve the original observed y values exactly
       Plot_x = as.numeric(first(group)) +
         c(-0.10, 0, 0.10)[Replicate_order]
     ) %>%
     ungroup()
   
-  # 检查每组独立生物学重复数
+# Check the number of independent biological replicates in each group
   sample_check <- dat %>%
     count(group, name = "n")
   
@@ -594,7 +594,7 @@ make_panel <- function(variable, config) {
     
     stop(
       variable,
-      "：要求五组各3个有效独立生物学重复。\n",
+      ": requires three valid independent biological replicates in each of the five groups.\n",
       paste(
         capture.output(print(sample_check)),
         collapse = "\n"
@@ -617,12 +617,12 @@ make_panel <- function(variable, config) {
     )
   
   # ----------------------------------------------------------
-  # 8.3 WRS2 t1way总体检验
+# 8.3 WRS2 t1way omnibus test
   # ----------------------------------------------------------
-  # t1way检验五组总体差异，允许组间方差不齐。
-  # 每组n = 3且tr = 0.20时，floor(n * tr) = 0，
-  # 因此本数据不会实际截尾，检验在当前样本量下相当于
-  # 基于原始均值的Welch型异方差单因素检验。
+# t1way tests the overall difference among the five groups and allows unequal variances.
+# With n = 3 per group and tr = 0.20, floor(n * tr) = 0,
+# so no observations are actually trimmed; at this sample size, the test is equivalent to
+# a Welch-type heteroscedastic one-way test based on the raw means.
   
   t1way_test <- WRS2::t1way(
     concentration ~ group,
@@ -642,12 +642,12 @@ make_panel <- function(variable, config) {
   )
   
   # ----------------------------------------------------------
-  # 8.4 WRS2 lincon全部两两比较
+# 8.4 WRS2 lincon pairwise comparisons
   # ----------------------------------------------------------
-  # 五组共10组两两比较。
-  # method = "none"：lincon返回未进行多重比较校正的原始P值。
-  # 注意：lincon的置信区间仍为同时置信区间；本图仅依据原始P值标注。
-  # 同时输出截尾均值差及其同时置信区间。
+# Ten pairwise comparisons are performed across the five groups.
+# method = "none": lincon returns raw P values without multiple-comparison adjustment.
+# Note: lincon confidence intervals remain simultaneous; only raw P values are used for annotations in this figure.
+# Also export trimmed-mean differences and their simultaneous confidence intervals.
   
   lincon_test <- WRS2::lincon(
     concentration ~ group,
@@ -662,7 +662,7 @@ make_panel <- function(variable, config) {
   if (ncol(lincon_matrix) < 6 || nrow(lincon_matrix) != 10) {
     stop(
       variable,
-      "：WRS2::lincon()未返回预期的10组两两比较结果。"
+      ": WRS2::lincon() did not return the expected 10 pairwise comparisons."
     )
   }
   
@@ -681,11 +681,11 @@ make_panel <- function(variable, config) {
   )
   
   # ----------------------------------------------------------
-  # 8.5 显著比较及括号排序
+# 8.5 Significant comparisons and bracket ordering
   # ----------------------------------------------------------
-  # 仅根据未校正的原始P值筛选和标注。
-  # 对水平方向不重叠的比较，允许共用同一括号高度，
-  # 避免所有显著比较都逐条堆叠而不必要地拉高Y轴。
+# Select and annotate comparisons using unadjusted raw P values only.
+# Comparisons with non-overlapping horizontal spans may share the same bracket height,
+# avoiding unnecessary Y-axis expansion caused by stacking every significant comparison.
   
   sig <- lincon_result %>%
     filter(P_raw < ALPHA_LEVEL) %>%
@@ -709,9 +709,9 @@ make_panel <- function(variable, config) {
       span
     )
   
-  # 区间分层：只有横向区间互不重叠的括号才共用同一高度。
-  # 若前一括号终点与后一括号起点相同，也分配到不同层，
-  # 避免两个括号端点在同一位置相接。
+# Bracket levels: only horizontally non-overlapping intervals may share the same height.
+# If the end of one bracket coincides with the start of another, assign them to different levels
+# to prevent the two bracket endpoints from touching.
   if (nrow(sig) > 0) {
     lane_ends <- numeric(0)
     sig$lane <- integer(nrow(sig))
@@ -734,10 +734,10 @@ make_panel <- function(variable, config) {
   }
   
   # ----------------------------------------------------------
-  # 8.6 计算数据顶部，并优先保留初始Y轴范围
+# 8.6 Determine the data top and prioritize the original Y-axis limits
   # ----------------------------------------------------------
-  # data_top必须在计算base_y_upper和显著性括号位置之前定义。
-  # 同时考虑Mean + SD误差棒上端及全部原始观测值，避免任何数据元素被裁切。
+# data_top must be defined before calculating base_y_upper and significance-bracket positions.
+# Consider both the upper ends of Mean + SD error bars and all raw observations to prevent clipping.
   data_top <- max(
     c(
       summary_data$Mean + summary_data$SD,
@@ -747,14 +747,14 @@ make_panel <- function(variable, config) {
   )
 
   if (!is.finite(data_top)) {
-    stop(variable, "：无法计算有效的data_top，请检查原始数据。")
+    stop(variable, ": cannot calculate a valid data_top. Please check the raw data.")
   }
 
-  # 先以plot_config中最初设定的ymax作为Y轴上限。
-  # 若原始数据（Mean + SD或单个原始值）本身超过该范围，才因数据本身上调。
-  # 显著性括号优先使用data_top以上的空白区域；空间不足时逐步缩小该panel的
-  # P值字号（18 pt至10 pt），而不是先扩大Y轴。
-  # 只有10 pt仍无法容纳时，才按所需空间对Y轴上限作最小幅度扩展。
+# First use the ymax originally specified in plot_config as the Y-axis upper limit.
+# Increase the limit for the data itself only if the raw data (Mean + SD or individual observations) exceed it.
+# Use the blank space above data_top for significance brackets whenever possible; if space is insufficient,
+# progressively reduce the P-value font size for that panel (18 pt to 10 pt) instead of expanding the Y axis first.
+# Expand the Y-axis upper limit by the minimum required amount only if the 10 pt font still does not fit.
 
   base_y_upper <- max(
     config$ymax,
@@ -771,12 +771,12 @@ make_panel <- function(variable, config) {
 
     n_lanes <- max(sig$lane)
 
-    # 在不改变Y轴上限的情况下，计算data_top以上可用的物理高度。
+# Calculate the available physical height above data_top without changing the Y-axis upper limit.
     available_height_mm <- (
       (base_y_upper - data_top) / base_y_upper
     ) * PANEL_HEIGHT_MM
 
-    # 从默认18 pt开始逐级尝试，选择在初始Y轴范围内能够容纳的最大字号。
+# Start at the default 18 pt and test progressively smaller sizes to select the largest font that fits within the original Y-axis range.
     candidate_fonts <- seq(
       P_VALUE_FONT_PT,
       P_VALUE_MIN_FONT_PT,
@@ -808,14 +808,14 @@ make_panel <- function(variable, config) {
     }
 
     if (is.finite(selected_font)) {
-      # 原始ymax足以容纳全部标注：保持Y轴范围不变。
+# The original ymax accommodates all annotations: keep the Y-axis limits unchanged.
       y_upper <- base_y_upper
       p_font_pt <- selected_font
       p_text_height_mm <- selected_text_height
       p_bracket_step_mm <- selected_step
 
     } else {
-      # 即使字号缩小到下限仍放不下时，才计算最小必要Y轴扩展量。
+# Calculate the minimum required Y-axis expansion only if the annotations still do not fit at the minimum font size.
       p_font_pt <- P_VALUE_MIN_FONT_PT
       p_text_height_mm <- estimate_p_text_height_mm(p_font_pt)
       p_bracket_step_mm <- p_text_height_mm +
@@ -833,15 +833,15 @@ make_panel <- function(variable, config) {
       if (reserved_fraction >= 0.80) {
         stop(
           variable,
-          "：显著性标注过多，即使P值字号缩小至",
+          ": Too many significance annotations; even after reducing the P-value font size to",
           P_VALUE_MIN_FONT_PT,
-          " pt仍无法合理容纳。"
+          " pt, they still cannot be accommodated appropriately."
         )
       }
 
       y_upper_needed <- data_top / (1 - reserved_fraction)
 
-      # 只按较细的break_by/4步长上调，避免按整格break_by上调造成过度扩展。
+# Increase the limit in smaller break_by/4 increments to avoid excessive expansion from a full break_by step.
       y_rounding_step <- config$break_by / 4
       y_upper <- max(
         base_y_upper,
@@ -849,7 +849,7 @@ make_panel <- function(variable, config) {
       )
     }
 
-    # 根据最终Y轴范围，将括号的物理间距换算为数据坐标。
+# Convert the physical bracket spacing to data coordinates using the final Y-axis range.
     first_gap_data <- (
       P_FIRST_BRACKET_GAP_MM / PANEL_HEIGHT_MM
     ) * y_upper
@@ -873,7 +873,7 @@ make_panel <- function(variable, config) {
     sig$y_position <- numeric(0)
     sig$label_y <- numeric(0)
 
-    # 没有显著性标注时，严格保留初始ymax（除非数据本身超出）。
+# When there are no significance annotations, strictly retain the original ymax unless the data themselves exceed it.
     y_upper <- base_y_upper
   }
 
@@ -889,7 +889,7 @@ make_panel <- function(variable, config) {
     by = config$break_by / 2
   )
   
-  # 去掉与主刻度重合的次刻度
+# Remove minor breaks that overlap major ticks
   y_minor <- y_minor_all[
     !vapply(
       y_minor_all,
@@ -901,13 +901,13 @@ make_panel <- function(variable, config) {
   ]
   
   # ----------------------------------------------------------
-  # 8.7 绘制panel内部内容
+# 8.7 Draw the contents inside the panel
   # ----------------------------------------------------------
   
   p <- ggplot() +
     
-    # 柱子：Mean
-    # 柱边框线宽1.788 pt
+# Bars: Mean
+# Bar border width: 1.788 pt
     
     ggpattern::geom_col_pattern(
       data = summary_data,
@@ -932,7 +932,7 @@ make_panel <- function(variable, config) {
       width = config$bar_width
     ) +
     
-    # 误差棒：Mean ± SD
+# Error bars: Mean ± SD
     
     geom_errorbar(
       data = summary_data,
@@ -948,7 +948,7 @@ make_panel <- function(variable, config) {
       colour = "black"
     ) +
     
-    # 原始散点：白色填充、黑色边框
+# Raw points: white fill with black outlines
     
     geom_point(
       data = dat,
@@ -967,7 +967,7 @@ make_panel <- function(variable, config) {
       stroke = 0.45
     ) +
     
-    # 显著性括号：与主轴线一致，1.788 pt
+# Significance brackets: 1.788 pt, matching the main axis lines
     
     {
       if (nrow(sig) > 0) {
@@ -1062,7 +1062,7 @@ make_panel <- function(variable, config) {
       
       legend.position = "none",
       
-      # 主网格线：1.788 pt
+# Major grid lines: 1.788 pt
       panel.grid.major.x = element_line(
         colour = GRID_MAJOR_COLOR,
         linewidth = MAIN_LINE_MM
@@ -1073,7 +1073,7 @@ make_panel <- function(variable, config) {
         linewidth = MAIN_LINE_MM
       ),
       
-      # 次网格线：0.886 pt
+# Minor grid lines: 0.886 pt
       panel.grid.minor.x = element_line(
         colour = GRID_MINOR_COLOR,
         linewidth = MINOR_LINE_MM
@@ -1084,7 +1084,7 @@ make_panel <- function(variable, config) {
         linewidth = MINOR_LINE_MM
       ),
       
-      # XY绘图区边框：1.788 pt
+# XY plotting-area border: 1.788 pt
       panel.border = element_rect(
         colour = "black",
         fill = NA,
@@ -1101,7 +1101,7 @@ make_panel <- function(variable, config) {
         colour = NA
       ),
       
-      # 所有默认轴文字由grid手工绘制
+# All default axis text is drawn manually using grid
       axis.text = element_blank(),
       axis.title = element_blank(),
       axis.ticks = element_blank(),
@@ -1114,7 +1114,7 @@ make_panel <- function(variable, config) {
     )
   
   # ----------------------------------------------------------
-  # 8.8 提取唯一panel grob
+# 8.8 Extract the unique panel grob
   # ----------------------------------------------------------
   
   gt <- ggplot2::ggplotGrob(p)
@@ -1126,14 +1126,14 @@ make_panel <- function(variable, config) {
   if (length(panel_index) != 1) {
     stop(
       variable,
-      "：无法唯一提取XY绘图区panel grob。"
+      ": Could not uniquely extract the XY plotting-area panel grob."
     )
   }
   
-  # 关闭panel层级的gtable裁剪。
-  # 柱子、误差棒、散点、网格线及显著性括号共享同一个panel grob；
-  # 不为每个geom图层分别建立裁剪视图。P值文字在外层同一页面视口中单独绘制，
-  # 仍是原生文字对象，不通过showtext转成路径。
+# Disable clipping at the panel-level gtable.
+# Bars, error bars, points, grid lines, and significance brackets share the same panel grob;
+# do not create separate clipping viewports for individual geom layers. P-value text is drawn separately
+# in the outer page viewport and remains a native text object rather than being converted to paths by showtext.
   gt$layout$clip[panel_index] <- "off"
   
   panel_grob <- gt$grobs[[panel_index]]
@@ -1156,7 +1156,7 @@ make_panel <- function(variable, config) {
 
 
 # ============================================================
-# 9. 生成全部10个指标
+# 9. Generate all 10 endpoints
 # ============================================================
 
 all_results <- lapply(
@@ -1164,7 +1164,7 @@ all_results <- lapply(
   function(nm) {
     
     message(
-      "正在计算和生成panel：",
+      "Generating panel: ",
       nm
     )
     
@@ -1179,15 +1179,15 @@ names(all_results) <- plot_order
 
 
 # ============================================================
-# 10. 手工绘制单张图
+# 10. Draw an individual panel manually
 # ============================================================
 
-# 显著性标注采用两个独立的原生文字对象：
+# Significance annotations use two separate native text objects:
 #   "P"：Times New Roman Italic
 #   " = 0.012" / " < 0.001"：Times New Roman Regular
 #
-# 这样只将P字符设为斜体，其余符号和数字保持常规体；
-# SVG中会生成可编辑的text元素，而不是路径轮廓。
+# this italicizes only the P character while keeping the remaining symbols and numbers in regular type;
+# the SVG therefore contains editable text elements rather than outlined paths.
 
 draw_editable_p_value <- function(
     center_x_mm,
@@ -1226,8 +1226,8 @@ draw_editable_p_value <- function(
     valueOnly = TRUE
   )
   
-  # 使用当前输出设备的真实字体度量，测量文字高度。
-  # P与后缀垂直居中，取两者中较大的高度作为整体高度。
+# Measure text height using the actual font metrics of the current output device.
+# Vertically center P and its suffix; use the greater of the two heights as the total text height.
   height_p <- convertHeight(
     grobHeight(grob_p),
     "mm",
@@ -1245,7 +1245,7 @@ draw_editable_p_value <- function(
     height_suffix
   )
   
-  # 文字下缘与括号横线之间保留指定的净间距。
+# Keep the specified clear gap between the bottom of the text and the horizontal bracket line.
   center_y_mm <- bracket_y_mm +
     clearance_mm +
     text_height_mm / 2
@@ -1253,7 +1253,7 @@ draw_editable_p_value <- function(
   total_width <- width_p + width_suffix
   left_x <- center_x_mm - total_width / 2
   
-  # P：斜体，独立原生文字对象
+# P: italic, separate native text object
   grid.text(
     label = "P",
     x = unit(left_x, "mm"),
@@ -1262,7 +1262,7 @@ draw_editable_p_value <- function(
     gp = gp_p
   )
   
-  # 等号/小于号及数值：常规体，独立原生文字对象
+# Equals/less-than signs and numbers: regular type, separate native text object
   grid.text(
     label = suffix,
     x = unit(left_x + width_p, "mm"),
@@ -1283,18 +1283,18 @@ draw_editable_p_value <- function(
 
 
 #
-# 每个单元格190 × 200 mm。
+# Each cell measures 190 × 200 mm.
 #
-# 纵向严格分配：
-#   标题框：18.238 mm
-#   XY面板：136.515 mm
-#   X轴标签区：45.247 mm
+# Vertical allocation:
+#   Title box: 18.238 mm
+#   XY panel: 136.515 mm
+#   X-axis label area: 45.247 mm
 #
-# 横向：
-#   panel居中，panel宽89.277 mm
-#   Y轴标题和刻度放在panel左侧
+# Horizontal allocation:
+#   Center the panel; panel width: 89.277 mm
+#   Place the Y-axis title and tick labels to the left of the panel
 #
-# 不会把整张图缩放到单元格。
+# Do not scale the entire figure to fit the cell.
 # ============================================================
 
 draw_one_chart <- function(
@@ -1306,11 +1306,11 @@ draw_one_chart <- function(
   
   cfg <- result$config
   
-  # 单元格中的panel左边缘
+# Left edge of the panel within the cell
   panel_left <- cell_x +
     PANEL_LEFT_IN_CELL_MM
   
-  # 单元格中的panel下边缘
+# Bottom edge of the panel within the cell
   panel_bottom <- cell_y +
     X_LABEL_ZONE_MM
   
@@ -1318,7 +1318,7 @@ draw_one_chart <- function(
     PANEL_HEIGHT_MM
   
   # ----------------------------------------------------------
-  # 10.1 绘制XY panel
+# 10.1 Draw the XY panel
   # ----------------------------------------------------------
   
   pushViewport(
@@ -1328,7 +1328,7 @@ draw_one_chart <- function(
       width = unit(PANEL_WIDTH_MM, "mm"),
       height = unit(PANEL_HEIGHT_MM, "mm"),
       just = c("left", "bottom"),
-      # 每张图仅保留一个定位视口，关闭裁剪
+# Use only one positioning viewport per panel and disable clipping
       clip = "off"
     )
   )
@@ -1339,7 +1339,7 @@ draw_one_chart <- function(
   
   
   # ----------------------------------------------------------
-  # 10.2 Y轴刻度线和刻度文字
+# 10.2 Draw Y-axis tick marks and tick labels
   # ----------------------------------------------------------
   
   y_values <- result$y_breaks
@@ -1351,7 +1351,7 @@ draw_one_chart <- function(
     y_position <- panel_bottom +
       y_fraction * PANEL_HEIGHT_MM
     
-    # Y轴短刻度线
+# Short Y-axis tick marks
     grid.segments(
       x0 = unit(
         panel_left - 1.8,
@@ -1370,7 +1370,7 @@ draw_one_chart <- function(
       )
     )
     
-    # Y轴刻度文字
+# Y-axis tick labels
     grid.text(
       label = format_axis_value(
         yv,
@@ -1399,10 +1399,10 @@ draw_one_chart <- function(
   
   
   # ----------------------------------------------------------
-  # 10.3 Y轴标题
+# 10.3 Y-axis title
   #
-  # 旋转90度，手工放置。
-  # 不占用ggplot默认的轴标题布局空间。
+# Rotate by 90 degrees and position manually.
+# Do not use the space reserved by ggplot's default axis-title layout.
   # ----------------------------------------------------------
   
   grid.text(
@@ -1432,13 +1432,13 @@ draw_one_chart <- function(
   
   
   # ----------------------------------------------------------
-  # 10.4 显著性P值文字
+# 10.4 Significance P-value text
   #
-  # 括号线已在panel中绘制，线宽与主轴一致。
-  # P值文字在同一张图的页面坐标系中绘制：
-  #   P为斜体；
-  #   数字和比较符号为常规体；
-  #   字号按panel自适应；文字下缘与括号横线保留紧凑净间距。
+# Bracket lines are drawn inside the panel and use the same width as the main axis.
+# Draw P-value text in the page coordinate system of the same panel:
+#   italicize P;
+#   keep numbers and comparison symbols in regular type;
+#   adapt the font size to the panel and maintain a compact gap below the bracket line.
   # ----------------------------------------------------------
   
   if (nrow(result$significant) > 0) {
@@ -1454,8 +1454,8 @@ draw_one_chart <- function(
       p_x_mm <- panel_left +
         x_fraction * PANEL_WIDTH_MM
       
-      # 横线在页面坐标中的实际位置。
-      # P值文字函数会测量实际字体高度，并按panel设定的紧凑净间距放置。
+# Actual position of the horizontal line in page coordinates.
+# The P-value text function measures the actual font height and positions the text using the compact gap specified for the panel.
       bracket_y_mm <- panel_bottom +
         (one_sig$y_position / result$y_upper) *
         PANEL_HEIGHT_MM
@@ -1472,7 +1472,7 @@ draw_one_chart <- function(
   
   
   # ----------------------------------------------------------
-  # 10.5 X轴刻度线和倾斜30°的组别名称
+# 10.5 Draw X-axis tick marks and group labels rotated by 30°
   # ----------------------------------------------------------
   
   x_values <- 1:5
@@ -1484,7 +1484,7 @@ draw_one_chart <- function(
   
   for (i in seq_along(x_values)) {
     
-    # X轴短刻度线
+# Short X-axis tick marks
     grid.segments(
       x0 = unit(x_positions[i], "mm"),
       x1 = unit(x_positions[i], "mm"),
@@ -1498,9 +1498,9 @@ draw_one_chart <- function(
       )
     )
     
-    # 组别名称
-    # 28.4 pt，倾斜30度
-    # 右上角对齐至对应刻度位置
+# Group labels
+# 28.4 pt, rotated by 30 degrees
+# Align the top-right corner with the corresponding tick position
     grid.text(
       label = unname(
         group_labels[group_levels[i]]
@@ -1530,10 +1530,10 @@ draw_one_chart <- function(
   
   
   # ----------------------------------------------------------
-  # 10.6 标题框
+# 10.6 Title box
   #
-  # 仅标题有外框。
-  # 标题框与XY面板宽度完全相同。
+# Only the title has an outer border.
+# The title box has exactly the same width as the XY panel.
   # ----------------------------------------------------------
   
   if (draw_title) {
@@ -1583,7 +1583,7 @@ draw_one_chart <- function(
 
 
 # ============================================================
-# 11. 整页手工布局函数
+# 11. Manual full-page layout function
 # ============================================================
 
 draw_full_page <- function(newpage = TRUE) {
@@ -1598,8 +1598,8 @@ draw_full_page <- function(newpage = TRUE) {
     
     col_id <- ((i - 1) %% N_COLS) + 1
     
-    # 第一排位于页面上半部
-    # 第二排位于页面下半部
+# The top row is placed in the upper half of the page
+# The bottom row is placed in the lower half of the page
     cell_x <- (col_id - 1) * CELL_WIDTH_MM
     
     cell_y <- PAGE_HEIGHT_MM -
@@ -1617,10 +1617,10 @@ draw_full_page <- function(newpage = TRUE) {
 
 
 # ============================================================
-# 12. 单图物理尺寸及文字尺寸检查
+# 12. Check physical panel dimensions and text dimensions
 #
-# 这里不再测量ggplot完整gtable的自然尺寸。
-# 直接检查手工指定的物理尺寸和文字实际宽度。
+# Do not measure the natural dimensions of the complete ggplot gtable here.
+# Check the manually specified physical dimensions and the actual text widths directly.
 # ============================================================
 
 measure_text_mm <- function(
@@ -1656,10 +1656,10 @@ measure_text_mm <- function(
 
 check_text_layout <- function() {
   
-  cat("\n========== 固定物理尺寸 ==========\n")
+  cat("\n========== Fixed physical dimensions ==========\n")
   
   cat(
-    "页面：",
+    "Page: ",
     PAGE_WIDTH_MM,
     " × ",
     PAGE_HEIGHT_MM,
@@ -1667,7 +1667,7 @@ check_text_layout <- function() {
   )
   
   cat(
-    "单元格：",
+    "Cell: ",
     CELL_WIDTH_MM,
     " × ",
     CELL_HEIGHT_MM,
@@ -1675,7 +1675,7 @@ check_text_layout <- function() {
   )
   
   cat(
-    "XY绘图区：",
+    "XY plotting area: ",
     PANEL_WIDTH_MM,
     " × ",
     PANEL_HEIGHT_MM,
@@ -1683,7 +1683,7 @@ check_text_layout <- function() {
   )
   
   cat(
-    "标题框：",
+    "Title box: ",
     TITLE_WIDTH_MM,
     " × ",
     TITLE_HEIGHT_MM,
@@ -1691,12 +1691,12 @@ check_text_layout <- function() {
   )
   
   cat(
-    "X轴标签区域：",
+    "X-axis label area: ",
     round(X_LABEL_ZONE_MM, 3),
     " mm\n"
   )
   
-  cat("\n========== 标题文字宽度检查 ==========\n")
+  cat("\n========== Title text width check ==========\n")
   
   title_metrics <- lapply(
     all_results,
@@ -1728,11 +1728,11 @@ check_text_layout <- function() {
   
   if (any(title_table$Title_width_mm > TITLE_WIDTH_MM)) {
     warning(
-      "部分标题文字宽度超过标题框宽度，请检查标题名称。"
+      "Some title text exceeds the title-box width. Please check the title labels."
     )
   }
   
-  cat("\n========== Y轴标题长度检查 ==========\n")
+  cat("\n========== Y-axis title length check ==========\n")
   
   y_title_metrics <- lapply(
     all_results,
@@ -1761,11 +1761,11 @@ check_text_layout <- function() {
     PANEL_HEIGHT_MM
   )) {
     warning(
-      "部分Y轴标题旋转后的长度超过XY绘图区高度。"
+      "Some rotated Y-axis titles exceed the height of the XY plotting area."
     )
   }
   
-  cat("\n========== X轴标签区域检查 ==========\n")
+  cat("\n========== X-axis label area check ==========\n")
   
   x_metrics <- lapply(
     unname(group_labels[group_levels]),
@@ -1778,7 +1778,7 @@ check_text_layout <- function() {
     }
   )
   
-  # 旋转30°后的垂直投影：
+# Vertical projection after 30° rotation:
   # width*sin(30°) + height*cos(30°)
   
   x_projected_height <- vapply(
@@ -1800,8 +1800,8 @@ check_text_layout <- function() {
   
   if (any(x_projected_height > X_LABEL_ZONE_MM)) {
     warning(
-      "部分X轴标签旋转后的理论高度超过预留区域。",
-      "\n请检查最终PDF底部标签是否完整。"
+      "Some rotated X-axis labels exceed the reserved vertical space.",
+      "\nPlease check that the bottom labels are fully visible in the final PDF."
     )
   }
   
@@ -1816,17 +1816,17 @@ check_text_layout <- function() {
 
 
 # ============================================================
-# 13. 当前R脚本自动备份函数
+# 13. Automatic backup function for the current R script
 #
-# 在RStudio中打开本脚本并点击Source运行时，
-# 自动复制当前R文件到结果文件夹。
+# When this script is open in RStudio and run using Source,
+# automatically copy the current R file to the output directory.
 # ============================================================
 
 get_current_script_path <- function() {
   
   candidates <- character(0)
   
-  # RStudio当前编辑文件
+# Currently edited file in RStudio
   if (
     requireNamespace("rstudioapi", quietly = TRUE) &&
     rstudioapi::isAvailable()
@@ -1842,7 +1842,7 @@ get_current_script_path <- function() {
     }
   }
   
-  # source()调用栈
+# source() call stack
   frames <- sys.frames()
   
   for (fr in rev(frames)) {
@@ -1905,7 +1905,7 @@ if (!is.null(current_script_path)) {
   
   if (copied) {
     cat(
-      "\nR脚本备份成功：\n",
+      "\nR script backup completed successfully:\n",
       normalizePath(
         script_backup_path,
         winslash = "/"
@@ -1913,30 +1913,30 @@ if (!is.null(current_script_path)) {
       "\n"
     )
   } else {
-    warning("R脚本自动备份失败，请手动复制当前R文件。")
+    warning("Automatic R script backup failed. Please copy the current R file manually.")
   }
   
 } else {
   
   warning(
-    "无法自动识别当前R脚本路径。\n",
-    "请在RStudio中打开本R文件并点击Source运行，",
-    "即可自动备份到结果文件夹。"
+    "Could not automatically identify the path of the current R script.\n",
+    "Open this R file in RStudio and click Source to run it; ",
+    "the script will then be backed up to the output directory."
   )
 }
 
 
 # ============================================================
-# 14. 输出文件路径
+# 14. Output file paths
 # ============================================================
 
-# Illustrator主要编辑文件：原生SVG文字对象
+# Main Illustrator-editable file: native SVG text objects
 svg_file <- file.path(
   output_dir,
   "Fig1_editable.svg"
 )
 
-# 辅助PDF：Cairo输出，保留字体文字对象
+# Auxiliary PDF: Cairo output with preserved font text objects
 pdf_file <- file.path(
   output_dir,
   "Fig1_editable.pdf"
@@ -1949,12 +1949,12 @@ png_file <- file.path(
 
 
 # ============================================================
-# 15. 输出PDF
+# 15. Export PDF
 #
 # Cairo PDF：
-#   保留矢量图形和字体文字对象；
-#   不调用showtext；
-#   不将文字预先转为轮廓。
+#   Preserve vector graphics and font text objects;
+#   do not call showtext;
+#   do not convert text to outlines in advance.
 # ============================================================
 
 grDevices::cairo_pdf(
@@ -1980,18 +1980,18 @@ tryCatch(
   }
 )
 
-# 可选检查PDF字体是否嵌入。
-# pdftools仅用于读取PDF字体信息，不改变图形。
+# Optionally check whether fonts are embedded in the PDF.
+# pdftools is used only to read PDF font information and does not modify the figure.
 if (requireNamespace("pdftools", quietly = TRUE)) {
   
   pdf_font_info <- pdftools::pdf_fonts(pdf_file)
   
-  cat("\n========== PDF字体嵌入检查 ==========\n")
+  cat("\n========== PDF font embedding check ==========\n")
   print(pdf_font_info)
   
   write.csv(
     pdf_font_info,
-    file.path(output_dir, "PDF字体嵌入检查.csv"),
+    file.path(output_dir, "PDF_Font_Embedding_Check.csv"),
     row.names = FALSE,
     fileEncoding = "UTF-8"
   )
@@ -1999,31 +1999,31 @@ if (requireNamespace("pdftools", quietly = TRUE)) {
   if ("embedded" %in% names(pdf_font_info) &&
       any(!pdf_font_info$embedded)) {
     warning(
-      "PDF中存在未嵌入的字体。请检查Times New Roman是否正确安装，",
-      "以及Cairo是否成功调用该字体。"
+      "The PDF contains fonts that are not embedded. Check that Times New Roman is installed correctly ",
+      "and that Cairo is calling this font successfully."
     )
   }
   
 } else {
   message(
-    "如需检查PDF字体嵌入状态，可安装pdftools后重新运行：",
+    "To check PDF font embedding, install pdftools and run the script again:",
     "install.packages('pdftools')"
   )
 }
 
 
 # ============================================================
-# 16. 输出Illustrator可编辑SVG（主要交付文件）
+# 16. Export Illustrator-editable SVG (primary deliverable)
 #
-# 使用svglite输出原生SVG <text>元素：
-#   * 不使用showtext；
-#   * 不将Times New Roman文字转为path；
-#   * 标题、坐标轴、P值均为SVG文字对象；
-#   * P字符单独设置italic，数值部分为plain。
+# Use svglite to export native SVG <text> elements:
+#   * Do not use showtext;
+#   * Do not convert Times New Roman text to paths;
+#   * Titles, axes, and P values remain SVG text objects;
+#   * Italicize only the P character; keep the numeric part in regular type.
 #
-# 在Illustrator中建议使用 File > Open 打开此SVG，
-# 不要选择此前的“字体轮廓/矢量路径”文件。
-# 电脑需安装Times New Roman。
+# In Illustrator, use File > Open to open this SVG,
+# rather than selecting the earlier font-outline/vector-path file.
+# Times New Roman must be installed on the computer.
 # ============================================================
 
 svglite::svglite(
@@ -2044,7 +2044,7 @@ tryCatch(
   }
 )
 
-# 检查SVG中是否存在原生文字元素。
+# Check whether the SVG contains native text elements.
 svg_lines <- readLines(
   svg_file,
   warn = FALSE,
@@ -2059,22 +2059,22 @@ svg_font_family_present <- any(
   grepl("Times New Roman", svg_lines, fixed = TRUE)
 )
 
-cat("\n========== Illustrator SVG文字对象检查 ==========\n")
-cat("SVG原生text元素行数：", svg_text_count, "\n")
-cat("是否包含Times New Roman字体声明：",
+cat("\n========== Illustrator SVG text-object check ==========\n")
+cat("Number of native SVG text elements: ", svg_text_count, "\n")
+cat("Contains a Times New Roman font declaration: ",
     svg_font_family_present, "\n")
 
 if (svg_text_count == 0) {
   stop(
-    "SVG中没有检测到原生<text>元素。",
-    "\n请勿将该文件作为Illustrator可编辑文字版使用。"
+    "No native <text> elements were detected in the SVG.",
+    "\nDo not use this file as the Illustrator-editable text version."
   )
 }
 
 if (!svg_font_family_present) {
   warning(
-    "SVG中未检测到Times New Roman字体声明，",
-    "请检查当前R图形设备的字体映射。"
+    "No Times New Roman font declaration was detected in the SVG. ",
+    "Check the font mapping of the current R graphics device."
   )
 }
 
@@ -2084,14 +2084,14 @@ write.csv(
     Times_New_Roman_declared = svg_font_family_present,
     SVG_file = svg_file
   ),
-  file.path(output_dir, "Illustrator_SVG文字对象检查.csv"),
+  file.path(output_dir, "Illustrator_SVG_Text_Object_Check.csv"),
   row.names = FALSE,
   fileEncoding = "UTF-8"
 )
 
 
 # ============================================================
-# 17. 输出PNG预览
+# 17. Export PNG preview
 # ============================================================
 
 grDevices::png(
@@ -2120,15 +2120,15 @@ tryCatch(
 
 
 # ============================================================
-# 18. 输出10张单独PDF
+# 18. Export 10 individual PDF files
 #
-# 每张单图页面：190 × 200 mm
-# panel及标题框保持指定的实际尺寸。
+# Page size for each individual panel: 190 × 200 mm
+# The panel and title box retain their specified physical dimensions.
 # ============================================================
 
 single_dir <- file.path(
   output_dir,
-  "单张指标PDF"
+  "Individual_Endpoint_PDFs"
 )
 
 dir.create(
@@ -2174,7 +2174,7 @@ for (nm in plot_order) {
 
 
 # ============================================================
-# 19. 汇总并导出统计结果
+# 19. Summarize and export statistical results
 # ============================================================
 
 t1way_results <- bind_rows(
@@ -2215,7 +2215,7 @@ write.csv(
   t1way_results,
   file.path(
     output_dir,
-    "WRS2_t1way总体检验结果.csv"
+    "WRS2_t1way_Overall_Test_Results.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2225,7 +2225,7 @@ write.csv(
   lincon_results,
   file.path(
     output_dir,
-    "WRS2_lincon全部10组两两比较_原始未校正P值.csv"
+    "WRS2_lincon_All_10_Pairwise_Comparisons_Unadjusted_P.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2235,7 +2235,7 @@ write.csv(
   significant_lincon_results,
   file.path(
     output_dir,
-    "WRS2_lincon显著比较及原始未校正P值.csv"
+    "WRS2_lincon_Significant_Comparisons_Unadjusted_P.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2245,7 +2245,7 @@ write.csv(
   summary_results,
   file.path(
     output_dir,
-    "各组Mean_SD汇总.csv"
+    "Group_Mean_SD_Summary.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2253,11 +2253,11 @@ write.csv(
 
 
 # ============================================================
-# 20. 保存绘图参数记录
+# 20. Save plotting parameter records
 # ============================================================
 
-# 单独记录每个panel最终采用的Y轴上限、括号层数和P值字号，
-# 便于核对哪些panel保留了最初始的ymax，哪些因数据/标注空间不足而微调。
+# Record the final Y-axis upper limit, bracket levels, and P-value font size for each panel separately,
+# to identify panels that retained the original ymax and those adjusted slightly because of data or annotation-space constraints.
 y_axis_annotation_table <- bind_rows(
   lapply(names(all_results), function(nm) {
     x <- all_results[[nm]]
@@ -2276,7 +2276,7 @@ y_axis_annotation_table <- bind_rows(
 
 write.csv(
   y_axis_annotation_table,
-  file.path(output_dir, "各指标Y轴范围及显著性标注参数.csv"),
+  file.path(output_dir, "Endpoint_Y_Axis_Limits_and_Significance_Parameters.csv"),
   row.names = FALSE,
   fileEncoding = "UTF-8"
 )
@@ -2363,7 +2363,7 @@ write.csv(
   parameter_table,
   file.path(
     output_dir,
-    "最终绘图参数记录.csv"
+    "Final_Plot_Parameter_Record.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2371,26 +2371,26 @@ write.csv(
 
 
 # ============================================================
-# 21. 最终输出信息
+# 21. Final output summary
 # ============================================================
 
 cat("\n")
 cat("====================================================\n")
-cat("生理生化指标柱状图：手工物理布局版完成\n")
+cat("Physiological and biochemical endpoint figure: manual physical-layout version completed\n")
 cat("====================================================\n")
 
 cat(
-  "页面：",
+  "Page: ",
   PAGE_WIDTH_MM,
   " × ",
   PAGE_HEIGHT_MM,
   " mm\n"
 )
 
-cat("排版：5列 × 2行\n")
+cat("Layout: 5 columns × 2 rows\n")
 
 cat(
-  "XY绘图区：",
+  "XY plotting area: ",
   PANEL_WIDTH_MM,
   " × ",
   PANEL_HEIGHT_MM,
@@ -2398,32 +2398,32 @@ cat(
 )
 
 cat(
-  "标题框：",
+  "Title box: ",
   TITLE_WIDTH_MM,
   " × ",
   TITLE_HEIGHT_MM,
   " mm\n"
 )
 
-cat("字体：Times New Roman\n")
-cat("Illustrator主要编辑文件：svglite原生SVG文字对象\n")
-cat("辅助PDF：Cairo PDF，保留字体文字对象\n")
-cat("不使用showtext，不输出字体轮廓路径\n")
-cat("P值字号：默认", P_VALUE_FONT_PT, " pt；根据各panel上部空间自适应缩小，最低", P_VALUE_MIN_FONT_PT, " pt；仅P字符斜体\n", sep = "")
-cat("Y轴范围：优先保留plot_config中最初设置的ymax；仅在数据或标注确实放不下时最小幅度上调\n")
-cat("主线宽：", MAIN_LINE_PT, " pt；次线宽：", MINOR_LINE_PT, " pt\n")
-cat("主/次网格线颜色：#EBEBEB\n")
-cat("显著性括号线宽：", MAIN_LINE_PT, " pt（与主轴线一致）\n")
-cat("panel裁剪：关闭；不为各geom图层分别建立裁剪视图\n")
-cat("柱高：Mean；误差棒：SD\n")
-cat("散点：白色填充、黑色边框\n")
-cat("统计：WRS2 t1way() + lincon()；tr = ", TRIM_LEVEL, "\n", sep = "")
-cat("两两比较：10组全部配对；P值不进行多重比较校正\n")
-cat("显著性标注：原始未校正P值；不使用星号\n")
-cat("各指标最终Y轴范围及P值字号见：各指标Y轴范围及显著性标注参数.csv\n")
-cat("注意：每组n = 3时，tr = 0.20不实际截尾观测值\n\n")
+cat("Font: Times New Roman\n")
+cat("Primary Illustrator-editable file: native SVG text objects from svglite\n")
+cat("Auxiliary PDF: Cairo PDF with preserved font text objects\n")
+cat("showtext is disabled; no font-outline paths are exported\n")
+cat("P-value font size: ", P_VALUE_FONT_PT, " pt by default; adaptively reduced based on available space in each panel, down to ", P_VALUE_MIN_FONT_PT, " pt; only the P character is italicized\n", sep = "")
+cat("Y-axis limits: retain the original ymax in plot_config whenever possible; increase only minimally when required by the data or annotations\n")
+cat("Major line width: ", MAIN_LINE_PT, " pt; minor line width: ", MINOR_LINE_PT, " pt\n")
+cat("Major/minor grid line color: #EBEBEB\n")
+cat("Significance bracket line width: ", MAIN_LINE_PT, " pt (same as the main axis lines)\n")
+cat("Panel clipping: disabled; no separate clipping viewports are created for individual geom layers\n")
+cat("Bar height: Mean; error bars: SD\n")
+cat("Points: white fill with black outlines\n")
+cat("Statistics: WRS2 t1way() + lincon(); tr = ", TRIM_LEVEL, "\n", sep = "")
+cat("Pairwise comparisons: all 10 pairs; no multiple-comparison adjustment of P values\n")
+cat("Significance annotations: raw unadjusted P values; no asterisks\n")
+cat("Final Y-axis limits and P-value font sizes for each endpoint: see Endpoint_Y_Axis_Limits_and_Significance_Parameters.csv\n")
+cat("Note: with n = 3 per group, tr = 0.20 does not trim any observations\n\n")
 
-cat("输出文件夹：\n")
+cat("Output directory:\n")
 cat(
   normalizePath(
     output_dir,
@@ -2435,13 +2435,13 @@ cat(
 cat("\nPDF：\n")
 cat(pdf_file, "\n")
 
-cat("\nIllustrator可编辑SVG文字对象版：\n")
+cat("\nIllustrator-editable SVG with native text objects:\n")
 cat(svg_file, "\n")
 
 cat("\nPNG：\n")
 cat(png_file, "\n")
 
-cat("\nR代码备份：\n")
+cat("\nR script backup:\n")
 cat(script_backup_path, "\n")
 
 cat("====================================================\n")
