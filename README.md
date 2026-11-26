@@ -33,7 +33,7 @@ Rscript Figure_6/Fig6.R
 Rscript Figure_7/Fig7.R
 ```
 
-For Figure 1, the folder-level README documents running `Fig1.R` with `source("Figure_1/Fig1.R")`. Each figure folder README provides additional details about required R packages, input files, and output locations.
+For Figure 1, the folder-level README documents running `Fig1.R` with `source("Figure_1/Fig1.R")`. Consult the folder-level READMEs and script headers for panel-specific input, package, and output details.
 
 ## Input data and provenance
 
