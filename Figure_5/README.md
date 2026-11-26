@@ -2,7 +2,7 @@
 
 ## Figure panels
 
-The planned R script covers panels **a–l**:
+The target scope for the complete Fig. 5 code is panels **a–l**. The currently committed `Fig5.R` covers the alpha-diversity panels **a–c** only; the remaining panels will be added after their corresponding scripts and input data are provided:
 
 - a–c: Alpha-diversity indices (Shannon, Pielou's evenness and ACE)
 - d–e: Beta-diversity analyses (PCoA and NMDS), with ANOSIM
@@ -17,7 +17,7 @@ The node and edge data used for panel g were calculated and exported from Majorb
 
 ## Files
 
-- `Fig5.R`: R script for panels a–l.
+- `Fig5.R`: currently committed R script for panels a–c; to be extended with the remaining panel code.
 - `Gut_16S_Alpha_Diversity.csv`: input dataset currently specified in the existing script.
 - Additional figure-specific input files will be stored directly in this folder.
 
