@@ -8,7 +8,7 @@
 
 ## Reproducing panels a–b
 
-`Fig4ab.R` generates the two nine-quadrant plots from the supplied panel-specific CSV files. Run from the repository root or the `Figure_4` folder:
+`Fig4ab.R` generates the two nine-quadrant plots from the supplied panel-specific CSV files. Run from the repository root:
 
 ```sh
 Rscript Figure_4/Fig4ab.R
