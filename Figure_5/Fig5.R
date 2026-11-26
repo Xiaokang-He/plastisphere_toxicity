@@ -4,21 +4,21 @@
 # otherwise retained. Review the associated input-data requirements in README.md.
 
 # ============================================================
-# Fig.1 生理生化指标柱状图：WRS2紧凑标注及初始Y轴范围保留版
+# 肠道微生物16S α多样性柱状图：手工物理布局紧凑标注版
 #
-# 页面：950 × 400 mm
-# 排列：5列 × 2行；每个单元格190 × 200 mm
+# 页面：240 × 80 mm
+# 排列：3列 × 1行；每个单元格80 × 80 mm
 #
 # 每张图的严格尺寸：
-#   XY绘图区：89.277 × 136.515 mm
-#   标题框：  89.277 × 18.238 mm
+#   XY绘图区：35.7108 × 54.606 mm（按第二段代码布局等比例缩小）
+#   标题框：  35.7108 × 7.2952 mm
 #
 # 字体（Times New Roman）：
-#   标题：36.59 pt，加粗
-#   Y轴刻度：28.4 pt
-#   Y轴标题：28.4 pt，加粗
-#   X轴刻度：28.4 pt，倾斜30°
-#   显著性P值：默认18 pt；空间不足时按panel自适应缩小至最低10 pt；仅P字符斜体
+#   标题：14.636 pt，加粗
+#   Y轴刻度：11.36 pt
+#   Y轴标题：11.36 pt，加粗
+#   X轴刻度：11.36 pt，倾斜30°
+#   显著性P值：7.2 pt；仅P字符斜体，其余数字和符号为常规体
 #
 # 线宽：
 #   柱边框、误差棒、XY绘图区边框、主网格线、显著性括号：1.788 pt
@@ -40,16 +40,11 @@
 #   Illustrator编辑版：svglite输出原生SVG <text>对象
 #   辅助PDF版：Cairo PDF保留字体文字对象
 #   禁用showtext自动转换，避免文字变成矢量路径
-#   不再输出任何字体轮廓化文件
+#   不输出字体轮廓化文件
 #
-# Y轴范围：优先保留最初版本plot_config中设置的ymax。
-# 显著性标注优先压缩在既有Y轴上部空间内；必要时自适应缩小P值字号，
-# 仅当最小字号仍无法容纳时才对Y轴上限作最小幅度扩展。
-# 不再为了容纳显著性括号而整体大幅拉伸Y轴。
-#
-# 本版不使用ggplot默认轴文字布局，也不使用cowplot缩放。
-# 直接抽取ggplot面板，在950 × 400 mm页面上手工放置：
-#   标题框、Y轴标题、Y轴刻度、X轴刻度、XY绘图区。
+# 本版与生理生化指标图使用相同的物理布局、字体、线宽、
+# 网格、柱形纹理、散点、误差棒、显著性标注和统计流程。
+# 仅将展示指标替换为Shannon、Pielou_e和ACE三个α多样性指标。
 # ============================================================
 
 
@@ -90,15 +85,13 @@ suppressPackageStartupMessages({
 # ============================================================
 
 repo_root <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
-input_dir <- file.path(repo_root, "data", "input")
-results_dir <- file.path(repo_root, "results")
+figure_dir <- file.path(repo_root, "Figure_5")
+input_dir <- figure_dir
+results_dir <- file.path(figure_dir, "results")
 dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
-base_dir <- input_dir
-
-input_file <- file.path(
-  input_dir,
-  "酶活数据_最终 - 8.30.csv"
-)
+base_dir <- figure_dir
+input_file <- file.path(figure_dir, "Gut_16S_Alpha_Diversity.csv")
+output_dir <- file.path(results_dir, "Fig5")
 
 if (!file.exists(input_file)) {
   stop(
@@ -108,9 +101,7 @@ if (!file.exists(input_file)) {
   )
 }
 
-# SVG设备在部分Windows中文区域设置下可能无法稳定打开含中文的输出路径。
-# 将结果统一输出到纯英文路径；原始CSV仍从base_dir读取。
-output_dir <- file.path(results_dir, "fig1_physiology_biochemistry")
+# Results are written to results/fig5_gut_16s_alpha_diversity.
 
 dir.create(
   output_dir,
@@ -119,20 +110,17 @@ dir.create(
 )
 
 if (!dir.exists(output_dir)) {
-  stop("无法创建输出文件夹：\n", output_dir)
+  stop(
+    "无法创建输出文件夹：\n", output_dir,
+    "\n请检查输出目录是否存在、是否有写入权限。"
+  )
 }
 
-# 检查输出目录是否可写，避免到打开SVG/PDF设备时才报错。
-test_file <- file.path(output_dir, "__write_test.tmp")
-can_write <- tryCatch({
-  writeLines("test", test_file, useBytes = TRUE)
-  unlink(test_file)
-  TRUE
-}, error = function(e) FALSE)
-
-if (!can_write) {
-  stop("输出文件夹不可写，请检查路径权限：\n", output_dir)
-}
+output_dir <- normalizePath(
+  output_dir,
+  winslash = "/",
+  mustWork = TRUE
+)
 
 
 # ============================================================
@@ -188,48 +176,54 @@ if (!all(file.exists(font_files))) {
 # 3. 页面及图形物理尺寸
 # ============================================================
 
-PAGE_WIDTH_MM  <- 950
-PAGE_HEIGHT_MM <- 400
+# 第一段原始代码的合并图导出尺寸为 width = 240 mm、height = 80 mm；
+# 三张图各占一个80 × 80 mm单元格。单张图也按80 × 80 mm导出。
+PAGE_WIDTH_MM  <- 240
+PAGE_HEIGHT_MM <- 80
 
-N_COLS <- 5
-N_ROWS <- 2
+N_COLS <- 3
+N_ROWS <- 1
 
 CELL_WIDTH_MM  <- PAGE_WIDTH_MM / N_COLS
 CELL_HEIGHT_MM <- PAGE_HEIGHT_MM / N_ROWS
 
-# 用户指定的XY绘图区尺寸
-PANEL_WIDTH_MM  <- 89.277
-PANEL_HEIGHT_MM <- 136.515
+# 第二段代码的单元格为190 × 200 mm，而第一段合并图每格为80 × 80 mm。
+# 为保持第二段手工布局的相对比例，将面板、标题框、文字和间距按0.4等比例缩小。
+# 线宽仍严格保留第二段代码的1.788 pt和0.886 pt，不随页面缩小。
+LAYOUT_SCALE <- 0.4
 
-# 用户指定的标题框尺寸
-TITLE_WIDTH_MM  <- 89.277
-TITLE_HEIGHT_MM <- 18.238
+PANEL_WIDTH_MM  <- 89.277 * LAYOUT_SCALE
+PANEL_HEIGHT_MM <- 136.515 * LAYOUT_SCALE
 
-# 文字字号，单位pt
-TITLE_FONT_PT <- 36.59
-AXIS_TEXT_PT  <- 28.4
-AXIS_TITLE_PT <- 28.4
+TITLE_WIDTH_MM  <- 89.277 * LAYOUT_SCALE
+TITLE_HEIGHT_MM <- 18.238 * LAYOUT_SCALE
 
-# 显著性P值字号：默认18 pt；若某一panel的原始Y轴范围内空间不足，
-# 仅该panel自动缩小字号，最小不低于10 pt。
-P_VALUE_FONT_PT <- 18
-P_VALUE_MIN_FONT_PT <- 10
-P_VALUE_FONT_STEP_PT <- 0.5
+# 文字字号按页面比例缩小，保证在80 × 80 mm单图中不溢出。
+TITLE_FONT_PT <- 36.59 * LAYOUT_SCALE
+AXIS_TEXT_PT  <- 28.4 * LAYOUT_SCALE
+AXIS_TITLE_PT <- 28.4 * LAYOUT_SCALE
+P_VALUE_FONT_PT <- 18 * LAYOUT_SCALE
 
-# 以下为紧凑标注的物理间距（mm）。
-# 采用较小的文字净间距、首条括号间距和顶部余量，尽量保留初始Y轴范围。
-P_VALUE_CLEARANCE_MM <- 0.35
+# P值与括号的间距也按0.4等比例缩小。
+P_VALUE_CLEARANCE_MM <- 1.5 * LAYOUT_SCALE
+
+# 按缩放后的P值字号计算Times New Roman文字的预留高度。
+# 原设置采用1.20倍字号高度，过度放大了括号层间距和Y轴上限；
+# 这里改为0.90倍字号高度。绘制时仍通过grid实际测量文字高度，
+# 因此该值主要用于预估Y轴顶部空间。
 P_VALUE_TEXT_HEIGHT_MM <- P_VALUE_FONT_PT * 25.4 / 72 * 0.90
-P_BRACKET_EXTRA_GAP_MM <- 0.25
+
+# 相邻显著性括号横线之间的物理间距：
+# 预留文字高度 + 文字/横线间距 + 等比例缩放后的额外空隙。
+P_BRACKET_EXTRA_GAP_MM <- 0.5 * LAYOUT_SCALE
 P_BRACKET_STEP_MM <- P_VALUE_TEXT_HEIGHT_MM +
   P_VALUE_CLEARANCE_MM + P_BRACKET_EXTRA_GAP_MM
-P_FIRST_BRACKET_GAP_MM <- 0.50
-P_VALUE_TOP_MARGIN_MM <- 0.50
 
-# 用于估算不同P值字号的物理文字高度；绘制时仍以grid实际字体度量为准。
-estimate_p_text_height_mm <- function(font_pt) {
-  font_pt * 25.4 / 72 * 0.90
-}
+# 最低一条显著性括号与数据最高点之间的物理间距
+P_FIRST_BRACKET_GAP_MM <- 2.5 * LAYOUT_SCALE
+
+# 最上方P值文字与绘图区顶部之间的预留空间
+P_VALUE_TOP_MARGIN_MM <- 2.5 * LAYOUT_SCALE
 
 # 线宽，用户提供单位为pt
 MAIN_LINE_PT  <- 1.788
@@ -265,8 +259,7 @@ MINOR_LINE_GRID <- pt_to_grid_lwd(MINOR_LINE_PT)
 GRID_MAJOR_COLOR <- "#EBEBEB"
 GRID_MINOR_COLOR <- "#EBEBEB"
 
-# 每个单元格中，X轴标签区域高度
-# 200 - 136.515 - 18.238 = 45.247 mm
+# 每个80 mm高单元格中，X轴标签区域高度自动计算。
 X_LABEL_ZONE_MM <- CELL_HEIGHT_MM -
   PANEL_HEIGHT_MM -
   TITLE_HEIGHT_MM
@@ -275,7 +268,7 @@ if (X_LABEL_ZONE_MM <= 0) {
   stop("页面高度不足以容纳指定的标题框和XY绘图区。")
 }
 
-# 绘图区在每个190 mm单元格中水平居中
+# 绘图区在每个80 mm单元格中水平居中
 PANEL_LEFT_IN_CELL_MM <- (
   CELL_WIDTH_MM - PANEL_WIDTH_MM
 ) / 2
@@ -284,11 +277,11 @@ PANEL_LEFT_IN_CELL_MM <- (
 TITLE_LEFT_IN_CELL_MM <- PANEL_LEFT_IN_CELL_MM
 
 # Y轴刻度数字和Y轴标题手工定位
-Y_TICK_LABEL_X_OFFSET_MM <- 4
-Y_AXIS_TITLE_X_OFFSET_MM <- 31
+Y_TICK_LABEL_X_OFFSET_MM <- 4 * LAYOUT_SCALE
+Y_AXIS_TITLE_X_OFFSET_MM <- 31 * LAYOUT_SCALE
 
 # X轴标签紧接绘图区底边
-X_LABEL_ANCHOR_OFFSET_MM <- 0.10
+X_LABEL_ANCHOR_OFFSET_MM <- 0.10 * LAYOUT_SCALE
 
 
 # ============================================================
@@ -345,115 +338,45 @@ group_labels <- c(
 
 
 # ============================================================
-# 5. 指标参数及最终顺序
+# 5. α多样性指标参数及最终顺序
 #
-# 顺序依据(a)-(j)连续编号：
-# 第一排：(a)-(e)
-# 第二排：(f)-(j)
+# 顺序与原始合并图一致：
+#   (a) Shannon
+#   (b) Pielou_e
+#   (c) ACE
 #
-# 第一项标题缩短为Siphoning：
-# 36.59 pt字体无法在89.277 mm标题框中完整容纳
-# "Siphoning_efficiency"；完整指标名称和单位保留在Y轴。
+# Y轴基础范围沿用第一段α多样性代码中的设置；
+# 若显著性标注需要额外空间，程序会像第二段代码一样自动扩展Y轴上限。
 # ============================================================
 
 plot_config <- list(
-  
-  Siphonage_efficiency = list(
+
+  shannon = list(
     tag = "(a)",
-    title = "Siphoning",
-    y_label = "Siphonage efficiency (ml/clam/h)",
-    ymax = 60,
-    break_by = 15,
-    digits = 0,
-    bar_width = 0.9
+    title = "Shannon",
+    y_label = "Shannon index of OTU level",
+    ymax = 3.25,
+    break_by = 0.5,
+    digits = 1,
+    bar_width = 0.8
   ),
-  
-  SOD = list(
+
+  Pielou_e = list(
     tag = "(b)",
-    title = "SOD",
-    y_label = "SOD activity (U/mgprot)",
-    ymax = 600,
-    break_by = 150,
-    digits = 0,
+    title = "Pielou_e",
+    y_label = "Pielou_e index of OTU level",
+    ymax = 0.65,
+    break_by = 0.1,
+    digits = 1,
     bar_width = 0.8
   ),
-  
-  CAT = list(
+
+  ace = list(
     tag = "(c)",
-    title = "CAT",
-    y_label = "CAT activity (U/mgprot)",
-    ymax = 6,
-    break_by = 1.5,
-    digits = 1,
-    bar_width = 0.8
-  ),
-  
-  GSH = list(
-    tag = "(d)",
-    title = "GSH",
-    y_label = "GSH content (μmol/gprot)",
-    ymax = 20,
-    break_by = 5,
-    digits = 0,
-    bar_width = 0.8
-  ),
-  
-  GSH_PX = list(
-    tag = "(e)",
-    title = "GSH_PX",
-    y_label = "GSH-Px activity (U/mgprot)",
-    ymax = 12,
-    break_by = 3,
-    digits = 0,
-    bar_width = 0.8
-  ),
-  
-  MDA = list(
-    tag = "(f)",
-    title = "MDA",
-    y_label = "MDA content (nmol/mgprot)",
-    ymax = 2.4,
-    break_by = 0.6,
-    digits = 1,
-    bar_width = 0.8
-  ),
-  
-  AchE = list(
-    tag = "(g)",
-    title = "AchE",
-    y_label = "AchE activity (U/mgprot)",
-    ymax = 2.8,
-    break_by = 0.7,
-    digits = 1,
-    bar_width = 0.8
-  ),
-  
-  LZM = list(
-    tag = "(h)",
-    title = "Lysozyme",
-    y_label = "Lysozyme activity (U/mgprot)",
-    ymax = 28,
-    break_by = 7,
-    digits = 0,
-    bar_width = 0.8
-  ),
-  
-  D_Lac = list(
-    tag = "(i)",
-    title = "D_Lac",
-    y_label = "D-Lac content (μmol/mgprot)",
-    ymax = 0.32,
-    break_by = 0.08,
-    digits = 2,
-    bar_width = 0.8
-  ),
-  
-  DAO = list(
-    tag = "(j)",
-    title = "DAO",
-    y_label = "DAO activity (U/g prot)",
-    ymax = 28,
-    break_by = 7,
+    title = "ACE",
+    y_label = "ACE index of OTU level",
+    ymax = 195,
+    break_by = 30,
     digits = 0,
     bar_width = 0.8
   )
@@ -475,6 +398,7 @@ dat_raw <- read.csv(
 )
 
 required_columns <- c(
+  "sample",
   "group",
   plot_order
 )
@@ -486,10 +410,44 @@ missing_columns <- setdiff(
 
 if (length(missing_columns) > 0) {
   stop(
-    "原始数据缺少以下列：",
+    "原始α多样性数据缺少以下列：",
     paste(missing_columns, collapse = ", ")
   )
 }
+
+# 保留样本编号，并检查每行是否对应唯一的独立样本。
+dat_raw$sample <- trimws(as.character(dat_raw$sample))
+
+if (anyNA(dat_raw$sample) || any(!nzchar(dat_raw$sample))) {
+  stop("sample列存在空值，请检查原始α多样性数据。")
+}
+
+if (anyDuplicated(dat_raw$sample)) {
+  stop(
+    "sample列存在重复样本编号：",
+    paste(unique(dat_raw$sample[duplicated(dat_raw$sample)]),
+          collapse = ", ")
+  )
+}
+
+# 第一段代码中的原始分组编码与第二段代码使用的组别名称对应关系：
+# G1 = MPP10；G2 = MP10；G3 = MPP1；G4 = CTR；G5 = MP1。
+# 同时兼容数据文件中已经写为CTR、MP1、MP10、MPP1、MPP10的情况。
+group_map <- c(
+  G1 = "MPP10",
+  G2 = "MP10",
+  G3 = "MPP1",
+  G4 = "CTR",
+  G5 = "MP1"
+)
+
+group_original <- trimws(as.character(dat_raw$group))
+
+dat_raw$group <- ifelse(
+  group_original %in% names(group_map),
+  unname(group_map[group_original]),
+  group_original
+)
 
 dat_raw$group <- factor(
   trimws(as.character(dat_raw$group)),
@@ -499,10 +457,15 @@ dat_raw$group <- factor(
 if (anyNA(dat_raw$group)) {
   stop(
     "group列中存在无法识别的组别。",
-    "\n应为：CTR、MP1、MP10、MPP1、MPP10。"
+    "\\n原始组别应为G1、G2、G3、G4、G5，",
+    "或已经转换为CTR、MP1、MP10、MPP1、MPP10。"
   )
 }
 
+# 三个α多样性指标均要求五组各有3个独立生物学重复；
+# 每个指标均执行相同的t1way总体检验和lincon全部10组两两比较，
+# 并按未校正原始P < 0.05标注实际P值。
+# make_panel()中还会对每个指标的有效数据再次逐组检查。
 cat("\n========== 原始数据分组 ==========\n")
 print(table(dat_raw$group))
 
@@ -733,10 +696,9 @@ make_panel <- function(variable, config) {
   }
   
   # ----------------------------------------------------------
-  # 8.6 计算数据顶部，并优先保留初始Y轴范围
+  # 8.6 自动计算Y轴上限和括号高度
   # ----------------------------------------------------------
-  # data_top必须在计算base_y_upper和显著性括号位置之前定义。
-  # 同时考虑Mean + SD误差棒上端及全部原始观测值，避免任何数据元素被裁切。
+  
   data_top <- max(
     c(
       summary_data$Mean + summary_data$SD,
@@ -744,138 +706,77 @@ make_panel <- function(variable, config) {
     ),
     na.rm = TRUE
   )
-
-  if (!is.finite(data_top)) {
-    stop(variable, "：无法计算有效的data_top，请检查原始数据。")
-  }
-
-  # 先以plot_config中最初设定的ymax作为Y轴上限。
-  # 若原始数据（Mean + SD或单个原始值）本身超过该范围，才因数据本身上调。
-  # 显著性括号优先使用data_top以上的空白区域；空间不足时逐步缩小该panel的
-  # P值字号（18 pt至10 pt），而不是先扩大Y轴。
-  # 只有10 pt仍无法容纳时，才按所需空间对Y轴上限作最小幅度扩展。
-
-  base_y_upper <- max(
-    config$ymax,
-    ceiling(data_top / config$break_by) * config$break_by
-  )
-
-  p_font_pt <- P_VALUE_FONT_PT
-  p_clearance_mm <- P_VALUE_CLEARANCE_MM
-  p_text_height_mm <- estimate_p_text_height_mm(p_font_pt)
-  p_bracket_step_mm <- p_text_height_mm +
-    p_clearance_mm + P_BRACKET_EXTRA_GAP_MM
-
+  
   if (nrow(sig) > 0) {
-
+    
+    # 根据实际需要的括号层数，而不是显著比较总数，
+    # 计算从data_top到最上方P值文字所需的物理高度。
     n_lanes <- max(sig$lane)
-
-    # 在不改变Y轴上限的情况下，计算data_top以上可用的物理高度。
-    available_height_mm <- (
-      (base_y_upper - data_top) / base_y_upper
-    ) * PANEL_HEIGHT_MM
-
-    # 从默认18 pt开始逐级尝试，选择在初始Y轴范围内能够容纳的最大字号。
-    candidate_fonts <- seq(
-      P_VALUE_FONT_PT,
-      P_VALUE_MIN_FONT_PT,
-      by = -P_VALUE_FONT_STEP_PT
-    )
-
-    selected_font <- NA_real_
-    selected_text_height <- NA_real_
-    selected_step <- NA_real_
-
-    for (font_try in candidate_fonts) {
-      text_height_try <- estimate_p_text_height_mm(font_try)
-      step_try <- text_height_try +
-        p_clearance_mm + P_BRACKET_EXTRA_GAP_MM
-
-      required_height_try <-
-        P_FIRST_BRACKET_GAP_MM +
-        (n_lanes - 1) * step_try +
-        p_clearance_mm +
-        text_height_try +
-        P_VALUE_TOP_MARGIN_MM
-
-      if (required_height_try <= available_height_mm) {
-        selected_font <- font_try
-        selected_text_height <- text_height_try
-        selected_step <- step_try
-        break
-      }
-    }
-
-    if (is.finite(selected_font)) {
-      # 原始ymax足以容纳全部标注：保持Y轴范围不变。
-      y_upper <- base_y_upper
-      p_font_pt <- selected_font
-      p_text_height_mm <- selected_text_height
-      p_bracket_step_mm <- selected_step
-
-    } else {
-      # 即使字号缩小到下限仍放不下时，才计算最小必要Y轴扩展量。
-      p_font_pt <- P_VALUE_MIN_FONT_PT
-      p_text_height_mm <- estimate_p_text_height_mm(p_font_pt)
-      p_bracket_step_mm <- p_text_height_mm +
-        p_clearance_mm + P_BRACKET_EXTRA_GAP_MM
-
-      required_height_mm <-
-        P_FIRST_BRACKET_GAP_MM +
-        (n_lanes - 1) * p_bracket_step_mm +
-        p_clearance_mm +
-        p_text_height_mm +
-        P_VALUE_TOP_MARGIN_MM
-
-      reserved_fraction <- required_height_mm / PANEL_HEIGHT_MM
-
-      if (reserved_fraction >= 0.80) {
-        stop(
-          variable,
-          "：显著性标注过多，即使P值字号缩小至",
-          P_VALUE_MIN_FONT_PT,
-          " pt仍无法合理容纳。"
-        )
-      }
-
-      y_upper_needed <- data_top / (1 - reserved_fraction)
-
-      # 只按较细的break_by/4步长上调，避免按整格break_by上调造成过度扩展。
-      y_rounding_step <- config$break_by / 4
-      y_upper <- max(
-        base_y_upper,
-        ceiling(y_upper_needed / y_rounding_step) * y_rounding_step
+    
+    reserved_height_mm <-
+      P_FIRST_BRACKET_GAP_MM +
+      (n_lanes - 1) * P_BRACKET_STEP_MM +
+      P_VALUE_CLEARANCE_MM +
+      P_VALUE_TEXT_HEIGHT_MM +
+      P_VALUE_TOP_MARGIN_MM
+    
+    reserved_fraction <- reserved_height_mm /
+      PANEL_HEIGHT_MM
+    
+    if (reserved_fraction >= 0.80) {
+      stop(
+        variable,
+        "：显著性标注数量过多，预留高度超过绘图区可用高度。"
       )
     }
-
-    # 根据最终Y轴范围，将括号的物理间距换算为数据坐标。
+    
+    y_upper_needed <- data_top /
+      (1 - reserved_fraction)
+    
+    y_upper <- max(
+      config$ymax,
+      ceiling(
+        y_upper_needed / config$break_by
+      ) * config$break_by
+    )
+    
+    # 将物理mm间距换算成当前Y轴的数据坐标。
     first_gap_data <- (
-      P_FIRST_BRACKET_GAP_MM / PANEL_HEIGHT_MM
+      P_FIRST_BRACKET_GAP_MM /
+        PANEL_HEIGHT_MM
     ) * y_upper
-
+    
     bracket_step_data <- (
-      p_bracket_step_mm / PANEL_HEIGHT_MM
+      P_BRACKET_STEP_MM /
+        PANEL_HEIGHT_MM
     ) * y_upper
-
+    
     label_center_offset_data <- (
-      p_clearance_mm + p_text_height_mm / 2
+      P_VALUE_CLEARANCE_MM +
+        P_VALUE_TEXT_HEIGHT_MM / 2
     ) / PANEL_HEIGHT_MM * y_upper
-
+    
     sig$y_position <- data_top +
       first_gap_data +
       (sig$lane - 1) * bracket_step_data
-
-    sig$label_y <- sig$y_position + label_center_offset_data
-
+    
+    # label_y为文字中心位置；绘制时再按实际字体高度定位。
+    sig$label_y <- sig$y_position +
+      label_center_offset_data
+    
   } else {
-
+    
     sig$y_position <- numeric(0)
     sig$label_y <- numeric(0)
-
-    # 没有显著性标注时，严格保留初始ymax（除非数据本身超出）。
-    y_upper <- base_y_upper
+    
+    y_upper <- max(
+      config$ymax,
+      ceiling(
+        data_top * 1.05 / config$break_by
+      ) * config$break_by
+    )
   }
-
+  
   y_breaks <- seq(
     0,
     y_upper,
@@ -1146,16 +1047,13 @@ make_panel <- function(variable, config) {
     lincon = lincon_result,
     significant = sig,
     y_upper = y_upper,
-    y_breaks = y_breaks,
-    p_font_pt = p_font_pt,
-    p_clearance_mm = p_clearance_mm,
-    p_bracket_step_mm = p_bracket_step_mm
+    y_breaks = y_breaks
   )
 }
 
 
 # ============================================================
-# 9. 生成全部10个指标
+# 9. 生成全部3个α多样性指标
 # ============================================================
 
 all_results <- lapply(
@@ -1282,15 +1180,15 @@ draw_editable_p_value <- function(
 
 
 #
-# 每个单元格190 × 200 mm。
+# 每个单元格80 × 80 mm。
 #
-# 纵向严格分配：
-#   标题框：18.238 mm
-#   XY面板：136.515 mm
-#   X轴标签区：45.247 mm
+# 纵向按0.4比例分配：
+#   标题框：7.2952 mm
+#   XY面板：54.606 mm
+#   X轴标签区：18.0988 mm
 #
 # 横向：
-#   panel居中，panel宽89.277 mm
+#   panel居中，panel宽35.7108 mm
 #   Y轴标题和刻度放在panel左侧
 #
 # 不会把整张图缩放到单元格。
@@ -1437,7 +1335,7 @@ draw_one_chart <- function(
   # P值文字在同一张图的页面坐标系中绘制：
   #   P为斜体；
   #   数字和比较符号为常规体；
-  #   字号按panel自适应；文字下缘与括号横线保留紧凑净间距。
+  #   字号按0.4比例缩小；文字下缘与括号横线保留等比例净间距。
   # ----------------------------------------------------------
   
   if (nrow(result$significant) > 0) {
@@ -1454,7 +1352,7 @@ draw_one_chart <- function(
         x_fraction * PANEL_WIDTH_MM
       
       # 横线在页面坐标中的实际位置。
-      # P值文字函数会测量实际字体高度，并按panel设定的紧凑净间距放置。
+      # P值文字函数会测量实际字体高度，并在横线上方保留等比例缩放后的净间距。
       bracket_y_mm <- panel_bottom +
         (one_sig$y_position / result$y_upper) *
         PANEL_HEIGHT_MM
@@ -1463,8 +1361,8 @@ draw_one_chart <- function(
         center_x_mm = p_x_mm,
         bracket_y_mm = bracket_y_mm,
         suffix = one_sig$P_suffix,
-        fontsize = result$p_font_pt,
-        clearance_mm = result$p_clearance_mm
+        fontsize = P_VALUE_FONT_PT,
+        clearance_mm = P_VALUE_CLEARANCE_MM
       )
     }
   }
@@ -1498,7 +1396,7 @@ draw_one_chart <- function(
     )
     
     # 组别名称
-    # 28.4 pt，倾斜30度
+    # 11.36 pt，倾斜30度（28.4 pt × 0.4）
     # 右上角对齐至对应刻度位置
     grid.text(
       label = unname(
@@ -1889,7 +1787,7 @@ get_current_script_path <- function() {
 
 script_backup_path <- file.path(
   output_dir,
-  "Fig1_WRS2_script_backup.R"
+  "α多样性_WRS2_Illustrator可编辑文字_240x80mm.R"
 )
 
 current_script_path <- get_current_script_path()
@@ -1932,18 +1830,18 @@ if (!is.null(current_script_path)) {
 # Illustrator主要编辑文件：原生SVG文字对象
 svg_file <- file.path(
   output_dir,
-  "Fig1_editable.svg"
+  "α多样性_240x80mm_Illustrator可编辑文字.svg"
 )
 
 # 辅助PDF：Cairo输出，保留字体文字对象
 pdf_file <- file.path(
   output_dir,
-  "Fig1_editable.pdf"
+  "α多样性_240x80mm_Cairo可编辑文字.pdf"
 )
 
 png_file <- file.path(
   output_dir,
-  "Fig1_preview.png"
+  "α多样性_240x80mm_预览.png"
 )
 
 
@@ -2018,12 +1916,19 @@ if (requireNamespace("pdftools", quietly = TRUE)) {
 #   * 不使用showtext；
 #   * 不将Times New Roman文字转为path；
 #   * 标题、坐标轴、P值均为SVG文字对象；
-#   * P字符单独设置italic，数值部分为plain。
+#   * P字符单独设置italic，数值部分为plain；
+#   * 页面尺寸为240 × 80 mm，与第一段代码合并图一致。
 #
 # 在Illustrator中建议使用 File > Open 打开此SVG，
 # 不要选择此前的“字体轮廓/矢量路径”文件。
 # 电脑需安装Times New Roman。
 # ============================================================
+
+# 再次确认输出目录存在，避免输出目录临时不可用导致SVG未落盘。
+dir.create(dirname(svg_file), recursive = TRUE, showWarnings = FALSE)
+if (!dir.exists(dirname(svg_file))) {
+  stop("SVG输出目录不存在或不可写：\n", dirname(svg_file))
+}
 
 svglite::svglite(
   file = svg_file,
@@ -2042,6 +1947,14 @@ tryCatch(
     grDevices::dev.off()
   }
 )
+
+# 检查SVG是否成功写入磁盘；若失败，给出明确路径诊断。
+if (!file.exists(svg_file)) {
+  stop(
+    "SVG设备已关闭，但没有找到导出文件：\n", svg_file,
+    "\n请检查输出目录权限、输出目录状态及路径是否可访问。"
+  )
+}
 
 # 检查SVG中是否存在原生文字元素。
 svg_lines <- readLines(
@@ -2119,15 +2032,15 @@ tryCatch(
 
 
 # ============================================================
-# 18. 输出10张单独PDF
+# 18. 输出3张单独PDF
 #
-# 每张单图页面：190 × 200 mm
-# panel及标题框保持指定的实际尺寸。
+# 每张单图页面：80 × 80 mm
+# panel及标题框按第二段代码的布局比例缩小后放置。
 # ============================================================
 
 single_dir <- file.path(
   output_dir,
-  "单张指标PDF"
+  "单张α多样性指标PDF_80x80mm"
 )
 
 dir.create(
@@ -2224,7 +2137,7 @@ write.csv(
   lincon_results,
   file.path(
     output_dir,
-    "WRS2_lincon全部10组两两比较_原始未校正P值.csv"
+    "WRS2_lincon每个指标全部10组两两比较_原始未校正P值.csv"
   ),
   row.names = FALSE,
   fileEncoding = "UTF-8"
@@ -2254,31 +2167,6 @@ write.csv(
 # ============================================================
 # 20. 保存绘图参数记录
 # ============================================================
-
-# 单独记录每个panel最终采用的Y轴上限、括号层数和P值字号，
-# 便于核对哪些panel保留了最初始的ymax，哪些因数据/标注空间不足而微调。
-y_axis_annotation_table <- bind_rows(
-  lapply(names(all_results), function(nm) {
-    x <- all_results[[nm]]
-    data.frame(
-      Indicator = nm,
-      Configured_Ymax = x$config$ymax,
-      Final_Ymax = x$y_upper,
-      Significant_comparisons = nrow(x$significant),
-      Bracket_lanes = if (nrow(x$significant) > 0) max(x$significant$lane) else 0,
-      P_value_font_pt = if (nrow(x$significant) > 0) x$p_font_pt else NA_real_,
-      Bracket_step_mm = if (nrow(x$significant) > 0) x$p_bracket_step_mm else NA_real_,
-      stringsAsFactors = FALSE
-    )
-  })
-)
-
-write.csv(
-  y_axis_annotation_table,
-  file.path(output_dir, "各指标Y轴范围及显著性标注参数.csv"),
-  row.names = FALSE,
-  fileEncoding = "UTF-8"
-)
 
 parameter_table <- data.frame(
   Parameter = c(
@@ -2319,19 +2207,19 @@ parameter_table <- data.frame(
   ),
   
   Value = c(
-    "950 mm",
-    "400 mm",
-    "5 columns × 2 rows",
-    "190 mm",
-    "200 mm",
-    "89.277 mm",
-    "136.515 mm",
-    "89.277 mm",
-    "18.238 mm",
-    "36.59 pt, bold",
-    "28.4 pt",
-    "28.4 pt, bold",
-    "28.4 pt",
+    "240 mm",
+    "80 mm",
+    "3 columns × 1 row",
+    "80 mm",
+    "80 mm",
+    paste0(round(PANEL_WIDTH_MM, 4), " mm"),
+    paste0(round(PANEL_HEIGHT_MM, 4), " mm"),
+    paste0(round(TITLE_WIDTH_MM, 4), " mm"),
+    paste0(round(TITLE_HEIGHT_MM, 4), " mm"),
+    paste0(round(TITLE_FONT_PT, 3), " pt, bold"),
+    paste0(round(AXIS_TEXT_PT, 3), " pt"),
+    paste0(round(AXIS_TITLE_PT, 3), " pt, bold"),
+    paste0(round(AXIS_TEXT_PT, 3), " pt"),
     "30 degrees",
     "1.788 pt",
     "0.886 pt",
@@ -2343,15 +2231,15 @@ parameter_table <- data.frame(
     "Cairo PDF",
     "svglite native SVG <text> elements",
     "Cairo PDF embedded font text",
-    "18 pt default; adaptive down to 10 pt only when needed to preserve configured Y-axis range",
+    paste0(round(P_VALUE_FONT_PT, 3), " pt"),
     "Italic P; regular operator and values",
-    paste0(P_VALUE_CLEARANCE_MM, " mm; panel-specific"),
-    "Panel-specific; based on selected P-value font size and available Y-axis headroom",
+    paste0(round(P_VALUE_CLEARANCE_MM, 3), " mm minimum clear gap"),
+    paste0(round(P_BRACKET_STEP_MM, 2), " mm, compact spacing"),
     "Non-overlapping x-intervals share a lane; overlapping intervals use separate lanes",
     "White fill, black outline",
     "Mean ± SD",
     "WRS2 t1way (tr = 0.20) + lincon",
-    "No multiple-comparison adjustment for 10 pairwise comparisons per indicator",
+    "No multiple-comparison adjustment for 10 pairwise comparisons per α-diversity index",
     "Unadjusted raw P values, no stars"
   ),
   
@@ -2375,7 +2263,7 @@ write.csv(
 
 cat("\n")
 cat("====================================================\n")
-cat("生理生化指标柱状图：手工物理布局版完成\n")
+cat("肠道微生物16S α多样性柱状图：手工物理布局版完成\n")
 cat("====================================================\n")
 
 cat(
@@ -2386,7 +2274,8 @@ cat(
   " mm\n"
 )
 
-cat("排版：5列 × 2行\n")
+cat("排版：3列 × 1行；合并图240 × 80 mm；单图80 × 80 mm\n")
+cat("布局缩放比例：", LAYOUT_SCALE, "（相对第二段代码的190 × 200 mm单元格）\n", sep = "")
 
 cat(
   "XY绘图区：",
@@ -2408,8 +2297,7 @@ cat("字体：Times New Roman\n")
 cat("Illustrator主要编辑文件：svglite原生SVG文字对象\n")
 cat("辅助PDF：Cairo PDF，保留字体文字对象\n")
 cat("不使用showtext，不输出字体轮廓路径\n")
-cat("P值字号：默认", P_VALUE_FONT_PT, " pt；根据各panel上部空间自适应缩小，最低", P_VALUE_MIN_FONT_PT, " pt；仅P字符斜体\n", sep = "")
-cat("Y轴范围：优先保留plot_config中最初设置的ymax；仅在数据或标注确实放不下时最小幅度上调\n")
+cat("P值字号：", P_VALUE_FONT_PT, " pt；仅P字符斜体；横线净间距：", P_VALUE_CLEARANCE_MM, " mm\n")
 cat("主线宽：", MAIN_LINE_PT, " pt；次线宽：", MINOR_LINE_PT, " pt\n")
 cat("主/次网格线颜色：#EBEBEB\n")
 cat("显著性括号线宽：", MAIN_LINE_PT, " pt（与主轴线一致）\n")
@@ -2417,9 +2305,8 @@ cat("panel裁剪：关闭；不为各geom图层分别建立裁剪视图\n")
 cat("柱高：Mean；误差棒：SD\n")
 cat("散点：白色填充、黑色边框\n")
 cat("统计：WRS2 t1way() + lincon()；tr = ", TRIM_LEVEL, "\n", sep = "")
-cat("两两比较：10组全部配对；P值不进行多重比较校正\n")
+cat("两两比较：每个α多样性指标内五组全部10组配对；P值不进行多重比较校正\n")
 cat("显著性标注：原始未校正P值；不使用星号\n")
-cat("各指标最终Y轴范围及P值字号见：各指标Y轴范围及显著性标注参数.csv\n")
 cat("注意：每组n = 3时，tr = 0.20不实际截尾观测值\n\n")
 
 cat("输出文件夹：\n")

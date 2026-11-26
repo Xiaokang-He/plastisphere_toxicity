@@ -5,12 +5,8 @@
 .Ruserdata
 *.Rproj.user
 
-# Local inputs and generated outputs (keep README/.gitkeep)
-data/input/*
-!data/input/README.md
-!data/input/.gitkeep
-results/*
-!results/.gitkeep
+# Generated results (keep source scripts and input data in each Figure folder)
+Figure_*/results/
 
 # OS/editor files
 .DS_Store
