@@ -11,3 +11,13 @@
 - `Fig5l_Network_Robustness.csv`: natural-connectivity robustness data.
 
 Panel-g nodes and edges were exported from Majorbio Cloud. Panels h–k and l were extracted from the source workbook.
+
+## Reproduce Fig. 5f
+
+Run the following command from the repository root with `ggplot2`, `ggalluvial`, and Cairo graphics support.
+
+```sh
+Rscript Figure_5/Fig5f.R
+```
+
+The script reads the supplied relative abundances as percentages and saves `Fig5f.pdf` and a 600 dpi `Fig5f.png` in `Figure_5/results/`.

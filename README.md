@@ -21,7 +21,7 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 | Fig. 2 | a; `Figure_2/Fig2.R` is present | Panel b GSEA plots were exported from Majorbio Cloud. |
 | Fig. 3 | a–b; `Figure_3/Fig3.R` is present | Panels c–d were constructed from Majorbio-exported DEP data using STRING and visualized/exported with Cytoscape; no R script is supplied for those panels. |
 | Fig. 4 | c; `Figure_4/Fig4c.R` is present | The heatmap uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud. |
-| Fig. 5 | a–l data are available; current `Figure_5/Fig5.R` covers alpha-diversity panels a–c | Panel g node and edge data were exported from Majorbio Cloud. Topology summaries and robustness data are supplied separately. |
+| Fig. 5 | a–c and f; `Figure_5/Fig5.R` and `Figure_5/Fig5f.R` are present | Data for panels a–l are available. Panel g node and edge data were exported from Majorbio Cloud. Topology summaries and robustness data are supplied separately. |
 | Fig. 6 | heatmap; script to be added | ReporterScore values were calculated/exported by Majorbio Cloud; code renders the heatmap. |
 | Fig. 7 | a–e; script to be added | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e include separate Pearson and Mantel result tables. |
 
@@ -31,7 +31,8 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 - `Figure_2/Fig2.R`: GO and KEGG enrichment bubble plot, panel a.
 - `Figure_3/Fig3.R`: proteomic functional enrichment, panels a–b.
 - `Figure_4/Fig4c.R`: transcriptome-proteome Pearson correlation heatmap, panel c.
-- `Figure_5/Fig5.R`: gut 16S alpha diversity, panels a–c. The additional Fig. 5 input tables are provided for subsequent code completion.
+- `Figure_5/Fig5.R`: gut 16S alpha diversity, panels a–c.
+- `Figure_5/Fig5f.R` plots genus-level relative abundance for panel f.
 
 ## Input data
 
