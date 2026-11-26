@@ -1,7 +1,18 @@
-# Main Fig. 6
+# Main Fig. 6 — Gut Microbial KEGG Pathway Enrichment
 
-This folder is reserved for the R script and all input data required to generate main-text Fig. 6.
+## Data provenance
 
-Place the figure-specific R script (named `Fig6.R`) and every input data file directly in this folder. Do not create separate code or data subfolders.
+ReporterScore values and the associated pathway-level data were calculated and exported from Majorbio Cloud. The R script uses these exported values to generate the heatmap. It does not recalculate the ReporterScores.
 
-The analysis description, required packages, input-file names, and run instructions will be added when the script and data are provided.
+## Files
+
+- `Fig6.R`: R script for heatmap visualization (to be added).
+- The Majorbio-exported ReporterScore table and any other figure-specific input files will be stored directly in this folder.
+
+## Run
+
+After the script and input files have been added, run from the repository root in RStudio:
+
+```r
+source("Figure_6/Fig6.R")
+```

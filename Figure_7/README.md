@@ -1,7 +1,19 @@
-# Main Fig. 7
+# Main Fig. 7 — Gut Microbiota–Host Associations
 
-This folder is reserved for the R script and all input data required to generate main-text Fig. 7.
+## Figure panels and provenance
 
-Place the figure-specific R script (named `Fig7.R`) and every input data file directly in this folder. Do not create separate code or data subfolders.
+- **Panels a–c:** Broad microbial–host association network data were calculated by Majorbio Cloud. The R script uses the exported network data to render the corresponding network diagrams.
+- **Panels d–e:** Associations between gut microbial community metrics and host biochemical biomarkers, together with pairwise Pearson correlations among biochemical indicators. The calculation and input-data provenance will be specified after the corresponding R script is checked.
 
-The analysis description, required packages, input-file names, and run instructions will be added when the script and data are provided.
+## Files
+
+- `Fig7.R`: R script for panels a–e (to be added).
+- Majorbio-exported network data for panels a–c and the figure-specific input data required for panels d–e will be stored directly in this folder.
+
+## Run
+
+After the script and input files have been added, run from the repository root in RStudio:
+
+```r
+source("Figure_7/Fig7.R")
+```
