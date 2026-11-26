@@ -53,7 +53,6 @@ Each figure folder README provides panel-specific input, package, and output det
 
 - Figure-specific CSV inputs are stored alongside their corresponding scripts.
 - `data_manifest.csv` provides a file-level inventory, including source worksheet, panel coverage, dimensions, and the current committed file size in bytes.
-- `DATA_PROVENANCE_AND_QA.md` describes the source data, data-preparation steps, and quality-control notes, including any item that remains pending source verification.
 - CSV files use UTF-8 encoding (including UTF-8 BOM where applicable); scripts specify the relevant encoding when reading input files.
 
 The supplied datasets are prepared for figure reproduction. They do not contain raw sequencing reads or replace the complete underlying transcriptomic, proteomic, 16S, or metagenomic datasets.
