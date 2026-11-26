@@ -4,7 +4,7 @@
 
 ## Reproducing the heatmap
 
-Run the script from the repository root or the `Figure_6` folder:
+Run the script from the repository root:
 
 ```sh
 Rscript Figure_6/Fig6.R
