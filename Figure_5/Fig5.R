@@ -4,7 +4,7 @@
 
 library(grid)
 
-input_name <- "Gut_16S_Alpha_Diversity.csv"
+input_name <- "Fig5a-c_Gut_16S_Alpha_Diversity.csv"
 figure_dir <- if (file.exists(file.path("Figure_5", input_name))) "Figure_5" else "."
 output_dir <- file.path(figure_dir, "results", "Fig5")
 dat <- read.csv(file.path(figure_dir, input_name),
