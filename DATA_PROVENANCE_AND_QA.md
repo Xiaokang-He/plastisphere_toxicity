@@ -12,7 +12,7 @@ The cleaned CSV datasets were prepared from an 18-worksheet source workbook titl
 - Split the Fig. 5g worksheet into node and edge tables for network topology calculations.
 - Extracted the alpha-diversity data block from the Fig. 5a–e worksheet.
 - Split Fig. 7a–c by panel and Fig. 7de into Pearson/Mantel tables, then panels d/e.
-- Added R-compatible group codes to Fig. 1 and Fig. 5 sample-level tables. No measured values or statistical results were recalculated.
+- Added R-compatible group codes to Fig. 1 and Fig. 5 sample-level tables. No measured values or imported enrichment/association statistics were recalculated during CSV preparation. Fig. 5 network topology and robustness metrics are calculated by the corresponding R scripts from the supplied node and edge tables.
 
 ## Cross-check notes
 
