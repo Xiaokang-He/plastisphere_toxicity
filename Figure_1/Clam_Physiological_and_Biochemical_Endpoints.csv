@@ -1,4 +1,4 @@
-record_number,sample,group,Siphonage_efficiency,SOD,CAT,GSH,GSH_PX,MDA,AchE,lysozyme,D_Lac (μmol/mg prot),DAO
+record_number,sample,group,Siphonage_efficiency,SOD,CAT,GSH,GSH_PX,MDA,AchE,lysozyme,D_Lac,DAO
 1,Control_1,CTR,24.72,438.79,3.05,4.46,4.553,0.676,0.859,13.445,0.115,9.556
 2,Control_2,CTR,23.12,428.33,4.191,4.278,4.17,0.84,0.832,13.957,0.13,10.458
 3,Control_3,CTR,27.35,467.15,4.418,3.602,4.335,0.702,0.783,11.02,0.129,11.107
