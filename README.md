@@ -18,7 +18,7 @@ The repository is organized by main-text figure. Each `Figure_1/`–`Figure_7/` 
 | `Figure_4/` | `Fig4ab.R` — panels a–b; `Fig4c.R` — panel c | Panels a–b use the supplied nine-quadrant input tables. Panel c uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud; the R script renders the heatmap. |
 | `Figure_5/` | `Fig5.R` — panels a–c; `Fig5f.R` — panel f; `Fig5h-k.R` — panels h–k; `Fig5l.R` — panel l | Panels d–e use PCoA/NMDS results generated in Majorbio Cloud. Panel g is a Majorbio-generated co-occurrence network laid out and rendered in Gephi. The exported node and edge tables are supplied as inputs for the R calculations in panels h–l. |
 | `Figure_6/` | `Fig6.R` — KEGG ReporterScore heatmap | ReporterScore values and pathway metadata were exported from Majorbio Cloud. The R script visualizes these values; it does not recalculate ReporterScores. |
-| `Figure_7/` | `Fig7.R` — panels a–c | Panels a–c use Majorbio-exported association results for R-based visualization. Pearson, Mantel, and sample-level input tables for panels d–e are also supplied, but no R plotting script for panels d–e is included. |
+| `Figure_7/` | `Fig7.R` — panels a–c; `Fig7d_Plastisphere.R` — panel d; `Fig7e_Microplastic.R` — panel e | Panels a–c use Majorbio-exported association results for R-based visualization. Panels d–e are generated from four sample-level CSV inputs; the scripts calculate Pearson correlations among host biomarkers and pairwise Mantel associations between gut microbiota metrics and host biomarkers. |
 
 ## Running the scripts
 
@@ -43,6 +43,8 @@ Rscript Figure_5/Fig5h-k.R
 Rscript Figure_5/Fig5l.R
 Rscript Figure_6/Fig6.R
 Rscript Figure_7/Fig7.R
+Rscript Figure_7/Fig7d_Plastisphere.R
+Rscript Figure_7/Fig7e_Microplastic.R
 ```
 
 Each figure folder README provides panel-specific input, package, and output details. Some scripts require Cairo graphics support; see the relevant folder README before running them.

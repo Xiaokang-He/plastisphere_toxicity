@@ -1,22 +1,36 @@
 # Figure 7 — Gut Microbiota–Host Associations
 
-## Sample-level inputs for panels d–e
-
-- `Gut_Microbiota_Metrics_Plastisphere.csv` and `Host_Biochemical_Biomarkers_Plastisphere.csv`: matched sample-level inputs for panel d (Control, Plastisphere_Low and Plastisphere_High).
-- `Gut_Microbiota_Metrics_Microplastic.csv` and `Host_Biochemical_Biomarkers_Microplastic.csv`: matched sample-level inputs for panel e (Control, Microplastic_Low and Microplastic_High).
-
-The `Sample` column uses the manuscript group names in full: `Control`, `Microplastic_Low`, `Microplastic_High`, `Plastisphere_Low` and `Plastisphere_High`. Numeric observations and sample order are retained from the supplied CSV files.
-
-## Association-result tables
+## Panels a–c: association networks
 
 - `Fig7a_Shared_Associations.csv`: panel a shared associations.
 - `Fig7b_Microplastic_Specific_Associations.csv`: panel b microplastic-specific associations.
 - `Fig7c_Plastisphere_Specific_Associations.csv`: panel c plastisphere-specific associations.
-- `Fig7d_Pearson_Biomarker_Correlations.csv` and `Fig7e_Pearson_Biomarker_Correlations.csv`: Pearson correlations among host biochemical biomarkers for panels d and e.
-- `Fig7d_Mantel_Microbiota_Biomarker_Associations.csv` and `Fig7e_Mantel_Microbiota_Biomarker_Associations.csv`: Mantel associations between gut microbiota metrics and host biochemical biomarkers for panels d and e.
-
-Panels a–c use Majorbio-exported association results for code-based visualization. The panel d/e result tables retain the source-workbook statistics.
-
-## Reproducing panels a–c
 
 Run `Fig7.R` from the repository root or the `Figure_7` folder. The script reads the three association CSV files in this folder and saves the PDF and PNG outputs to `Figure_7/results/Fig7/` (or `results/Fig7/` when run from this folder).
+
+## Panels d–e: microbiota–biomarker associations
+
+Panel d represents the plastisphere exposure comparison, and panel e represents the microplastic exposure comparison. Each panel uses matched sample-level inputs for the three groups (Control, Low and High; three samples per group).
+
+### Panel d — Plastisphere
+
+- `Fig7d_Gut_Microbiota_Metrics_Plastisphere.csv`: Shannon, Pielou, ACE and average-degree metrics.
+- `Fig7d_Host_Biochemical_Biomarkers_Plastisphere.csv`: host biochemical biomarkers.
+- `Fig7d_Plastisphere.R`: plotting and statistical-analysis script.
+
+### Panel e — Microplastic
+
+- `Fig7e_Gut_Microbiota_Metrics_Microplastic.csv`: Shannon, Pielou, ACE and average-degree metrics.
+- `Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv`: host biochemical biomarkers.
+- `Fig7e_Microplastic.R`: plotting and statistical-analysis script.
+
+The scripts calculate Pearson correlations among the nine host biochemical biomarkers and pairwise Mantel tests between each gut microbiota metric and each host biomarker. Mantel tests use 999 permutations. The scripts retain the plotting settings in the supplied source code and export separate PDF files for panels d and e.
+
+Run from the repository root:
+
+```sh
+Rscript Figure_7/Fig7d_Plastisphere.R
+Rscript Figure_7/Fig7e_Microplastic.R
+```
+
+Alternatively, change the working directory to `Figure_7/` and run the corresponding `.R` file directly. Required packages are `ggplot2`, `dplyr` and `vegan`.
