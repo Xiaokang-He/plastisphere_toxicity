@@ -15,7 +15,7 @@ From the repository root in RStudio:
 source("Figure_1/Fig1.R")
 ```
 
-The script reads the input CSV from this folder and writes generated figures and analysis outputs to `Figure_1/results/`.
+The script reads the input CSV from this folder and writes generated figures and analysis outputs to `Figure_1/results/Fig1/`.
 
 ## Requirements
 
