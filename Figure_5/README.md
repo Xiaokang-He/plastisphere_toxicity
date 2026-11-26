@@ -56,6 +56,8 @@ Rscript Figure_5/Fig5h-k.R
 
 Output: `Figure_5/results/Fig5h-k_Network_Topology.pdf`.
 
+**Package compatibility:** `ggpattern` requires a compatible `ggplot2` version. If it fails to load with a namespace/version error, update `ggplot2` to meet the installed `ggpattern` dependency and reinstall `ggpattern`.
+
 ### Panel l: Network robustness
 
 Required package: `ggplot2` (the script also uses R's built-in `grid` package).
