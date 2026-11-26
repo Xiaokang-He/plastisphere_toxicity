@@ -1,36 +1,33 @@
-# Figure 7 — Gut Microbiota–Host Associations
+# Figure 7 — Gut microbiota–host associations
 
-## Panels a–c: association networks
+## Panels a–c
 
-- `Fig7a_Shared_Associations.csv`: panel a shared associations.
-- `Fig7b_Microplastic_Specific_Associations.csv`: panel b microplastic-specific associations.
-- `Fig7c_Plastisphere_Specific_Associations.csv`: panel c plastisphere-specific associations.
+`Fig7.R` draws the association sets described in the three tables below. Symbol size maps to the number of microbial KOs or host genes or proteins in the set. The association tables use Mantel r > 0.70 and BH-adjusted P < 0.05 for both exposures (a) or for one exposure with BH-adjusted P ≥ 0.05 in the other (b–c).
 
-Run `Fig7.R` from the repository root or the `Figure_7` folder. The script reads the three association CSV files in this folder and saves the PDF and PNG outputs to `Figure_7/results/Fig7/` (or `results/Fig7/` when run from this folder).
+| Panel | Association table |
+| --- | --- |
+| a | `Fig7a_Shared_Associations.csv` |
+| b | `Fig7b_Microplastic_Specific_Associations.csv` |
+| c | `Fig7c_Plastisphere_Specific_Associations.csv` |
 
-## Panels d–e: microbiota–biomarker associations
+Run `Rscript Figure_7/Fig7.R` from the repository root with R's `grid` package and Cairo. The script writes `Fig7_Association_Sets_Compact.pdf` and `Fig7_Association_Sets_Compact.png` to `Figure_7/results/Fig7/`.
 
-Panel d represents the plastisphere exposure comparison, and panel e represents the microplastic exposure comparison. Each panel uses matched sample-level inputs for the three groups (Control, Low and High; three samples per group).
+## Panels d–e
 
-### Panel d — Plastisphere
+Panel d uses the plastisphere comparison and panel e uses the microplastic comparison. Each analysis includes the same three control tanks and three tanks at each concentration of the given exposure. The scripts align the two input tables by tank ID. Diversity and biomarker values are tank measurements, and each average-degree value comes from the network for that treatment.
 
-- `Fig7d_Gut_Microbiota_Metrics_Plastisphere.csv`: Shannon, Pielou, ACE and average-degree metrics.
-- `Fig7d_Host_Biochemical_Biomarkers_Plastisphere.csv`: host biochemical biomarkers.
-- `Fig7d_Plastisphere.R`: plotting and statistical-analysis script.
+| Panel | Microbiota input | Biomarker input |
+| --- | --- | --- |
+| d | `Fig7d_Gut_Microbiota_Metrics_Plastisphere.csv` | `Fig7d_Host_Biochemical_Biomarkers_Plastisphere.csv` |
+| e | `Fig7e_Gut_Microbiota_Metrics_Microplastic.csv` | `Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv` |
 
-### Panel e — Microplastic
+Ellipses show pairwise Pearson correlations among the nine biomarkers, with stars based on their P values. Line widths and colors show Mantel r and unadjusted permutation P values, respectively. Each Mantel test compares Bray–Curtis dissimilarities for one microbiota metric and Euclidean distances for one biomarker. Each pair uses 999 permutations with a fixed permutation seed.
 
-- `Fig7e_Gut_Microbiota_Metrics_Microplastic.csv`: Shannon, Pielou, ACE and average-degree metrics.
-- `Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv`: host biochemical biomarkers.
-- `Fig7e_Microplastic.R`: plotting and statistical-analysis script.
-
-The scripts calculate Pearson correlations among the nine host biochemical biomarkers and pairwise Mantel tests between each gut microbiota metric and each host biomarker. Mantel tests use 999 permutations. The scripts retain the plotting settings in the supplied source code and export separate PDF files for panels d and e.
-
-Run from the repository root:
+Run from the repository root with `ggplot2`, `dplyr` and `vegan`.
 
 ```sh
 Rscript Figure_7/Fig7d_Plastisphere.R
 Rscript Figure_7/Fig7e_Microplastic.R
 ```
 
-Alternatively, change the working directory to `Figure_7/` and run the corresponding `.R` file directly. Required packages are `ggplot2`, `dplyr` and `vegan`.
+The scripts write `Fig7d_Plastisphere_ellipse_final.pdf` and `Fig7e_Microplastic_ellipse_final.pdf` to `Figure_7/`.

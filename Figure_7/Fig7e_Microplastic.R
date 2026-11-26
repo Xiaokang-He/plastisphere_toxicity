@@ -1,9 +1,6 @@
 # Figure 7e | Microplastic
 # Reproduces the Pearson-correlation and Mantel-association plot.
 
-
-rm(list = ls())
-
 library(ggplot2)
 library(dplyr)
 library(vegan)
@@ -22,33 +19,35 @@ figure_dir <- if (file.exists(file.path("Figure_7", "Fig7e_Gut_Microbiota_Metric
 
 biochem_data <- read.csv(
   file.path(figure_dir, "Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv"),
-  row.names = 1,
+  row.names = "Sample",
+  fileEncoding = "UTF-8-BOM",
   check.names = FALSE
 )
 
 alpha_data <- read.csv(
   file.path(figure_dir, "Fig7e_Gut_Microbiota_Metrics_Microplastic.csv"),
-  row.names = 1,
+  row.names = "Sample",
+  fileEncoding = "UTF-8-BOM",
   check.names = FALSE
 )
 
-sample_id <- intersect(
-  rownames(biochem_data),
-  rownames(alpha_data)
+sample_id <- rownames(biochem_data)
+if (!setequal(sample_id, rownames(alpha_data))) {
+  stop("The biomarker and microbiota tables must list the same tank IDs.")
+}
+
+biomarker_columns <- c(
+  SOD = "SOD", CAT = "CAT", GSH = "GSH", "GSH-Px" = "GSH_Px", MDA = "MDA",
+  AChE = "AChE", Lysozyme = "Lysozyme", "D-Lac" = "D_Lac", DAO = "DAO"
+)
+alpha_columns <- c(
+  Shannon = "Shannon", Pielou = "Pielou", ACE = "ACE", "Average Degree" = "Average_Degree"
 )
 
-biochem_data <- biochem_data[sample_id, , drop = FALSE]
-alpha_data <- alpha_data[sample_id, 1:4, drop = FALSE]
-
-biomarker_names <- c(
-  "SOD", "CAT", "GSH", "GSH-Px", "MDA",
-  "AChE", "Lysozyme", "D-Lac", "DAO"
-)
-
-alpha_names <- c(
-  "Shannon", "Pielou", "ACE", "Average Degree"
-)
-
+biochem_data <- biochem_data[sample_id, unname(biomarker_columns), drop = FALSE]
+alpha_data <- alpha_data[sample_id, unname(alpha_columns), drop = FALSE]
+biomarker_names <- names(biomarker_columns)
+alpha_names <- names(alpha_columns)
 colnames(biochem_data) <- biomarker_names
 colnames(alpha_data) <- alpha_names
 
@@ -94,10 +93,12 @@ for (i in seq_len(nvar - 1)) {
 # 3. Pairwise Mantel tests ------------------------------------
 
 pairs <- expand.grid(
-  alpha = alpha_names,
   biomarker = biomarker_names,
+  alpha = alpha_names,
   stringsAsFactors = FALSE
 )
+# Use the per-pair permutation seeds for the figure.
+permutation_seeds <- 10000 * round(runif(nrow(pairs)))
 
 mantel_df <- bind_rows(lapply(seq_len(nrow(pairs)), function(i) {
   
@@ -109,8 +110,9 @@ mantel_df <- bind_rows(lapply(seq_len(nrow(pairs)), function(i) {
     biochem_data[[b]]
   )
   
+  set.seed(permutation_seeds[i])
   fit <- vegan::mantel(
-    dist(alpha_data[ok, a, drop = FALSE]),
+    vegan::vegdist(alpha_data[ok, a, drop = FALSE], method = "bray"),
     dist(biochem_data[ok, b, drop = FALSE]),
     method = "pearson",
     permutations = 999
@@ -416,7 +418,7 @@ p <- ggplot() +
 
 # 9. Display --------------------------------------------------
 
-print(p)
+if (interactive()) print(p)
 
 # 10. Export PDF ----------------------------------------------
 

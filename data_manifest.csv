@@ -1,20 +1,21 @@
 Figure,Panels,File,Source_workbook_sheet,Rows,Columns,Size_bytes,Notes
-Fig. 1,a-j,Figure_1/Fig1a_Clam_Physiological_and_Biochemical_Endpoints.csv,Fig1a-j,15,12,1339,Sample-level data; group labels are derived from sample identifiers by Fig1.R.
-Fig. 2,a,Figure_2/Fig2a_DEG_Functional_Enrichment.csv,Fig2a,126,6,10782,Adjusted_P column retained from the source workbook; the plotting script does not recalculate BH adjustment.
-Fig. 3,a,Figure_3/Fig3a_DEP_Functional_Enrichment.csv,Fig.3ab,7,8,816,Split from the combined source table by Figure_Panel=(a).
-Fig. 3,b,Figure_3/Fig3b_DEP_Functional_Enrichment.csv,Fig.3ab,15,8,1610,Split from the combined source table by Figure_Panel=(b).
-Fig. 4,a,Figure_4/Fig4a_Nine_Quadrant_Microplastic.csv,Fig4a,12629,5,1041282,Full-precision values from the source workbook.
-Fig. 4,b,Figure_4/Fig4b_Nine_Quadrant_Plastisphere.csv,Fig4b,12628,5,1041451,Full-precision values from the source workbook; blank trailing row/column excluded.
-Fig. 4,c,Figure_4/Fig4c_Transcriptome_Proteome_Correlation.csv,Fig4c,27,8,3086,Majorbio-exported correlation statistics; this file supplies values for heatmap rendering.
-Fig. 5,a-c,Figure_5/Fig5a-c_Gut_16S_Alpha_Diversity.csv,Fig5a-e,15,5,838,Prepared to match the existing Figure_5/Fig5.R input filename and required columns.
-Fig. 5,f,Figure_5/Fig5f_Genus_Relative_Abundance.csv,Fig5f,31,6,3446,Full-precision relative-abundance values from the source workbook.
-Fig. 5,h-l,Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv,Fig5g,1203,8,163726,Node taxonomy exported from Majorbio Cloud and retained in the Fig5g worksheet; input for panels h-l. The Order value for Plastisphere-Low / OTU1656 remains pending verification; see DATA_PROVENANCE_AND_QA.md.
-Fig. 5,h-l,Figure_5/Fig5g_Network_Topology_Raw_Edges.csv,Fig5g,29089,4,1182593,Network edge list exported from Majorbio Cloud and retained in the Fig5g worksheet; input for panels h-l.
-Fig. 6,all,Figure_6/Fig6_KEGG_ReporterScore.csv,Fig6,36,11,19874,ReporterScores are imported from Majorbio Cloud; this file contains the exported values.
-Fig. 7,a,Figure_7/Fig7a_Shared_Associations.csv,Fig7a-c,8,19,2457,Split by Figure_Panel=a; Majorbio-exported association statistics retained.
-Fig. 7,b,Figure_7/Fig7b_Microplastic_Specific_Associations.csv,Fig7a-c,12,19,3862,Split by Figure_Panel=b; Majorbio-exported association statistics retained.
-Fig. 7,c,Figure_7/Fig7c_Plastisphere_Specific_Associations.csv,Fig7a-c,63,19,17727,Split by Figure_Panel=c; Majorbio-exported association statistics retained.
-Fig. 7,d,Figure_7/Fig7d_Gut_Microbiota_Metrics_Plastisphere.csv,User-supplied CSV,9,5,530,Sample-level gut microbiota metrics for Control and Plastisphere exposure samples; input for panel d Mantel tests.
-Fig. 7,d,Figure_7/Fig7d_Host_Biochemical_Biomarkers_Plastisphere.csv,User-supplied CSV,9,10,783,Sample-level host biochemical biomarkers for Control and Plastisphere exposure samples; input for panel d Pearson correlations and Mantel tests.
-Fig. 7,e,Figure_7/Fig7e_Gut_Microbiota_Metrics_Microplastic.csv,User-supplied CSV,9,5,529,Sample-level gut microbiota metrics for Control and Microplastic exposure samples; input for panel e Mantel tests.
-Fig. 7,e,Figure_7/Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv,User-supplied CSV,9,10,780,Sample-level host biochemical biomarkers for Control and Microplastic exposure samples; input for panel e Pearson correlations and Mantel tests.
+Fig. 1,a-j,Figure_1/Fig1a_Clam_Physiological_and_Biochemical_Endpoints.csv,Fig1a-j,15,12,1323,Siphoning and biochemical measurements from fifteen tanks.
+Fig. 2,a,Figure_2/Fig2a_DEG_Functional_Enrichment.csv,Fig2a,126,6,10782,Selected DEG enrichment terms with gene counts and BH-adjusted P values.
+Fig. 3,a,Figure_3/Fig3a_DEP_Functional_Enrichment.csv,Fig.3ab,7,7,705,Microplastic comparison with protein counts and adjusted P values.
+Fig. 3,b,Figure_3/Fig3b_DEP_Functional_Enrichment.csv,Fig.3ab,15,7,1402,Plastisphere comparison with protein counts and adjusted P values.
+Fig. 4,a,Figure_4/Fig4a_Nine_Quadrant_Microplastic.csv,Fig4a,12629,5,1041282,Matched gene and protein log2 fold changes and expression categories.
+Fig. 4,b,Figure_4/Fig4b_Nine_Quadrant_Plastisphere.csv,Fig4b,12628,5,1041451,Matched gene and protein log2 fold changes and expression categories.
+Fig. 4,c,Figure_4/Fig4c_Transcriptome_Proteome_Correlation.csv,Fig4c,27,8,3086,Term-level Pearson correlations with matched-pair counts and BH-adjusted P values.
+Fig. 5,a-c,Figure_5/Fig5a-c_Gut_16S_Alpha_Diversity.csv,Fig5a-e,15,5,838,"Tank-level Shannon diversity, Pielou evenness and ACE richness."
+Fig. 5,f,Figure_5/Fig5f_Genus_Relative_Abundance.csv,Fig5f,31,6,3446,Genus-level relative abundance percentages for the five treatments.
+Fig. 5,g and h-k,Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv,Fig5g,1203,3,44847,Network OTU identifiers and phylum labels.
+Fig. 5,g and h-k,Figure_5/Fig5g_Network_Topology_Raw_Edges.csv,Fig5g,29089,4,1182593,Network edge endpoints and correlation signs.
+Fig. 5,l,Figure_5/Fig5l_Network_Robustness.csv,Fig5l,500,4,28192,Natural connectivity at each node-removal percentage for the five networks.
+Fig. 6,all,Figure_6/Fig6_KEGG_ReporterScore.csv,Fig6,36,6,2724,ReporterScores and total and higher-abundance KO counts for each pathway and comparison.
+Fig. 7,a,Figure_7/Fig7a_Shared_Associations.csv,Fig7a-c,8,19,2457,Selected associations shared by both exposure comparisons.
+Fig. 7,b,Figure_7/Fig7b_Microplastic_Specific_Associations.csv,Fig7a-c,12,19,3862,Selected associations specific to the microplastic comparison.
+Fig. 7,c,Figure_7/Fig7c_Plastisphere_Specific_Associations.csv,Fig7a-c,63,19,17727,Selected associations specific to the plastisphere comparison.
+Fig. 7,d,Figure_7/Fig7d_Gut_Microbiota_Metrics_Plastisphere.csv,Matched Fig. 7d-e input tables,9,5,530,Tank-level alpha diversity and treatment-network average degree.
+Fig. 7,d,Figure_7/Fig7d_Host_Biochemical_Biomarkers_Plastisphere.csv,Matched Fig. 7d-e input tables,9,10,783,Tank-level measurements of nine biochemical biomarkers.
+Fig. 7,e,Figure_7/Fig7e_Gut_Microbiota_Metrics_Microplastic.csv,Matched Fig. 7d-e input tables,9,5,529,Tank-level alpha diversity and treatment-network average degree.
+Fig. 7,e,Figure_7/Fig7e_Host_Biochemical_Biomarkers_Microplastic.csv,Matched Fig. 7d-e input tables,9,10,780,Tank-level measurements of nine biochemical biomarkers.

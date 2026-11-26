@@ -1,5 +1,3 @@
-rm(list = ls())
-
 library(dplyr)
 library(ggplot2)
 library(ggpattern)
@@ -165,7 +163,7 @@ make_plot <- function(metric, y_label, y_max, y_breaks) {
 # Plot the four network topology metrics
 p_h <- make_plot(
   "Positive_correlation_ratio",
-  "Positive correlation ratio",
+  "Positive correlation ratio (%)",
   100,
   seq(0, 100, 25)
 )
@@ -207,7 +205,7 @@ combined_plot <- plot_grid(
   axis = "tblr"
 )
 
-print(combined_plot)
+if (interactive()) print(combined_plot)
 
 # Export the combined figure
 dir.create("Figure_5/results", showWarnings = FALSE, recursive = TRUE)

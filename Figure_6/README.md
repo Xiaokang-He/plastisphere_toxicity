@@ -1,19 +1,11 @@
-# Figure 6 — Gut Microbial KEGG ReporterScore
+# Figure 6 — Gut microbial KEGG ReporterScore
 
-`Fig6_KEGG_ReporterScore.csv` contains the ReporterScore values and pathway metadata exported from Majorbio Cloud. The R script uses these values to render the heatmap; ReporterScores are not recalculated here.
+`Fig6.R` reads one row per exposure–control comparison and KEGG pathway from `Fig6_KEGG_ReporterScore.csv`. Tile color maps to the supplied ReporterScore. The tile label gives the total number of KOs followed in parentheses by the count with higher mean abundance under exposure. An asterisk marks |ReporterScore| ≥ 1.65.
 
-## Reproducing the heatmap
-
-Run the script from the repository root:
+Run from the repository root with `ggplot2` and Cairo graphics support.
 
 ```sh
 Rscript Figure_6/Fig6.R
 ```
 
-Required package: `ggplot2`. Cairo graphics support is required for the PDF export.
-
-The script saves the following files to `Figure_6/results/Fig6/`:
-
-- `Fig6_KEGG_ReporterScore.pdf`
-- `Fig6_KEGG_ReporterScore.png` (600 dpi)
-- `Fig6_KEGG_ReporterScore.tiff` (600 dpi, LZW compression)
+The script writes `Fig6_KEGG_ReporterScore.pdf`, `Fig6_KEGG_ReporterScore.png` and `Fig6_KEGG_ReporterScore.tiff` to `Figure_6/results/Fig6/`. The raster files use 600 dpi.

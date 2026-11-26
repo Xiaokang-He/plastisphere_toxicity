@@ -175,9 +175,8 @@ data <- data %>%
     Adjusted_P = as.numeric(Adjusted_P)
   )
 
-# Adjusted_P is read from the supplied table as-is.
-# BH adjustment is not recalculated in this plotting script.
-p_legend_title <- "Adjusted P"
+gene_count_limits <- range(data$Gene_Count)
+gene_count_breaks <- c(gene_count_limits[1], 30, 100, gene_count_limits[2])
 
 # Invisible points create the coloured square Category legend.
 category_key <- tibble::tibble(
@@ -231,13 +230,13 @@ p <- ggplot(data, aes(x = Comparison, y = Term_Description)) +
     values = scales::rescale(c(0, 0.023, 0.05)),
     limits = c(0, 0.05),
     breaks = c(0.01, 0.02, 0.03, 0.04),
-    name = p_legend_title
+    name = "Adjusted P"
   ) +
   scale_size_continuous(
     range = c(1.8, 6),
-    limits = c(4^1.5, 218^1.5),
-    breaks = c(4, 30, 100, 218)^1.5,
-    labels = c("4", "30", "100", "218"),
+    limits = gene_count_limits^1.5,
+    breaks = gene_count_breaks^1.5,
+    labels = as.character(gene_count_breaks),
     name = "Gene number"
   ) +
   scale_shape_manual(

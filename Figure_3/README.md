@@ -1,8 +1,11 @@
-# Figure 3 — Proteomic Enrichment and PPI Networks
+# Figure 3 — Proteomic enrichment and interaction networks
 
-`Fig3.R` reproduces the enrichment plots for panels a and b. From the repository root, run `Rscript Figure_3/Fig3.R` with `ggplot2` and Cairo support in R. The script writes `Fig3a.pdf`, `Fig3b.pdf`, and `Fig3ab.pdf` to `Figure_3/results/`.
+`Fig3.R` generates the GO and KEGG enrichment plots for microplastic versus control (a) and plastisphere versus control (b). It reads `Fig3a_DEP_Functional_Enrichment.csv` and `Fig3b_DEP_Functional_Enrichment.csv`. The bars show −log₁₀ of the supplied adjusted P values, and the circles show the protein counts.
 
-- `Fig3a_DEP_Functional_Enrichment.csv`: Fig. 3a DEP enrichment results for the microplastic comparison.
-- `Fig3b_DEP_Functional_Enrichment.csv`: Fig. 3b DEP enrichment results for the plastisphere comparison.
+Run from the repository root with `ggplot2` and Cairo graphics support.
 
-Panels c–d were constructed by submitting Majorbio-exported DEP data to STRING and visualizing/exporting the PPI networks with Cytoscape. No R script is supplied for those panels.
+```sh
+Rscript Figure_3/Fig3.R
+```
+
+The script writes `Fig3a.pdf`, `Fig3b.pdf` and `Fig3ab.pdf` to `Figure_3/results/`. Panels c–d show STRING protein–protein interaction networks drawn in Cytoscape using DEP results exported from Majorbio Cloud.

@@ -7,6 +7,12 @@
 
 # Generated results (keep source scripts and input data in each Figure folder)
 Figure_*/results/
+Figure_1/Fig1.pdf
+Figure_1/Fig1.jpg
+Figure_5/Robustness.pdf
+Figure_5/Robustness_data.csv
+Figure_7/Fig7d_Plastisphere_ellipse_final.pdf
+Figure_7/Fig7e_Microplastic_ellipse_final.pdf
 
 # OS/editor files
 .DS_Store

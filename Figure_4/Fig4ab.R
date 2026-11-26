@@ -13,8 +13,16 @@ data_dir <- if (file.exists("Figure_4/Fig4a_Nine_Quadrant_Microplastic.csv")) {
 output_dir <- file.path(data_dir, "results")
 output_name <- "Fig4ab"
 
-x_limits <- c(-10.5, 10.5)
-y_limits <- c(-15.5, 15.5)
+points_a <- read.csv(file.path(data_dir, "Fig4a_Nine_Quadrant_Microplastic.csv"),
+                     fileEncoding = "UTF-8-BOM")
+points_b <- read.csv(file.path(data_dir, "Fig4b_Nine_Quadrant_Plastisphere.csv"),
+                     fileEncoding = "UTF-8-BOM")
+
+# Use common axes that include every matched pair in both comparisons.
+x_range <- range(points_a$Protein_log2FC, points_b$Protein_log2FC)
+y_range <- range(points_a$Gene_log2FC, points_b$Gene_log2FC)
+x_limits <- x_range + c(-1, 1) * 0.05 * diff(x_range)
+y_limits <- y_range + c(-1, 1) * 0.05 * diff(y_range)
 
 font_family <- "serif"
 if (.Platform$OS.type == "windows" && capabilities("cairo")) {
@@ -32,17 +40,7 @@ plot_colours <- c(
   "Others"                   = "#D9D9D9"
 )
 
-make_panel <- function(csv_name, comparison, panel_tag) {
-  csv_path <- file.path(data_dir, csv_name)
-  if (!file.exists(csv_path)) stop("CSV file not found: ", csv_path, call. = FALSE)
-  points <- read.csv(csv_path, fileEncoding = "UTF-8-BOM")
-
-  # Use the same data for the plot, corner counts and Pearson test.
-  points <- subset(
-    points,
-    Protein_log2FC >= x_limits[1] & Protein_log2FC <= x_limits[2] &
-      Gene_log2FC >= y_limits[1] & Gene_log2FC <= y_limits[2]
-  )
+make_panel <- function(points, comparison, panel_tag) {
   highlighted <- points$Plot_Category != "Others"
   category_counts <- table(factor(points$Plot_Category, levels = names(plot_colours)))
   corner_categories <- names(plot_colours)[c(2, 1, 3, 4)]
@@ -54,12 +52,13 @@ make_panel <- function(csv_name, comparison, panel_tag) {
   )
 
   pearson <- cor.test(points$Protein_log2FC, points$Gene_log2FC, method = "pearson")
-  r_label <- sprintf("Pearson correlation: %.3f", unname(pearson$estimate))
+  r_label <- sprintf("Pearson r = %.3f", unname(pearson$estimate))
   p_label <- if (pearson$p.value < 0.001) {
-    "italic(P) < 0.001"
+    quote(italic(P) < 0.001)
   } else {
-    sprintf("italic(P) == %.3f", pearson$p.value)
+    bquote(italic(P) == .(sprintf("%.3f", pearson$p.value)))
   }
+  stats_label <- as.expression(bquote(.(r_label) * "," ~ .(p_label)))
 
   ggplot(points, aes(x = Protein_log2FC, y = Gene_log2FC)) +
     geom_point(
@@ -68,7 +67,6 @@ make_panel <- function(csv_name, comparison, panel_tag) {
     ) +
     geom_vline(xintercept = c(-1, 1), linetype = "dashed", linewidth = 0.55) +
     geom_hline(yintercept = c(-1, 1), linetype = "dashed", linewidth = 0.55) +
-    annotate("rect", xmin = -6.2, xmax = 6.2, ymin = 11.75, ymax = 15.4, fill = "white") +
     geom_point(
       data = points[highlighted, ], aes(fill = Plot_Category),
       shape = 21, colour = "#282828", size = 2.4, stroke = 0.32,
@@ -78,31 +76,25 @@ make_panel <- function(csv_name, comparison, panel_tag) {
       values = plot_colours, limits = names(plot_colours), drop = FALSE, name = NULL,
       guide = guide_legend(ncol = 1, override.aes = list(size = 3.5))
     ) +
-    annotate(
-      "text", x = 0, y = 14.45, label = comparison,
-      fontface = "bold", family = font_family, size = 6
-    ) +
-    annotate("text", x = 0, y = 13.1, label = r_label, family = font_family, size = 4.7) +
-    annotate(
-      "text", x = 0, y = 12.15, label = p_label,
-      parse = TRUE, family = font_family, size = 4.5
-    ) +
     geom_text(
       data = count_df, aes(x = x, y = y, label = label, hjust = hjust),
       inherit.aes = FALSE, family = font_family, size = 5
     ) +
-    scale_x_continuous(breaks = seq(-9, 9, by = 3)) +
-    scale_y_continuous(breaks = seq(-15, 15, by = 5)) +
+    scale_x_continuous(breaks = scales::breaks_pretty(n = 7)) +
+    scale_y_continuous(breaks = scales::breaks_pretty(n = 7)) +
     coord_cartesian(xlim = x_limits, ylim = y_limits, expand = FALSE, clip = "on") +
     labs(
-      x = "Log2(Fold Change) of Protein",
-      y = "Log2(Fold Change) of Gene",
+      title = comparison, subtitle = stats_label,
+      x = expression(log[2] * " fold change of protein"),
+      y = expression(log[2] * " fold change of gene"),
       tag = panel_tag
     ) +
     theme_bw(base_size = 14, base_family = font_family) +
     theme(
       axis.title = element_text(face = "bold", size = 15),
       axis.text = element_text(colour = "black", size = 12),
+      plot.title = element_text(face = "bold", hjust = 0.5, size = 16),
+      plot.subtitle = element_text(hjust = 0.5, size = 13),
       panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
       panel.grid.major = element_line(colour = "#D0D0D0", linewidth = 0.4),
       panel.grid.minor = element_line(colour = "#E7E7E7", linewidth = 0.3),
@@ -114,12 +106,12 @@ make_panel <- function(csv_name, comparison, panel_tag) {
     )
 }
 
-p_a <- make_panel("Fig4a_Nine_Quadrant_Microplastic.csv", "Microplastic vs Control", "(a)")
-p_b <- make_panel("Fig4b_Nine_Quadrant_Plastisphere.csv", "Plastisphere vs Control", "(b)")
+p_a <- make_panel(points_a, "Microplastic vs Control", "(a)")
+p_b <- make_panel(points_b, "Plastisphere vs Control", "(b)")
 
 note <- paste(
-  "Each point represents a matched gene\u2013protein pair. Points within the plot limits were used",
-  "for the counts and two-sided Pearson tests. Dashed lines indicate log2FC cutoffs of \u00b11.",
+  "Each point represents a matched gene\u2013protein pair. The counts and two-sided Pearson tests",
+  "use all matched pairs. Dashed lines indicate log2 fold-change cutoffs of \u00b11.",
   sep = "\n"
 )
 

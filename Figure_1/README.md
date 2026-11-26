@@ -1,28 +1,13 @@
-# Figure 1 — Physiological and Biochemical Endpoints
+# Figure 1 — Siphoning and biochemical endpoints
 
-`Fig1a_Clam_Physiological_and_Biochemical_Endpoints.csv` contains 15 sample-level records for Fig. 1a–j: siphoning efficiency, SOD, CAT, GSH, GSH-Px, MDA, AChE, lysozyme, D-Lac and DAO.
+`Fig1a_Clam_Physiological_and_Biochemical_Endpoints.csv` contains fifteen tank-level records, with three independent tanks per treatment. Panels a–j show siphoning efficiency, SOD, CAT, GSH, GSH-Px, MDA, AChE, lysozyme, D-Lac and DAO, in that order.
 
-The group is derived from the `sample` identifier when the CSV does not contain a separate `group` column. The plotting script renames `lysozyme` to `LZM` and `D_Lac` to its internal plotting name.
+`Fig1.R` reads the group from the `sample` ID. Points show tank measurements and bars show means ± SD. Brackets show unadjusted pairwise P values below 0.05 from `WRS2::lincon()` at 20% trimming.
 
-## Reproducing Fig. 1
+Run from the repository root with `ggplot2`, `ggpattern`, `WRS2` and Cairo graphics support.
 
-Run from the repository root:
-
-```r
-source("Figure_1/Fig1.R")
+```sh
+Rscript Figure_1/Fig1.R
 ```
 
-The script also works when the working directory is already `Figure_1`:
-
-```r
-source("Fig1.R")
-```
-
-Required packages: `ggplot2`, `ggpattern` and `WRS2`. The script uses `lincon()` for the ten pairwise comparisons among the five groups for each endpoint, with `tr = 0.2` and no multiple-comparison adjustment. Significant raw P values are calculated from the supplied CSV data and added to the figure.
-
-The script exports only:
-
-- `Fig1.pdf`: vector PDF.
-- `Fig1.jpg`: 300-dpi JPEG.
-
-Both files are saved alongside the input CSV in `Figure_1/`. No machine-specific absolute paths or `setwd()` commands are used.
+The script writes `Fig1.pdf` and `Fig1.jpg` (300 dpi) alongside the input table. It can also be run as `Rscript Fig1.R` from `Figure_1/`.

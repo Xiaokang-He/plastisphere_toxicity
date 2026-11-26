@@ -17,9 +17,14 @@ axis_titles <- paste(c("Shannon", "Pielou-e", "ACE"), "index of OTU level")
 limits <- c(3.5, 0.8, 210)
 steps <- c(0.5, 0.1, 30)
 
-# The source CSV has three independent replicates per group.
-group_id <- rep(seq_along(groups), each = 3L)
-values <- as.matrix(dat[order(match(trimws(dat$group), groups)), c("shannon", "Pielou_e", "ace")])
+# Map each tank to its treatment code in the input table.
+group_id <- match(trimws(dat$group), groups)
+if (anyNA(group_id) || any(tabulate(group_id, nbins = length(groups)) != 3L)) {
+  stop("Expected three tanks for each of the five treatment groups.")
+}
+sample_order <- order(group_id)
+group_id <- group_id[sample_order]
+values <- as.matrix(dat[sample_order, c("shannon", "Pielou_e", "ace")])
 means <- rowsum(values, group_id) / 3
 sds <- sqrt(rowsum((values - means[group_id, ])^2, group_id) / 2)
 

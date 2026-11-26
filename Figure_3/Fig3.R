@@ -14,7 +14,9 @@ protein_breaks <- c(4, 8, 12, 16)
 
 read_enrichment <- function(panel) {
   filename <- paste0("Fig3", panel, "_DEP_Functional_Enrichment.csv")
-  read.csv(file.path(figure_dir, filename), fileEncoding = "UTF-8-BOM", check.names = FALSE)
+  terms <- read.csv(file.path(figure_dir, filename), fileEncoding = "UTF-8-BOM", check.names = FALSE)
+  terms$Minus_Log10_Adjusted_P_Value <- -log10(terms$Adjusted_P_Value)
+  terms
 }
 
 enrichment <- list(a = read_enrichment("a"), b = read_enrichment("b"))
@@ -95,8 +97,8 @@ plot_enrichment <- function(terms, title, legend_top) {
 }
 
 plots <- list(
-  a = plot_enrichment(enrichment$a, "(a) Microplastic vs. Control: Enrichment analysis", 0.56),
-  b = plot_enrichment(enrichment$b, "(b) Plastisphere vs. Control: Enrichment analysis", 0.78)
+  a = plot_enrichment(enrichment$a, "(a) Microplastic vs Control", 0.56),
+  b = plot_enrichment(enrichment$b, "(b) Plastisphere vs Control", 0.78)
 )
 
 panel_heights <- 0.74 + 0.333 * vapply(enrichment, nrow, integer(1))

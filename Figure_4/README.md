@@ -1,29 +1,25 @@
-# Figure 4 — Multi-omics Integration
+# Figure 4 — Transcriptome–proteome integration
 
-## Panel inputs
+## Panels a–b
 
-- `Fig4a_Nine_Quadrant_Microplastic.csv`: panel a nine-quadrant input.
-- `Fig4b_Nine_Quadrant_Plastisphere.csv`: panel b nine-quadrant input.
-- `Fig4c_Transcriptome_Proteome_Correlation.csv`: Majorbio-exported correlation coefficients and adjusted P values used to render the panel-c heatmap.
+`Fig4ab.R` reads `Fig4a_Nine_Quadrant_Microplastic.csv` and `Fig4b_Nine_Quadrant_Plastisphere.csv`. The points, differential-expression category counts and two-sided Pearson tests use every matched gene–protein pair in each comparison. Both plots share the same axes.
 
-## Reproducing panels a–b
-
-`Fig4ab.R` generates the two nine-quadrant plots from the supplied panel-specific CSV files. Run from the repository root:
+Run from the repository root with `ggplot2` and `patchwork`.
 
 ```sh
 Rscript Figure_4/Fig4ab.R
 ```
 
-Required packages: `ggplot2` and `patchwork`. The script saves `Fig4ab.pdf` and `Fig4ab.png` in `Figure_4/results/`.
+The script writes `Fig4ab.pdf` and `Fig4ab.png` to `Figure_4/results/`.
 
-## Reproducing panel c
+## Panel c
 
-The numeric values in panel c are imported results; the R workflow is for heatmap visualization.
+`Fig4c.R` reads `Fig4c_Transcriptome_Proteome_Correlation.csv`. Each tile shows a term-level Pearson correlation between transcript and protein log₂ fold changes. Asterisks mark BH-adjusted P values below 0.05. Term labels include matched gene–protein pair counts.
 
-Run the following command from the repository root with ggplot2 installed (tested with version 3.5.2) and Cairo graphics support:
+Run from the repository root with `ggplot2` and Cairo graphics support.
 
 ```sh
 Rscript Figure_4/Fig4c.R
 ```
 
-The script reads the supplied correlation table and marks adjusted P values below 0.05 with an asterisk. It saves `Fig4c.pdf` and a 600 dpi `Fig4c.png` in `Figure_4/results/`.
+The script writes `Fig4c.pdf` and `Fig4c.png` to `Figure_4/results/`.

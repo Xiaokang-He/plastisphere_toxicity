@@ -1,8 +1,8 @@
-Figure_Panel,Comparison,Term_ID,Term_Description,Category,Protein_Count,Adjusted_P_Value,Minus_Log10_Adjusted_P_Value
-(a),Microplastic_vs_Control,GO:0016072,rRNA metabolic process,BP,18,0.00201056,2.696683049
-(a),Microplastic_vs_Control,GO:0030490,maturation of SSU-rRNA,BP,9,0.002246533,2.648487203
-(a),Microplastic_vs_Control,GO:0000462,"maturation of SSU-rRNA from tricistronic rRNA transcript (SSU-rRNA, 5.8S rRNA, LSU-rRNA)",BP,6,0.043665104,1.359865497
-(a),Microplastic_vs_Control,GO:0030684,preribosome,CC,11,0.02529089,1.597035889
-(a),Microplastic_vs_Control,GO:0032040,small-subunit processome,CC,9,0.011558054,1.937115297
-(a),Microplastic_vs_Control,GO:0030686,90S preribosome,CC,7,0.003003142,2.5224241
-(a),Microplastic_vs_Control,map03008,Ribosome biogenesis in eukaryotes,KEGG,9,0.047263793,1.325471427
+Figure_Panel,Comparison,Term_ID,Term_Description,Category,Protein_Count,Adjusted_P_Value
+(a),Microplastic_vs_Control,GO:0016072,rRNA metabolic process,BP,18,0.00201056
+(a),Microplastic_vs_Control,GO:0030490,maturation of SSU-rRNA,BP,9,0.002246533
+(a),Microplastic_vs_Control,GO:0000462,"maturation of SSU-rRNA from tricistronic rRNA transcript (SSU-rRNA, 5.8S rRNA, LSU-rRNA)",BP,6,0.043665104
+(a),Microplastic_vs_Control,GO:0030684,preribosome,CC,11,0.02529089
+(a),Microplastic_vs_Control,GO:0032040,small-subunit processome,CC,9,0.011558054
+(a),Microplastic_vs_Control,GO:0030686,90S preribosome,CC,7,0.003003142
+(a),Microplastic_vs_Control,map03008,Ribosome biogenesis in eukaryotes,KEGG,9,0.047263793

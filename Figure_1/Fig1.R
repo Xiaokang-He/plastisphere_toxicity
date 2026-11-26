@@ -11,15 +11,17 @@ names(dat) <- sub("^lysozyme$", "LZM", sub("^D_Lac.*", "D_Lac", names(dat)))
 
 groups <- c(CTR = "Control", MP1 = "Microplastic_Low", MP10 = "Microplastic_High",
             MPP1 = "Plastisphere_Low", MPP10 = "Plastisphere_High")
-sample_group <- if (is.null(dat$group)) sub("_[0-9]+$", "", dat$sample) else groups[trimws(dat$group)]
+sample_group <- if (is.null(dat$group)) sub("_[0-9]+$", "", dat$sample) else trimws(dat$group)
+is_group_code <- sample_group %in% names(groups)
+sample_group[is_group_code] <- groups[sample_group[is_group_code]]
 dat$group <- factor(sample_group, levels = groups)
 colors <- setNames(c("#b6dcd5", "#ffe0e2", "#ffaab9", "#baa5d5", "#8c69b9"), groups)
 
 variables <- c("Siphonage_efficiency", "SOD", "CAT", "GSH", "GSH_PX", "MDA", "AchE", "LZM", "D_Lac", "DAO")
-titles <- c("Siphoning", "SOD", "CAT", "GSH", "GSH_PX", "MDA", "AchE", "Lysozyme", "D_Lac", "DAO")
-y_labels <- c("Siphonage efficiency (ml/clam/h)", "SOD activity (U/mgprot)", "CAT activity (U/mgprot)",
-              "GSH content (\u03bcmol/gprot)", "GSH-Px activity (U/mgprot)", "MDA content (nmol/mgprot)",
-              "AchE activity (U/mgprot)", "Lysozyme activity (U/mgprot)", "D-Lac content (\u03bcmol/mgprot)",
+titles <- c("Siphoning", "SOD", "CAT", "GSH", "GSH-Px", "MDA", "AChE", "Lysozyme", "D-Lac", "DAO")
+y_labels <- c("Siphoning efficiency (mL/clam/h)", "SOD activity (U/mg prot)", "CAT activity (U/mg prot)",
+              "GSH content (\u03bcmol/g prot)", "GSH-Px activity (U/mg prot)", "MDA content (nmol/mg prot)",
+              "AChE activity (U/mg prot)", "Lysozyme activity (U/mg prot)", "D-Lac content (\u03bcmol/mg prot)",
               "DAO activity (U/g prot)")
 y_steps <- c(15, 150, 1.5, 5, 3, 0.6, 0.7, 7, 0.08, 7)
 digits <- c(0, 0, 1, 0, 0, 1, 1, 0, 2, 0)
@@ -50,7 +52,7 @@ draw_panel <- function(i, left, bottom) {
   pairs <- WRS2::lincon(value ~ group, data = obs, tr = 0.2, method = "none")
   idx <- pairs$comp[, 1:2, drop = FALSE]
   sig <- data.frame(x1 = match(pairs$fnames[idx[, 1]], groups),
-                    x2 = match(pairs$fnames[idx[, 2]], groups), p = pairs$comp[, 6])
+                    x2 = match(pairs$fnames[idx[, 2]], groups), p = pairs$comp[, "p.value"])
   sig <- subset(sig, p < 0.05)
   sig <- sig[order(sig$x1, -sig$x2), ]
   right_edge <- rep(-Inf, nrow(sig))

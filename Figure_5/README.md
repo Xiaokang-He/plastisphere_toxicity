@@ -1,75 +1,20 @@
-# Figure 5 — Gut Microbiota
+# Figure 5 — Gut microbiota
 
-This folder contains the R scripts and input tables required to reproduce the panels generated with R.
+Run all commands from the repository root.
 
-## File inventory
+| Panels | Command | Input CSVs | Output |
+| --- | --- | --- | --- |
+| a–c | `Rscript Figure_5/Fig5.R` | `Fig5a-c_Gut_16S_Alpha_Diversity.csv` | `Figure_5/results/Fig5/Fig5abc_Alpha_Diversity_test.pdf` |
+| f | `Rscript Figure_5/Fig5f.R` | `Fig5f_Genus_Relative_Abundance.csv` | `Fig5f.pdf` and `Fig5f.png` in `Figure_5/results/` |
+| h–k | `Rscript Figure_5/Fig5h-k.R` | `Fig5g_Network_Topology_Raw_Nodes.csv` and `Fig5g_Network_Topology_Raw_Edges.csv` | `Figure_5/results/Fig5h-k_Network_Topology.pdf` |
+| l | `Rscript Figure_5/Fig5l.R` | `Fig5l_Network_Robustness.csv` | `Robustness.pdf` and `Robustness_data.csv` in `Figure_5/` |
 
-| File | Purpose | Used by |
-|---|---|---|
-| `Fig5.R` | Gut 16S alpha-diversity panels (a–c) | `Fig5a-c_Gut_16S_Alpha_Diversity.csv` |
-| `Fig5f.R` | Genus-level relative-abundance panel (f) | `Fig5f_Genus_Relative_Abundance.csv` |
-| `Fig5h-k.R` | Network topology panels (h–k) | `Fig5g_Network_Topology_Raw_Nodes.csv`, `Fig5g_Network_Topology_Raw_Edges.csv` |
-| `Fig5l.R` | Network robustness panel (l), based on natural connectivity after random node removal | `Fig5g_Network_Topology_Raw_Nodes.csv`, `Fig5g_Network_Topology_Raw_Edges.csv` |
+**Panels a–c.** Shannon diversity, Pielou's evenness and ACE richness are read by tank. The bars show means ± SD, and the brackets show pairwise P values below 0.05. With three tanks per group and 20% trimming, the unadjusted pairwise tests reduce to Welch comparisons. The script uses R's `grid` package and Cairo.
 
-### Input data
+**Panel f.** The five relative-abundance profiles use the percentages in the input table. The script uses `ggplot2`, `ggalluvial` and Cairo.
 
-- `Fig5a-c_Gut_16S_Alpha_Diversity.csv`: alpha-diversity measurements for panels a–c.
-- `Fig5f_Genus_Relative_Abundance.csv`: genus-level relative abundances for panel f.
-- `Fig5g_Network_Topology_Raw_Nodes.csv`: exported node table used for panels h–l.
-- `Fig5g_Network_Topology_Raw_Edges.csv`: exported edge table used for panels h–l.
+**Panels h–k.** The script derives the percentage of positive edges, number of distinct nodes, number of unique undirected edges and average degree (2E/N), in that order. It uses `dplyr`, `ggplot2`, `ggpattern`, `cowplot` and Cairo.
 
-All four CSV files are used by at least one script and should be retained.
+**Panel l.** The input table gives natural connectivity for each of the five networks across 0–99% random node removal. The script plots those values, adds a smooth curve for each treatment, and exports the plotted points in `Robustness_data.csv`. It uses `ggplot2` and R's `grid` package.
 
-## Reproducing the R-generated panels
-
-Run the commands below from the repository root.
-
-### Panels a–c: Alpha diversity
-
-Run with base R graphics support.
-
-```sh
-Rscript Figure_5/Fig5.R
-```
-
-Output: `Figure_5/results/Fig5/Fig5abc_Alpha_Diversity_test.pdf`.
-
-### Panel f: Genus-level relative abundance
-
-Required packages: `ggplot2`, `ggalluvial`, and Cairo graphics support.
-
-```sh
-Rscript Figure_5/Fig5f.R
-```
-
-Outputs: `Figure_5/results/Fig5f.pdf` and `Figure_5/results/Fig5f.png`.
-
-### Panels h–k: Network topology
-
-Required packages: `dplyr`, `ggplot2`, `ggpattern`, `cowplot`, and Cairo graphics support.
-
-The script uses the supplied node and edge tables to calculate the number of distinct nodes, the number of unique undirected edges, the positive-correlation ratio, and the average degree (2E/N). It does not recalculate network correlations or reconstruct the co-occurrence network.
-
-```sh
-Rscript Figure_5/Fig5h-k.R
-```
-
-Output: `Figure_5/results/Fig5h-k_Network_Topology.pdf`.
-
-**Package compatibility:** `ggpattern` requires a compatible `ggplot2` version. If it fails to load with a namespace/version error, update `ggplot2` to meet the installed `ggpattern` dependency and reinstall `ggpattern`.
-
-### Panel l: Network robustness
-
-Required package: `ggplot2` (the script also uses R's built-in `grid` package).
-
-The script builds an unweighted, undirected adjacency matrix from the supplied node and edge tables, randomly removes nodes, and calculates natural connectivity and average degree. The plotted panel shows natural connectivity as a function of the node-removal ratio.
-
-```sh
-Rscript Figure_5/Fig5l.R
-```
-
-Outputs: `Figure_5/Robustness.pdf` and `Figure_5/Robustness_data.csv`.
-
-## Analyses performed outside R
-
-The PCoA and NMDS analyses for panels d–e were performed in Majorbio Cloud using the exported coordinates. Majorbio Cloud generated the co-occurrence network for panel g and exported its nodes and edges; Gephi was used to lay out and draw that network.
+Panels d–e show Bray–Curtis PCoA and NMDS from Majorbio Cloud. Panel g shows the OTU co-occurrence networks laid out in Gephi, with nodes colored by phylum. The exported node and edge tables also supply the calculations in panels h–k.
