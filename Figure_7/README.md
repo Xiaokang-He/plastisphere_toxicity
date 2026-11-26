@@ -16,3 +16,7 @@ The `Sample` column uses the manuscript group names in full: `Control`, `Micropl
 - `Fig7d_Mantel_Microbiota_Biomarker_Associations.csv` and `Fig7e_Mantel_Microbiota_Biomarker_Associations.csv`: Mantel associations between gut microbiota metrics and host biochemical biomarkers for panels d and e.
 
 Panels a–c use Majorbio-exported association results for code-based visualization. The panel d/e result tables retain the source-workbook statistics.
+
+## Reproducing panels a–c
+
+Run `Fig7.R` from the repository root or the `Figure_7` folder. The script reads the three association CSV files in this folder and saves the PDF and PNG outputs to `Figure_7/results/Fig7/` (or `results/Fig7/` when run from this folder).
