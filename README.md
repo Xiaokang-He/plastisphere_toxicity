@@ -1,48 +1,45 @@
 # R Scripts and Figure-Specific Data
 
-This repository contains figure-specific R scripts and cleaned input datasets for the study:
+This repository contains the R scripts and cleaned, figure-specific input datasets used to generate selected panels of the main-text figures for the study:
 
-*Plastisphere formation reshapes the ecological toxicity of microplastics in Corbicula fluminea.*
+*Plastisphere formation reshapes the ecological toxicity of microplastics in* *Corbicula fluminea*.
 
-## Organization
+The repository documents the code-based visualization workflows and the provenance of panels generated using external analysis platforms. It does not include raw sequencing data or code for Supplementary Figures.
 
-Each main-text figure has its own folder. The R script and its figure-specific input data are stored directly in that folder. CSV files are UTF-8 encoded and can be read in R with:
+## Repository organization
 
-```r
-read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
-         fileEncoding = "UTF-8-BOM", check.names = FALSE)
+The repository is organized by main-text figure. Each `Figure_1/`–`Figure_7/` folder contains the R script(s), the corresponding input CSV file(s), and a folder-level README. Figure-specific code and data are kept together; there are no shared `data/` or `scripts/` directories.
+
+| Figure folder | R scripts and panel coverage | Data and processing provenance |
+|---|---|---|
+| `Figure_1/` | `Fig1.R` — panels a–j | Uses the sample-level physiological and biochemical endpoint data supplied in this folder. |
+| `Figure_2/` | `Fig2.R` — panel a | Panel b GSEA plots were exported from Majorbio Cloud; no R script for panel b is included. |
+| `Figure_3/` | `Fig3.R` — panels a–b | Panels c–d were constructed from Majorbio-exported DEP data using STRING and visualized/exported with Cytoscape; no R script for these panels is included. |
+| `Figure_4/` | `Fig4ab.R` — panels a–b; `Fig4c.R` — panel c | Panels a–b use the supplied nine-quadrant input tables. Panel c uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud; the R script renders the heatmap. |
+| `Figure_5/` | `Fig5.R` — panels a–c; `Fig5f.R` — panel f; `Fig5h-k.R` — panels h–k; `Fig5l.R` — panel l | Panels d–e use PCoA/NMDS results generated in Majorbio Cloud. Panel g is a Majorbio-generated co-occurrence network laid out and rendered in Gephi. The exported node and edge tables are supplied as inputs for the R calculations in panels h–l. |
+| `Figure_6/` | `Fig6.R` — KEGG ReporterScore heatmap | ReporterScore values and pathway metadata were exported from Majorbio Cloud. The R script visualizes these values; it does not recalculate ReporterScores. |
+| `Figure_7/` | `Fig7.R` — panels a–c | Panels a–c use Majorbio-exported association results for R-based visualization. Pearson, Mantel, and sample-level input tables for panels d–e are also supplied, but no R plotting script for panels d–e is included. |
+
+## Running the scripts
+
+Run scripts from the repository root unless the corresponding folder-level README specifies otherwise. The scripts use repository-relative paths and do not require machine-specific file locations.
+
+For example:
+
+```sh
+Rscript Figure_4/Fig4ab.R
+Rscript Figure_4/Fig4c.R
+Rscript Figure_6/Fig6.R
+Rscript Figure_7/Fig7.R
 ```
 
-## Figure coverage and data provenance
+For Figure 1, the folder-level README documents running `Fig1.R` with `source("Figure_1/Fig1.R")`. Each figure folder README provides additional details about required R packages, input files, and output locations.
 
-| Figure | R-code coverage planned/current | Data and external processing |
-|---|---|---|
-| Fig. 1 | a–j; `Figure_1/Fig1.R` is present | Sample-level siphoning and biochemical endpoints. |
-| Fig. 2 | a; `Figure_2/Fig2.R` is present | Panel b GSEA plots were exported from Majorbio Cloud. |
-| Fig. 3 | a–b; `Figure_3/Fig3.R` is present | Panels c–d were constructed from Majorbio-exported DEP data using STRING and visualized/exported with Cytoscape; no R script is supplied for those panels. |
-| Fig. 4 | c; `Figure_4/Fig4c.R` is present | The heatmap uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud. |
-| Fig. 5 | a–c, f and h–k; `Figure_5/Fig5.R`, `Figure_5/Fig5f.R` and `Figure_5/Fig5h-k.R` are present | Majorbio Cloud supplied the PCoA and NMDS coordinates for panels d–e and the co-occurrence network for panel g. Gephi was used for the network layout and rendering. Panels h–k calculate network topology metrics from the exported node and edge tables; network correlations are not recalculated. |
-| Fig. 6 | heatmap; script to be added | ReporterScore values were calculated/exported by Majorbio Cloud; code renders the heatmap. |
-| Fig. 7 | a–c; `Figure_7/Fig7.R` is present. Panels d–e source data and association-result tables are supplied. | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e use sample-level gut microbiota metrics and host biochemical biomarkers, alongside separate Pearson and Mantel result tables. |
+## Input data and provenance
 
-## Existing scripts
+- Figure-specific CSV inputs are stored alongside their corresponding scripts.
+- `data_manifest.csv` provides a file-level inventory, including source worksheet, figure-panel coverage, dimensions, and notes.
+- `DATA_PROVENANCE_AND_QA.md` describes the source data, data-preparation steps, and quality-control notes.
+- CSV files use UTF-8 encoding (including UTF-8 BOM where applicable); scripts specify the relevant encoding when reading input files.
 
-- `Figure_1/Fig1.R`: physiological and biochemical endpoints, panels a–j.
-- `Figure_2/Fig2.R`: GO and KEGG enrichment bubble plot, panel a.
-- `Figure_3/Fig3.R`: proteomic functional enrichment, panels a–b.
-- `Figure_4/Fig4c.R`: transcriptome-proteome Pearson correlation heatmap, panel c.
-- `Figure_5/Fig5.R`: gut 16S alpha diversity, panels a–c.
-- `Figure_5/Fig5f.R` plots genus-level relative abundance for panel f.\n- `Figure_5/Fig5h-k.R` calculates and plots network topology metrics for panels h–k from the supplied node and edge tables.
-- `Figure_7/Fig7.R`: gut microbial–host functional association sets, panels a–c.
-
-## Input data
-
-The cleaned datasets are stored in the corresponding `Figure_1/` to `Figure_7/` folders. `data_manifest.csv` lists each data file, source worksheet, panel coverage and row count. `DATA_PROVENANCE_AND_QA.md` records the cleaning rules and data-quality notes.
-
-For Fig. 1 and Fig. 5 sample-level datasets, a `group` field was added from the sample ID for compatibility with the existing scripts: Control = CTR, Microplastic_Low = MP1, Microplastic_High = MP10, Plastisphere_Low = MPP1, and Plastisphere_High = MPP10. Original sample identifiers and measured values are retained.
-
-## Source-data note
-
-The cleaned files were prepared against the latest matching source workbook available in the project Library during this task: `Source Data to Main Figures-DESKTOP-JPDUFHL(4).xlsx`. Numeric values were not recalculated. Where the separately uploaded CSVs had reduced precision, blank rows/columns, or corrupted characters, the source-workbook values were retained.
-
-The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Fig5g_Network_Topology_Raw_Nodes.csv` requires manual verification. The table retains the numeric value `46350` from the source workbook (the uploaded CSV displayed `11月24日`).
+The supplied datasets are prepared for figure reproduction. They do not contain raw sequencing reads or replace the complete underlying transcriptomic, proteomic, 16S, or metagenomic datasets.
