@@ -21,7 +21,7 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 | Fig. 2 | a; `Figure_2/Fig2.R` is present | Panel b GSEA plots were exported from Majorbio Cloud. |
 | Fig. 3 | a–b; `Figure_3/Fig3.R` is present | Panels c–d were constructed from Majorbio-exported DEP data using STRING and visualized/exported with Cytoscape; no R script is supplied for those panels. |
 | Fig. 4 | c; `Figure_4/Fig4c.R` is present | The heatmap uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud. |
-| Fig. 5 | a–c and f; `Figure_5/Fig5.R` and `Figure_5/Fig5f.R` are present | Data for panels a–l are available. Panel g node and edge data were exported from Majorbio Cloud. Topology summaries and robustness data are supplied separately. |
+| Fig. 5 | a–c and f; `Figure_5/Fig5.R` and `Figure_5/Fig5f.R` are present | Majorbio Cloud supplied the PCoA and NMDS coordinates for panels d–e and the co-occurrence network for panel g. Gephi was used for the network layout and rendering. The node and edge tables are supplied as inputs for network topology calculations. |
 | Fig. 6 | heatmap; script to be added | ReporterScore values were calculated/exported by Majorbio Cloud; code renders the heatmap. |
 | Fig. 7 | a–e; script to be added | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e include separate Pearson and Mantel result tables. |
 
@@ -44,4 +44,4 @@ For Fig. 1 and Fig. 5 sample-level datasets, a `group` field was added from the 
 
 The cleaned files were prepared against the latest matching source workbook available in the project Library during this task: `Source Data to Main Figures-DESKTOP-JPDUFHL(4).xlsx`. Numeric values were not recalculated. Where the separately uploaded CSVs had reduced precision, blank rows/columns, or corrupted characters, the source-workbook values were retained.
 
-One taxonomy value requires manual verification: in Fig. 5g, the `Order` field for `Plastisphere-Low / OTU1656` is stored as numeric `46350` in the source workbook (the uploaded CSV displayed `11月24日`). It has not been guessed or silently corrected.
+The `Order` field for `Plastisphere-Low / OTU1656` in `Figure_5/Network_Topology_Raw_Nodes.csv` requires manual verification. The table retains the numeric value `46350` from the source workbook (the uploaded CSV displayed `11月24日`).
