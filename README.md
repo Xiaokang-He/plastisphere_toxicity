@@ -68,7 +68,7 @@ Each script should be run from the repository root so that its relative paths re
 source("Figure_1/Fig1.R")
 ```
 
-The script reads its input data from `Figure_1/` and writes generated figures and analysis outputs to `Figure_1/results/`. Other figure scripts follow the same pattern.
+The script reads its input data from `Figure_1/` and writes generated figures and analysis outputs to `Figure_1/results/Fig1/`. Other figure scripts follow the same pattern.
 
 ## Data and code
 
