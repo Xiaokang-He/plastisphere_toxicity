@@ -66,7 +66,7 @@ The figure captions define the biological content and panel numbering. Each figu
 | Fig. 2 | `Figure_2/Fig2.R` | To be added |
 | Fig. 3 | `Figure_3/Fig3.R` | To be added |
 | Fig. 4 | `Figure_4/Fig4.R` | To be added |
-| Fig. 5 | `Figure_5/Fig5.R` | Script present; full panel coverage to be verified |
+| Fig. 5 | `Figure_5/Fig5.R` | Current script covers panels a–c; panels d–l are to be added |
 | Fig. 6 | `Figure_6/Fig6.R` | To be added |
 | Fig. 7 | `Figure_7/Fig7.R` | To be added |
 
