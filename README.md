@@ -21,7 +21,7 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 | Fig. 2 | a; `Figure_2/Fig2.R` is present | Panel b GSEA plots were exported from Majorbio Cloud. |
 | Fig. 3 | a–b; `Figure_3/Fig3.R` is present | Panels c–d were constructed from Majorbio-exported DEP data using STRING and visualized/exported with Cytoscape; no R script is supplied for those panels. |
 | Fig. 4 | c; `Figure_4/Fig4c.R` is present | The heatmap uses Pearson correlation coefficients and adjusted P values exported from Majorbio Cloud. |
-| Fig. 5 | a–c and f; `Figure_5/Fig5.R` and `Figure_5/Fig5f.R` are present | Majorbio Cloud supplied the PCoA and NMDS coordinates for panels d–e and the co-occurrence network for panel g. Gephi was used for the network layout and rendering. The node and edge tables are supplied as inputs for network topology calculations. |
+| Fig. 5 | a–c, f and h–k; `Figure_5/Fig5.R`, `Figure_5/Fig5f.R` and `Figure_5/Fig5h-k.R` are present | Majorbio Cloud supplied the PCoA and NMDS coordinates for panels d–e and the co-occurrence network for panel g. Gephi was used for the network layout and rendering. Panels h–k calculate network topology metrics from the exported node and edge tables; network correlations are not recalculated. |
 | Fig. 6 | heatmap; script to be added | ReporterScore values were calculated/exported by Majorbio Cloud; code renders the heatmap. |
 | Fig. 7 | a–e; script to be added | Panels a–c contain Majorbio-exported broad association results for code-based visualization. Panels d–e include separate Pearson and Mantel result tables. |
 
@@ -32,7 +32,7 @@ read.csv("Figure_1/Clam_Physiological_and_Biochemical_Endpoints.csv",
 - `Figure_3/Fig3.R`: proteomic functional enrichment, panels a–b.
 - `Figure_4/Fig4c.R`: transcriptome-proteome Pearson correlation heatmap, panel c.
 - `Figure_5/Fig5.R`: gut 16S alpha diversity, panels a–c.
-- `Figure_5/Fig5f.R` plots genus-level relative abundance for panel f.
+- `Figure_5/Fig5f.R` plots genus-level relative abundance for panel f.\n- `Figure_5/Fig5h-k.R` calculates and plots network topology metrics for panels h–k from the supplied node and edge tables.
 
 ## Input data
 
