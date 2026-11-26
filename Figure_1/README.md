@@ -14,6 +14,8 @@ source("Figure_1/Fig1.R")
 
 The script clears the R workspace and automatically installs missing packages from CRAN. Required packages are `dplyr`, `ggplot2`, `ggpattern`, `WRS2` and `svglite`. Cairo graphics support and the Times New Roman font are required for the intended exports.
 
+**Package compatibility:** `ggpattern` requires a compatible `ggplot2` version. If it fails to load with a namespace/version error, update `ggplot2` to meet the installed `ggpattern` dependency and reinstall `ggpattern`.
+
 The main outputs are written to `Figure_1/results/Fig1/`:
 
 - `Fig1_editable.svg`: Illustrator-editable SVG with native text objects.
