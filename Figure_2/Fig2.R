@@ -147,7 +147,7 @@ term_order <- c(
 data <- readr::read_csv(data_file, show_col_types = FALSE)
 
 required_cols <- c(
-  "Comparison", "Term_Description", "Category", "Gene_Count", "P_Value"
+  "Comparison", "Term_Description", "Category", "Gene_Count", "Adjusted_P"
 )
 
 if (!all(required_cols %in% names(data))) {
@@ -172,12 +172,11 @@ data <- data %>%
     Category = factor(Category, levels = category_order),
     Term_Description = factor(Term_Description, levels = rev(term_order)),
     Gene_Count = as.numeric(Gene_Count),
-    P_Value = as.numeric(P_Value)
+    Adjusted_P = as.numeric(Adjusted_P)
   )
 
-# The manuscript caption identifies the colour scale as BH-adjusted P.
-# This script uses the supplied P_Value column as-is; it does not recalculate
-# BH adjustment. Confirm that P_Value contains adjusted values before submission.
+# Adjusted_P is read from the supplied table as-is.
+# BH adjustment is not recalculated in this plotting script.
 p_legend_title <- "Adjusted P"
 
 # Invisible points create the coloured square Category legend.
@@ -214,7 +213,7 @@ category_strips <- ggh4x::strip_themed(
 
 p <- ggplot(data, aes(x = Comparison, y = Term_Description)) +
   geom_point(
-    aes(size = Gene_Count^1.5, fill = P_Value),
+    aes(size = Gene_Count^1.5, fill = Adjusted_P),
     shape = 21,
     colour = "black",
     stroke = 0.12
